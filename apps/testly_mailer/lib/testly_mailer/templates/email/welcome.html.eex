@@ -1,0 +1,62 @@
+<p>
+  Hey <%= @full_name %>, thank you so much for joining Testly. We've poured our heart and
+sole into creating the Testly platform and are extremely excited for you to start
+using it to grow your online business.
+</p>
+
+<p>
+  We do this through a very simple process of:
+</p>
+
+<p>
+  - Learning (how your visitors are using your website) <br/>
+  - Proving (new ideas and changes lead to actual improvements) <br/>
+  - Growing (your business by implementing those proven changes) <br/>
+</p>
+
+<p>
+  It's a constant process of evolving your website into a better and better version
+of itself.
+</p>
+
+<p>
+  You'll find that Testly is super simple to use, as we've taken great care to
+eliminate all of the clutter and confusion found in other analysis and optimization
+tools.
+</p>
+
+<p>
+  We give you exactly what you need and make things intuitive and easy.
+</p>
+
+<p>
+  Below, you will find your login information:
+</p>
+
+<p>
+  Login: <%= link(login_url(), to: login_url()) %><br/>
+  Username: <%= @email %><br/>
+  Password: (This is the password you used when signing up)
+</p>
+
+<p>
+  If you need any help at all, you can contact us anytime by visiting our support
+desk here: <%= link(support_url(), to: support_url()) %>
+</p>
+
+<p>
+  There, you will also find lots of information in our knowledge base.
+</p>
+
+<p>
+  Now, let's get started increasing your website conversions!
+</p>
+
+<p style="margin-top: 45px;">
+  All the best,
+</p>
+
+<p>
+  Brad Callen<br>
+  Testly CEO & Founder
+</p>
