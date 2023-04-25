@@ -10,7 +10,7 @@ defmodule TestlyAdminWeb.EnsureAuthenticated do
 
   @spec call(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def call(%Conn{} = conn, _default) do
-    if conn.assigns.current_account_user == nil do
+    if conn.assigns.current_user == nil do
       conn
       |> redirect(to: Routes.session_path(conn, :new))
       |> halt()

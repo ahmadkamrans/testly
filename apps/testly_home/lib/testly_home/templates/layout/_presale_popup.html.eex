@@ -1,0 +1,37 @@
+<div class="lightbox">
+  <i class="lightbox-close fas fa-times"></i>
+  <div class="lightbox-content">
+    <h3 class="lightbox-content__caption">Testly Is Almost Ready!</h3>
+    <p class="lightbox-content__desc">Enter your name and email below to be notified the second it's ready for public use.</p>
+
+    <form method="POST" action="https://bryxen.activehosted.com/proc.php" class="lightbox-form" id="presale_form">
+      <input type="hidden" name="u" value="5BCD8E0521A94" />
+      <input type="hidden" name="f" value="3" />
+      <input type="hidden" name="s" />
+      <input type="hidden" name="c" value="0" />
+      <input type="hidden" name="m" value="0" />
+      <input type="hidden" name="act" value="sub" />
+      <input type="hidden" name="v" value="2" />
+      <input type="hidden" name="jsonp" value="true" />
+      
+      <div class="panel-form-group">
+        <label class="panel-form-label" for="lightboxName">Name</label>
+        <input id="lightboxName" name="fullname" class="panel-form-input" type="text" placeholder="your name">
+      </div>
+      <div class="panel-form-group">
+        <label class="panel-form-label" for="lightboxEmail">Best Email</label>
+        <input id="lightboxEmail" name="email" class="panel-form-input" type="email" placeholder="youremail@email.com" required>
+      </div>
+      <button class="panel-form-btn" type="submit">Notify Me</button>
+      
+      <div class="lightbox-content__old-site">
+        Looking for the old version of the site? <a href="<%= testly_old_site_url() %>" class="panel-form-link">Click here</a>
+      </div>
+      
+    </form>
+
+    <p class="lightbox-content__success-text">
+      You've successfully signed up to be notified when Testly is available to the public. We may email you prior to the public release (for early access), so keep an eye out for our email.
+    </p>
+  </div>
+</div>

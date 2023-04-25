@@ -1,0 +1,55 @@
+<svg id="icon_1" data-name="icon 1" xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill: #7ed2b3;
+      }
+
+      .cls-2 {
+        fill: #06ac6a;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="300" cy="300" r="300"/>
+  <g>
+    <path id="Rounded_Rectangle_2_copy_3" data-name="Rounded Rectangle 2 copy 3" class="cls-2" d="M487.5,286H445v42.5a17.5,17.5,0,0,1-35,0V286H367.5a17.5,17.5,0,0,1,0-35H410V208.5a17.5,17.5,0,0,1,35,0V251h42.5A17.5,17.5,0,0,1,487.5,286Z"/>
+    <path class="cls-3" d="M205,238H181c-5.523,0-8.6,4.277-10,10L139.331,374.675,105,204s1.333-14,16-14h69s19,4.667,19,17H361s24,8.333,24,31H205Z"/>
+    <path id="Rounded_Rectangle_2" data-name="Rounded Rectangle 2" class="cls-3" d="M335,269a30,30,0,0,0,30,30h31v31a30.991,30.991,0,0,0,16.876,27.593L403,405a10,10,0,0,1-10,10H162a10,10,0,0,1-10-10l36-144a10,10,0,0,1,10-10H341A29.863,29.863,0,0,0,335,269Z"/>
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :prove, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :prove, feature: :shared_tests) %>
+
+  <div class="feature-content feature-content--prove">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-tests-1">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-1.png") %>" alt="" class="feature-block-picture__img feature-block-prove-tests-pic-1">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-tests-1.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Learn Which Strategies Are Working For Others</h3>
+          <p class="feature-block-content__desc">One of the fastest ways to leap frog your competition is by leveraging the time and the success of others. Inside of Testly, you'll be able to view split tests run by other members who have decided to share certain tests with the community. By doing this, their ceiling is now your floor, and you can achieve much faster results.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-tests-2">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-2.png") %>" alt="" class="feature-block-picture__img feature-block-prove-tests-pic-2">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-bg-1.svg") %>" class="feature-prove-tests-1-bg" alt="">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-tests-2.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">View Proven Split Test Winners From All Industries</h3>
+          <p class="feature-block-content__desc">Are you an eCommerce company? Are you trying to improve your optin page or your checkout process? No problem. You'll be able to quickly and easily search and filter out the exact split test types that you're considering running, so you can see how well (or how poorly) the idea worked for someone else that may have already run the split test you're considering. This can save you months of time and thousands of wasted dollars figuring out if the test would work for you.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-tests-3">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-3.png") %>" alt="" class="feature-block-picture__img feature-block-prove-tests-pic-3">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-bg-2.svg") %>" class="feature-prove-tests-2-bg" alt="">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-tests-bg-21.svg") %>" class="feature-prove-tests-21-bg" alt="">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-tests-3.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Rate Shared Split Tests</h3>
+          <p class="feature-block-content__desc">Inside of the Testly community of shared split tests, you'll be able to rate other member's split tests from 1 to 5 stars. This will allow you to then, filter your results to only view highly rated split tests (i.e. those split tests that have gotten the highest ROI for the website owner). Again, helping you come up with that next big idea much quicker than with traditional split testing "solutions".</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

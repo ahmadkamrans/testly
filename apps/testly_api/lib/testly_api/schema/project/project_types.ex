@@ -1,8 +1,6 @@
 defmodule TestlyAPI.Schema.ProjectTypes do
-  use Absinthe.Schema.Notation
-
-  alias Testly.SessionRecordings
-  alias Testly.Projects.Project
+  use TestlyAPI.Schema.Notation
+  alias TestlyAPI.ProjectResolver
 
   enum(:project_state,
     values: [
@@ -18,16 +16,7 @@ defmodule TestlyAPI.Schema.ProjectTypes do
     field(:is_recording_enabled, non_null(:boolean))
 
     field :state, non_null(:project_state) do
-      resolve(fn %Project{id: project_id, created_at: created_at} = _project, _args, _resolution ->
-        records_count = SessionRecordings.get_project_session_recordings_count(project_id)
-
-        {:ok,
-         case({records_count, Timex.diff(Timex.now(), created_at, :hours) > 1}) do
-           {0, true} -> :code_may_not_be_installed
-           {0, false} -> :waiting_for_first_visit
-           _ -> :active
-         end}
-      end)
+      resolve(&ProjectResolver.project_state/3)
     end
 
     import_fields(:goal_queries)
@@ -35,5 +24,52 @@ defmodule TestlyAPI.Schema.ProjectTypes do
     import_fields(:session_recording_queries)
     import_fields(:split_test_queries)
     import_fields(:feedback_poll_queries)
+  end
+
+  object :projects_connection do
+    field :nodes, non_null(list_of(non_null(:project)))
+    field :total_count, non_null(:integer)
+  end
+
+  payload_object(:project_payload, :project)
+
+  input_object :project_params do
+    field(:domain, :string)
+    field(:is_recording_enabled, :boolean, default_value: true)
+  end
+
+  object :project_queries do
+    field :relevant_project, :project do
+      resolve(&ProjectResolver.relevant_project/3)
+    end
+
+    field :projects, non_null(:projects_connection) do
+      resolve(&ProjectResolver.projects/3)
+    end
+
+    field :project, :project do
+      arg(:id, non_null(:uuid4))
+      resolve(&ProjectResolver.project/3)
+    end
+  end
+
+  object :project_mutations do
+    field :create_project, type: :project_payload do
+      arg(:project_params, :project_params)
+      resolve(&ProjectResolver.create_project/2)
+      middleware(&build_payload/2)
+    end
+
+    field :delete_project, :project do
+      arg(:id, non_null(:uuid4))
+      resolve(&ProjectResolver.delete_project/2)
+    end
+
+    field :update_project, :project_payload do
+      arg(:id, non_null(:uuid4))
+      arg(:project_params, :project_params)
+      resolve(&ProjectResolver.update_project/2)
+      middleware(&build_payload/2)
+    end
   end
 end

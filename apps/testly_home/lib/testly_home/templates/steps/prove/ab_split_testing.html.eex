@@ -1,0 +1,73 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :prove, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :prove, feature: :ab_split_testing) %>
+
+  <div class="feature-content feature-content--prove">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-1">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-1.png") %>" alt="" class="feature-block-picture__img feature-block-prove-pic-1">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ab-1.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Run Unlimited A/B Split Tests</h3>
+          <p class="feature-block-content__desc">We're all about getting you results, so no matter what plan you use, you can create as many split tests as you'd like. Test your home page. Test your optin pages. Test your checkout pages or your eCommerce, store pages. If it's a web page, you'll be able to test it.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-2">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-2.png") %>" alt="" class="feature-block-picture__img feature-block-prove-pic-2">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-bg-1.svg") %>" class="feature-prove-ab-2-bg" alt="">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ab-2.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Segment Traffic By Device</h3>
+          <p class="feature-block-content__desc">Website traffic can perform differently depending on the device that is being used. Whether that's a desktop, a mobile device like an iPhone or an Android, or a tablet, you'll be able to segment and/or ignore your website traffic depending on the device, allowing you to better understand what's leading to sales.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-3">
+      <div class="feature-block-heading">
+        <div class="container">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ab-3.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Bayesian Accuracy Technology</h3>
+        </div>
+      </div>
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-3.png") %>" alt="" class="feature-block-picture__img feature-block-prove-pic-3">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-bg-2.svg") %>" class="feature-prove-ab-3-bg" alt="">
+        </div>
+        <div class="feature-block-content">
+          <p class="feature-block-content__desc">One of the worst things you can do when running a split test, is stopping your test too soon and assuming a version of your web page won, when the reality might be that had you ran it longer, it would have lost. False positives can result in you losing unnecessary time and money. With our Bayesian accuracy technology, we can reduce and in most cases eliminate the chance of false positives. When a winning web page is declared, you can rest assured the results are accurate and it truly is the best version.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-4">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-4.png") %>" alt="" class="feature-block-picture__img feature-block-prove-pic-4">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ab-bg-3.svg") %>" class="feature-prove-ab-4-bg" alt="">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ab-4.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Quick And Easy Split Test Setup</h3>
+          <p class="feature-block-content__desc">Testly was built by marketers, for marketers. While other split test "solutions" are overly complicated and can take hours to get set up, our wizard-like setup is extremely simple and straight-forward, allowing non-techies to get split tests set up in as little as just a couple of minutes.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

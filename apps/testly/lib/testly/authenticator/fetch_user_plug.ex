@@ -16,14 +16,14 @@ defmodule Testly.Authenticator.FetchUserPlug do
       user = Accounts.get_user(user_id)
 
       if user do
-        assign(conn, :current_account_user, user)
+        assign(conn, :current_user, user)
       else
         conn
         |> Session.sign_out()
-        |> assign(:current_account_user, nil)
+        |> assign(:current_user, nil)
       end
     else
-      assign(conn, :current_account_user, nil)
+      assign(conn, :current_user, nil)
     end
   end
 end

@@ -114,8 +114,7 @@ label + .help-block {
   height: 100%;
   flex-direction: column;
 
-  .lightbox-content__desc,
-  .lightbox-form {
+  .lightbox-content__desc, .lightbox-form {
     display: none;
   }
 
@@ -134,8 +133,7 @@ label + .help-block {
   cursor: pointer;
 }
 
-.lightbox-content__old-site,
-.lightbox-content__old-site a {
+.lightbox-content__old-site, .lightbox-content__old-site a  {
   color: rgb(79, 93, 126);
 
   font-size: 13px;

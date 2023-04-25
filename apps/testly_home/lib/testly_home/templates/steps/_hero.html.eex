@@ -1,0 +1,56 @@
+<div class="feature-hero">
+  <div class="container">
+    <header class="feature-hero-header">
+      <div class="feature-hero-header__caption">
+        <img src="<%= Routes.static_path(@conn, "/images/feature-caption.svg") %>" alt="">
+        <span>Features</span>
+      </div>
+      <nav class="feature-hero-header-nav">
+        <a 
+          class="feature-hero-header-nav__item <%= if(@step == :learn, do: "feature-hero-header-nav__item--active") %>" 
+          href="<%= Routes.learn_path(@conn, :session_recordings) %>"
+          data-turbolinks-persist-scroll="true">
+          <img src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" alt="">
+          Learn
+        </a>
+        <a 
+          class="feature-hero-header-nav__item <%= if(@step == :prove, do: "feature-hero-header-nav__item--active") %>" 
+          href="<%= Routes.prove_path(@conn, :ab_split_testing) %>"
+          data-turbolinks-persist-scroll="true">
+          <img src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" alt="">
+          Prove
+        </a>
+        <a 
+          class="feature-hero-header-nav__item <%= if(@step == :grow, do: "feature-hero-header-nav__item--active") %>" 
+          href="<%= Routes.grow_path(@conn, :index) %>"
+          data-turbolinks-persist-scroll="true">
+          <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="">
+          Grow
+        </a>
+      </nav>
+    </header>
+
+    <div class="feature-hero-content">
+      <div class="feature-hero-content-col">
+        <div class="feature-hero-content-col-icons">
+          <img class="feature-hero-content-col-icons__item" src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" alt="">
+          <i class="fas fa-angle-right"></i>
+          <img class="feature-hero-content-col-icons__item" src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" alt="">
+          <i class="fas fa-angle-right"></i>
+          <img class="feature-hero-content-col-icons__item" src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="">
+        </div>
+        <h2 class="feature-hero-content-col__caption">Learn > Prove > Grow</h2>
+        <p class="feature-hero-content-col__desc">Stats and analytics are nice, but only if you use them to improve your website. Testly was designed to help you test and optimize smarter, getting you better and faster results.</p>
+        <button class="feature-hero-content-col__btn">How the software works</button>
+      </div>
+      <div class="feature-hero-content-col feature-hero-content-col--alt">
+        <div class="feature-hero-content-col-icons">
+          <img class="feature-hero-content-col-icons__item" src="<%= Routes.static_path(@conn, "/images/succeed.svg") %>" alt="">
+        </div>
+        <h2 class="feature-hero-content-col__caption">We Want You To Succeed</h2>
+        <p class="feature-hero-content-col__desc">Don’t see a feature you want? Let us know and we’ll add it! We're at your service and are constantly striving to make Testly the best it can be. When you're happy, we're happy.</p>
+        <button class="feature-hero-content-col__btn feature-hero-content-col__btn--alt">Suggest a new feature</button>
+      </div>
+    </div>
+  </div>
+</div>

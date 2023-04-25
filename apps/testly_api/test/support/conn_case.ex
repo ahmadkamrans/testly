@@ -18,9 +18,7 @@ defmodule TestlyAPI.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
-
+      use Phoenix.ConnTest
       alias TestlyAPI.Router.Helpers, as: Routes
       import Testly.AuthenticateHelper
 

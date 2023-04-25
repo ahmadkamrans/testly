@@ -1,0 +1,22 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :grow, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :grow) %>
+
+  <div class="feature-content feature-content--grow">
+    <div class="container">
+      <div class="feature-content-grow">
+        <p>When you learn how visitors are browsing and using your website, then test the ideas you feel will improve their experience, you can expect to see massive growth in your online business.</p>
+        <h2>Let Testly help you get that massive growth you're looking for.</h2>
+        <div class="grow-content-cta">
+          <a href="" class="grow-content-cta__btn">sign up <span>for a free account</span> today</a>
+          <p class="grow-content-cta__note">No credit card required</p>
+        </div>
+      </div>
+    </div>
+    <div class="feature-content-grow__bg-image">
+      <img src="<%= Routes.static_path(@conn, "/images/grow-bg.png") %>" alt="">
+    </div>
+    <div class="feature-content-grow-bg"></div>
+  </div>
+</section>

@@ -7,7 +7,7 @@ use Mix.Config
 
 # General application configuration
 config :testly_api,
-  namespace: TestlyAPI
+  namespace: TestlyApi
 
 # Configures the endpoint
 config :testly_api, TestlyAPI.Endpoint,
@@ -15,9 +15,9 @@ config :testly_api, TestlyAPI.Endpoint,
   # NOTE: token is the same as for testly_web
   secret_key_base: "sNRijWIwrjxIiubgpYwjmVIpCtQUKOp05bTa7TFbiRJbMT8Dhfkus5JhEbfVWMGL",
   render_errors: [view: TestlyAPI.ErrorView, accepts: ~w(json)],
-  pubsub_server: TestlyAPI.PubSub,
+  pubsub: [name: TestlyApi.PubSub, adapter: Phoenix.PubSub.PG2],
   check_origin: false,
-  live_view: [signing_salt: "Fg-dx4h93Iin0QGB"]
+  instrumenters: [Appsignal.Phoenix.Instrumenter]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

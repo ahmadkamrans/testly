@@ -1,0 +1,56 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :learn, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :learn, feature: :feedback_polls) %>
+
+  <div class="feature-content">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-feedback-1">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/learn-feedback-1.png") %>" alt="" class="feature-block-picture__img feature-pic-learn-feedback-1">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-feedback-1.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Create Feedback Widget</h3>
+          <p class="feature-block-content__desc">We're all about getting you results, so no matter what plan you use, you can create as many split tests as you'd like. Test your home page. Test your optin pages. Test your checkout pages or your eCommerce, store pages. If it's a web page, you'll be able to test it.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-feedback-2">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/learn-feedback-2.png") %>" alt="" class="feature-block-picture__img feature-pic-learn-feedback-2">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-feedback-2.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Create Feedback Widget</h3>
+          <p class="feature-block-content__desc">Website traffic can perform differently depending on the device that is being used. Whether that's a desktop, a mobile device like an iPhone or an Android, or a tablet, you'll be able to segment and/or ignore your website traffic depending on the device, allowing you to better understand what's leading to sales.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-feedback-3">
+      <div class="feature-block-heading">
+        <div class="container">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-feedback-3.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Create Unlimited Feedback Polls</h3>
+        </div>
+      </div>
+      <div class="feature-block-picture feature-block-picture--centered">
+        <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/learn-feedback-3.png") %>" alt="" class="feature-block-picture__img feature-pic-learn-feedback-3">
+      </div>
+      <div class="container">
+        <div class="feature-block-content feature-block-content--centered">
+          <p class="feature-block-content__desc">One of the worst things you can do when running a split test, is stopping your test too soon and assuming a version of your web page won, when the reality might be that had you ran it longer, it would have lost. False positives can result in you losing unnecessary time and money. With our Bayesian accuracy technology, we can reduce and in most cases eliminate the chance of false positives. When a winning web page is declared, you can rest assured the results are accurate and it truly is the best version.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

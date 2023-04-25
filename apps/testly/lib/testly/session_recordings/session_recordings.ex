@@ -2,14 +2,11 @@ defmodule Testly.SessionRecordings do
   @moduledoc """
     Session Recordings Context Public API.
   """
-
   # @behaviour Testly.SessionRecordingsBehaviour
 
   alias Testly.SessionRecordings.{SessionRecording, Filter, Page}
   alias Testly.{Repo}
   import Ecto.Query, only: [from: 2]
-
-  @stale_period_in_days 30
 
   @callback get_session_recording(String.t()) :: SessionRecording.t() | nil
   def get_session_recording(id) do
@@ -171,25 +168,10 @@ defmodule Testly.SessionRecordings do
       |> Enum.map(&Ecto.Changeset.apply_changes/1)
 
     Repo.insert_all(Page, Enum.map(pages, &Page.to_entry/1),
-      on_conflict: {:replace_all_except, [:id]},
+      on_conflict: :replace_all,
       conflict_target: [:session_recording_id, :visited_at]
     )
 
     {:ok, pages}
-  end
-
-  def delete_recordings(recording_ids) do
-    {deleted_count, _} =
-      from(s_r in SessionRecording, where: s_r.id in ^recording_ids)
-      |> Repo.delete_all()
-
-    deleted_count
-  end
-
-  def get_staled_recording_ids(limit: limit) do
-    staled_time = Timex.shift(DateTime.utc_now(), days: -@stale_period_in_days)
-
-    from(s_r in SessionRecording, where: s_r.created_at < ^staled_time, select: s_r.id, limit: ^limit)
-    |> Repo.all()
   end
 end

@@ -15,7 +15,7 @@ defmodule Testly.Authenticator.FetchUserPlugTest do
       |> Conn.fetch_cookies()
       |> FetchUserPlug.call(%{})
 
-    assert conn.assigns.current_account_user == user
+    assert conn.assigns.current_user == user
   end
 
   test "when user not found" do
@@ -26,7 +26,7 @@ defmodule Testly.Authenticator.FetchUserPlugTest do
       |> FetchUserPlug.call(%{})
 
     assert conn.private.plug_session == %{}
-    assert conn.assigns.current_account_user == nil
+    assert conn.assigns.current_user == nil
   end
 
   test "when user_id not set" do
@@ -36,6 +36,6 @@ defmodule Testly.Authenticator.FetchUserPlugTest do
       |> Conn.fetch_cookies()
       |> FetchUserPlug.call(%{})
 
-    assert conn.assigns.current_account_user == nil
+    assert conn.assigns.current_user == nil
   end
 end

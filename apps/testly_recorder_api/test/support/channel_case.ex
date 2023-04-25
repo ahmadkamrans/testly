@@ -18,7 +18,7 @@ defmodule TestlyRecorderAPI.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with channels
-      import Phoenix.ChannelTest
+      use Phoenix.ChannelTest
 
       import Mox
 

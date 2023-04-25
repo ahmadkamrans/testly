@@ -1,0 +1,65 @@
+<section class="register">
+  <div class="container">
+    <h1 class="register-caption">
+      Create your FREE Testly account below
+    </h1>
+    <p class="register-caption__desc">
+      Use Testly basic as long as you want, absolutely free. No credit card required.
+    </p>
+    <div class="register-panel">
+      <%= form_for @changeset, @action, [as: :registration_form], fn f -> %>
+        <%= for {key, value} <- @hidden_fields do %>
+          <%= hidden_input(f, key, value: value) %>
+        <% end %>
+
+        <div class="panel-form-group">
+          <%= label(f, :full_name, "Full name", class: "panel-form-label") %>
+          <%= text_input(f, :full_name, class: "panel-form-input", placeholder: "e.g. John Smith") %>
+          <%= error_tag(f, :full_name) %>
+        </div>
+        <div class="panel-form-group">
+          <%= label(f, :email, "Best Email Address", class: "panel-form-label") %>
+          <%= email_input(f, :email, class: "panel-form-input", placeholder: "youremail@email.com") %>
+          <%= error_tag(f, :email) %>
+        </div>
+        <%= if @show_password_field do %>
+          <div class="panel-form-group">
+            <%= label(f, :password, class: "panel-form-label") do %>
+              Enter a secure password that <br class="panel-form-label__line-break"> you'll use when logging into Testly.
+            <% end %>
+            <%= password_input(f, :password, class: "panel-form-input", placeholder: "Set a Password") %>
+            <%= error_tag(f, :password) %>
+          </div>
+        <% end %>
+        <%= checkbox f, :tos_accepted, class: "panel-form-checkbox" %>
+        <label class="panel-form-checkbox__label panel-form-checkbox__label--with-gap" for="registration_form_tos_accepted">
+          I accept the&nbsp<%= link("Terms of Service", to: Routes.legal_path(@conn, :terms), target: "_blank", class: "panel-form-link") %>.
+        </label>
+
+        <%= if f.errors[:tos_accepted] do %>
+          <%= error_tag f, :tos_accepted %>
+        <% end %>
+
+        <%= submit "Create My Account", class: "panel-form-btn" %>
+
+        <%= if @show_fb_button do %>
+          <div class="register-or">OR</div>
+          <a class="panel-form-btn panel-form-btn--facebook" href="<%= Routes.facebook_auth_path(@conn, :request) %>">
+            <i class="fab fa-facebook-f"></i>
+            Sign Up With Facebook
+          </a>
+        <% end %>
+
+        <div class="register-login">
+          Already have an account? <a class="panel-form-link" href="<%= Routes.session_path(@conn, :new) %>">Login here</a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="register-bg">
+    <div class="register-bg__highlight"></div>
+    <div class="register-bg__blue-shade"></div>
+    <div class="register-bg__green-shade"></div>
+    <div class="register-bg__shade"></div>
+  </div>
+</section>

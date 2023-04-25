@@ -6,8 +6,6 @@ defmodule Testly.Repo do
     otp_app: :testly,
     adapter: Ecto.Adapters.Postgres
 
-  use Paginator
-
   @doc """
   Dynamically loads the repository url from the
   DATABASE_URL environment variable.

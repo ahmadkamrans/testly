@@ -1,0 +1,8 @@
+<%= render "form.html", 
+  Map.merge(assigns, %{
+    action: Routes.user_path(@conn, :create),
+    show_password_field: true,
+    hidden_fields: %{},
+    show_fb_button: true
+  })
+%>

@@ -1,5 +1,6 @@
 defmodule TestlyRecorderAPI.Router do
   use TestlyRecorderAPI, :router
+  use Honeybadger.Plug
 
   pipeline :api do
     plug(:accepts, ["json", "js"])

@@ -6,9 +6,9 @@ defmodule Testly.SessionRecordingsHandler.Consumer do
   alias Testly.SessionRecordingsHandler.AsyncHandler
   alias Testly.SessionRecordingsHandler.Producer
 
-  @max_demand 20
-  @ask_interval 60_000
-  @producer {:global, Producer}
+  @max_demand 100
+  @ask_interval 5_000
+  @producer {:via, Horde.Registry, {Testly.GlobalRegistry, Producer}}
 
   defmodule State do
     defstruct producers: [], session_recording_ids_in_progress: []
@@ -29,7 +29,7 @@ defmodule Testly.SessionRecordingsHandler.Consumer do
 
     # !! lazy initialization here, to avoid a lot of Consumer failues per one time
     # when Producer is not available
-    Process.send_after(self(), :do_subscribe, 60_000)
+    Process.send_after(self(), :do_subscribe, 5_000)
 
     {:consumer, %State{}, []}
   end
@@ -94,7 +94,7 @@ defmodule Testly.SessionRecordingsHandler.Consumer do
   end
 
   defp ask_and_schedule(%State{producers: producers, session_recording_ids_in_progress: []} = state, from) do
-    Logger.info("asking #{inspect(from)}")
+    Logger.info("Asking for demand #{inspect(from)}")
 
     producers
     |> Enum.find(&(&1 === from))

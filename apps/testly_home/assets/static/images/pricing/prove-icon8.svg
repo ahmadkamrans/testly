@@ -1,0 +1,26 @@
+<svg id="icon_8" data-name="icon 8" xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dae3f2;
+      }
+
+      .cls-2 {
+        fill: #b7cae7;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <circle id="Ellipse_10_copy" data-name="Ellipse 10 copy" class="cls-1" cx="300" cy="300" r="300"/>
+  <path class="cls-2" d="M382,410H203l53.254-122H256l9-22a66.694,66.694,0,0,1,31,8c15.745,8.553,28,3,28,3l2.545,7H327Z"/>
+  <path id="Ellipse_16_copy" data-name="Ellipse 16 copy" class="cls-3" d="M417,415l-0.415.5A19.5,19.5,0,0,1,397.5,439c-0.162,0-.319-0.02-0.48-0.024L397,439H189l-0.02-.024c-0.161,0-.318.024-0.48,0.024a19.5,19.5,0,0,1-19.085-23.5L169,415l76-175.247V194.16A26.983,26.983,0,0,1,257,143h71a27,27,0,0,1,13,50.662v46.091ZM327,181a10,10,0,0,0,0-20H260a10,10,0,0,0,0,20h4v66L188,420H398L322,247V181h5Z"/>
+  <path id="Rounded_Rectangle_31" data-name="Rounded Rectangle 31" class="cls-3" d="M315.642,314.626a21.956,21.956,0,1,1-21.955,21.956A21.956,21.956,0,0,1,315.642,314.626Z"/>
+  <path id="Rounded_Rectangle_31_copy" data-name="Rounded Rectangle 31 copy" class="cls-3" d="M271.715,351.224h0.032a14.627,14.627,0,1,1,0,29.253h-0.032A14.627,14.627,0,0,1,271.715,351.224Z"/>
+</svg>

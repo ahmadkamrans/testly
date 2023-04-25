@@ -1,0 +1,80 @@
+  <section class="login">
+    <div class="container">
+      <div class="login-panel">
+        <%= form_for @changeset, Routes.session_path(@conn, :create), ["ujs-remote": ""], fn f -> %>
+          <h2 class="login-panel__caption">Login</h2>
+
+          <div class="panel-form-group">
+            <%= label(f, :email, "Email", class: "panel-form-label") %>
+            <%= email_input f, :email, class: "panel-form-input", placeholder: "youremail@email.com" %>
+            <%= error_tag f, :email %>
+            <%= error_tag f, :base %>
+          </div>
+          <div class="panel-form-group">
+            <%= label(f, :password, "Password", class: "panel-form-label") %>
+            <%= password_input f, :password, class: "panel-form-input", placeholder: "Your password" %>
+            <%= error_tag f, :password %>
+          </div>
+
+          <%= submit "Log In", class: "panel-form-btn" %>
+
+          <div class="login-controls">
+            <div>
+              <%= checkbox(f, :remember_me, class: "panel-form-checkbox")%>
+              <%= label(f, :remember_me, "Remember me", class: "panel-form-checkbox__label") %>
+            </div>
+            <a class="panel-form-link login-link" href="<%= Routes.password_path(@conn, :new) %>">Forgot Password?</a>
+          </div>
+          
+          <a class="login-panel__fb-btn panel-form-btn panel-form-btn--facebook" href="<%= Routes.facebook_auth_path(@conn, :request) %>">
+            <i class="fab fa-facebook-f"></i>
+            Log In With Facebook
+          </a>
+        <% end %>
+      </div>
+      <div class="login-info">
+        <h3 class="login-info__caption">What You Get With Testly:</h3>
+        <div class="login-info-part">
+          <div class="login-info-part__caption">
+            <img src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" alt="">
+            <h5>Learn</h5>
+          </div>
+          <div class="login-info-part-list">
+            <div class="login-info-part-list__item" href="#">Visitor Session Recordings</div>
+            <div class="login-info-part-list__item" href="#">Heat Maps</div>
+            <div class="login-info-part-list__item" href="#">Scroll Maps</div>
+            <div class="login-info-part-list__item" href="#">Feedback Polls</div>
+          </div>
+        </div>
+        <div class="login-info-part">
+          <div class="login-info-part__caption">
+            <img src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" alt="">
+            <h5>Prove</h5>
+          </div>
+          <div class="login-info-part-list">
+            <div class="login-info-part-list__item" href="#">A/B Split Testing</div>
+            <div class="login-info-part-list__item" href="#">Idea Lab</div>
+            <div class="login-info-part-list__item" href="#">Shared Tests</div>
+          </div>
+        </div>
+        <div class="login-info-part">
+          <div class="login-info-part__caption">
+            <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="">
+            <h5>Grow</h5>
+          </div>
+          <div class="login-info-part-list">
+            <div class="login-info-part-list__item" href="#">Ready to improve your <br /> website conversions?</div>
+          </div>
+        </div>
+        
+        <div class="login-info-cta">
+          <a href="<%= Routes.user_path(@conn, :new) %>" class="login-info-cta__btn">Sign Up For FREE</a>
+          <p class="login-info-cta__note">No credit card required</p>
+        </div>
+      </div>
+    </div>
+    <div class="login-bg">
+      <div class="login-bg__highlight"></div>
+      <div class="login-bg__shade"></div>
+    </div>
+  </section>

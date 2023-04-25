@@ -1,0 +1,5 @@
+<%= render @view_module, "_hero.html", assigns %>
+<%= render @view_module, "_learn.html", assigns %>
+<%= render @view_module, "_prove.html", assigns %>
+<%= render @view_module, "_platforms.html", assigns %>
+<%= render @view_module, "_grow.html", assigns %>

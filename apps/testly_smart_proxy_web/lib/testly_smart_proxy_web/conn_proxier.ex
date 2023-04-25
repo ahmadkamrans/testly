@@ -44,6 +44,8 @@ defmodule TestlySmartProxyWeb.ConnProxier do
         "Proxy exception raised for #{opts[:current_url]}, making usual redirect #{Exception.format(:error, e)}"
       )
 
+      Honeybadger.notify(e, opts |> Enum.into(%{}))
+
       put_redirect(conn, opts)
   end
 

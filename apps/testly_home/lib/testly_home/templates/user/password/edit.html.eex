@@ -1,0 +1,33 @@
+<section class="reset-password">
+  <div class="container">
+    <h1 class="reset-password-caption" style="margin-bottom: 50px">
+      Change your password
+    </h1>
+    <div class="reset-password-panel <%= if(assigns[:success], do: "reset-password-panel--success") %>">
+      <%= if assigns[:success] do %>
+        Password changed.&nbsp<a href="<%= Routes.session_path(@conn, :new) %>" class="panel-form-link">Login in now</a>
+      <% else %>
+        <%= form_for @changeset, Routes.password_path(@conn, :update, token: @conn.params["token"]), [method: :patch], fn f -> %>
+
+          <div class="panel-form-group">
+            <%= label(f, :password, "Create a new password", class: "panel-form-label") %>
+            <%= password_input(f, :password, class: "panel-form-input", placeholder: "Set a New Password") %>
+            <%= error_tag(f, :password) %>
+
+            <%= if f.errors[:token] do %>
+              <div class="help-block">Reset password URL is expired</div>
+            <% end %>
+          </div>
+
+          <div class="panel-form-group">
+            <%= label(f, :password_confirmation, "Repeat your new password", class: "panel-form-label") %>
+            <%= password_input(f, :password_confirmation, class: "panel-form-input", placeholder: "Repeat a New Password") %>
+            <%= error_tag(f, :password_confirmation) %>
+          </div>
+
+          <%= submit "Change Password", class: "panel-form-btn" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

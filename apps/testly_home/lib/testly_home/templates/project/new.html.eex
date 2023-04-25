@@ -1,0 +1,31 @@
+<section class="register-done">
+  <div class="container">
+    <h1 class="register-done-caption">
+      Almost done! Set up your first site <br class="register-done-caption__line-break" />
+      to start tracking TONS of cool stuff...
+    </h1>
+    <div class="register-done-content">
+      <div class="register-done-panel">
+        <%= form_for @changeset, Routes.project_path(@conn, :create), fn f -> %>
+          <%= error_tag f, :base %>
+          <div class="panel-form-group">
+            <%= label(f, :domain, "Enter the site you would like to start with", class: "panel-form-label register-done-form__label") %>
+            <%= text_input f, :domain, placeholder: "i.e. www.domain.com", class: "panel-form-input" %>
+            <%= error_tag f, :domain %>
+            <p class="panel-form-note">You can add more sites later</p>
+          </div>
+          <%= submit "Start Using Testly", class: "panel-form-btn register-done-form__btn" %>
+        <% end %>
+      </div>
+      <div class="register-done-picture">
+        <img src="<%= Routes.static_path(@conn, "/images/register-done.png") %>" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="register-done-bg">
+    <div class="register-done-pattern"></div>
+    <div class="register-bg__blue-shade"></div>
+    <div class="register-bg__shade"></div>
+    <div class="register-bg__green-shade"></div>
+  </div>
+</section>

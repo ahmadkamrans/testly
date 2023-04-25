@@ -9,25 +9,11 @@ defmodule Testly.SessionRecordingsHandler.Producer do
     defstruct failed_to_process: []
   end
 
-  def start_link(args, _opts \\ []) do
-    :global.trans(
-      {__MODULE__, __MODULE__},
-      fn ->
-        case GenStage.start_link(__MODULE__, args, name: {:global, __MODULE__}) do
-          {:ok, pid} ->
-            {:ok, pid}
-
-          {:error, {:already_started, pid}} ->
-            Process.link(pid)
-            {:ok, pid}
-
-          error ->
-            Logger.error("Failed to start producer!", inspect(error))
-            error
-        end
-      end,
-      Node.list(:connected),
-      5
+  def start_link(args, opts \\ []) do
+    GenStage.start_link(
+      __MODULE__,
+      args,
+      Keyword.merge(opts, name: {:via, Horde.Registry, {Testly.GlobalRegistry, __MODULE__}})
     )
   end
 

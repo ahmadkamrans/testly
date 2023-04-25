@@ -7,10 +7,6 @@ defmodule Testly.Heatmaps.PageQuery do
     from(p in Page, as: :page)
   end
 
-  def select_distinct(query) do
-    distinct(query, true)
-  end
-
   def join_snapshot(query) do
     from([page: p] in query, join: s in assoc(p, :snapshots), as: :snapshot)
   end
@@ -29,12 +25,6 @@ defmodule Testly.Heatmaps.PageQuery do
 
   def order_by_total_views_count(query, direction) do
     order_by(query, [view: v], [{^direction, count(v.id)}])
-  end
-
-  def where_views_one_week_old(query) do
-    one_week_ago = Timex.subtract(Timex.now(), Timex.Duration.from_days(7))
-
-    from([view: v] in query, where: v.visited_at >= ^one_week_ago)
   end
 
   def where_project_id(query, value) do

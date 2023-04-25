@@ -1,0 +1,85 @@
+<section class="learn" id="learn">
+  <div class="container">
+    <header class="learn-header">
+      <h2 class="learn-caption">
+        <img src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" width="60" alt="Learn icon">
+        Learn
+      </h2>
+      <nav class="learn-list">
+        <a class="learn-list__item" href="#learn1">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/recording-grey.svg") %>" alt="">
+          Session Recordings
+        </a>
+        <a class="learn-list__item" href="#learn2">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/heatmap-grey.svg") %>" alt="">
+          Heat & Scroll Maps
+        </a>
+        <a class="learn-list__item" href="#learn3">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/feedback-grey.svg") %>" alt="">
+          Feedback Polls
+        </a>
+      </nav>
+    </header>
+    <div class="info-block" id="learn1">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/recording.svg") %>" alt="Visitor Session Recordings Icon">
+          Visitor session recordings
+        </h3>
+        <p class="info-block-content__desc">
+          Watch live, visitor session recordings of every single person that comes to your website. You’ll be able to see exactly how they interact with your site. Where are they scrolling? What are they clicking on? Are they confused by certain parts of your website? You’ll learn all of this and more by watching live session recordings. It’s like you’re sitting right next to them, looking over their shoulder, as they navigate your website. All it takes is copying and pasting 1 short line of code onto your website and you can be up and running in a matter of seconds.
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>" data-show-subscribe-popup>
+          Sign up free
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--first">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/learn/pic-recording.png") %>" alt="Visitor Session Recordings Illustration">
+        <img class="info-block-picture__bg" src="<%= Routes.static_path(@conn, "/images/learn/bg-shape.svg") %>" alt="">
+      </div>
+    </div>
+    <div class="info-block info-block--heatmaps" id="learn2">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/heatmap.svg") %>" alt="heatmaps & scroll maps Icon">
+          heatmaps & scroll maps
+        </h3>
+        <p class="info-block-content__desc">
+          Our detailed heat maps and scroll maps will quickly and easily show you exactly which areas of your website users attention is drawn to. Are there certain images that users think are clickable and are distracting them from taking the action you want? You’ll learn this in seconds. Are areas of your website boring and other areas more exciting? Are there areas that cause your visitor to stop scrolling and read what you have to say? By studying the scroll maps, you’ll learn what is important and what isn’t, so you can improve the bad stuff, and do more of the good stuff.
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>" data-show-subscribe-popup>
+          Get started for free
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--second">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/learn/pic-heatmap.png") %>" alt="heatmaps & scroll maps Illustration">
+        <img class="info-block-picture__bg" src="<%= Routes.static_path(@conn, "/images/learn/bg-shape.svg") %>" alt="">
+      </div>
+    </div>
+    <div class="info-block info-block--feedback" id="learn3">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/feedback.svg") %>" alt="feedback polls Icon">
+          feedback polls
+        </h3>
+        <p class="info-block-content__desc">
+          When in doubt, just ask. There’s no better way to fully understand why our visitors aren’t buying than by asking. You can set up action-based feedback polls which will appear on your website as your website visitors interact with certain elements on your website. Ask them multiple choice, or open ended questions for anything you’d like. It’s point and click easy, and the feedback you’ll receive from your visitors will be invaluable with helping you come up with ways to improve the user experience and your business.
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>" data-show-subscribe-popup>
+          Start using Testly for free
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--third">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/learn/pic-feedback.png") %>" alt="feedback polls Illustration">
+        <img class="info-block-picture__bg" src="<%= Routes.static_path(@conn, "/images/learn/bg-shape-alt.svg") %>" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="learn-bg">
+    <div class="learn-bg__shape-top"></div>
+    <div class="learn-bg__shape-top-alt"></div>
+  </div>
+</section>

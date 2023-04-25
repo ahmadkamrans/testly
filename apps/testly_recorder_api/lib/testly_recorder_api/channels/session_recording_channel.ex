@@ -1,5 +1,6 @@
 defmodule TestlyRecorderAPI.SessionRecordingChannel do
   use Phoenix.Channel
+  use Appsignal.Instrumentation.Decorators
   require Logger
 
   alias Testly.Presence
@@ -24,6 +25,7 @@ defmodule TestlyRecorderAPI.SessionRecordingChannel do
     end
   end
 
+  @decorate channel_action()
   def handle_in(
         "visit_split_test_variation",
         %{"split_test_id" => split_test_id, "variation_id" => variation_id},
@@ -42,9 +44,12 @@ defmodule TestlyRecorderAPI.SessionRecordingChannel do
     {:reply, :ok, socket}
   end
 
+  @decorate channel_action()
   def handle_in("track", %{"events" => events}, socket) do
     events = ProperCase.to_snake_case(events)
     session_recording_id = socket.assigns[:session_recording_id]
+
+    Honeybadger.context(session_recording_id: session_recording_id, events: events)
 
     session_recording = @session_recordings.get_session_recording(session_recording_id)
 

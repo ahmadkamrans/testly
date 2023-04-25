@@ -18,7 +18,7 @@ defmodule TestlyAPI.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with channels
-      import Phoenix.ChannelTest
+      use Phoenix.ChannelTest
 
       # The default endpoint for testing
       @endpoint TestlyAPI.Endpoint

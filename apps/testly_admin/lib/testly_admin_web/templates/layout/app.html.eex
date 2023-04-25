@@ -66,7 +66,7 @@
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav ml-auto">
-            <% current_user = @conn.assigns.current_account_user %>
+            <% current_user = @conn.assigns.current_user %>
         
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">

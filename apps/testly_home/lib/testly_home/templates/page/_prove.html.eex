@@ -1,0 +1,78 @@
+<section class="prove" id="prove">
+  <div class="container">
+    <header class="prove-header">
+      <h2 class="prove-caption">
+        <img src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" width="60" alt="Prove icon">
+        Prove
+      </h2>
+      <nav class="prove-list">
+        <a class="prove-list__item" href="#prove1">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/ab-grey.svg") %>" alt="A/B Split Testing Icon">
+          A/B Split Testing
+        </a>
+        <a class="prove-list__item" href="#prove2">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/ideas-grey.svg") %>" alt="1000s of Split Test Ideas Icon">
+          1000s of Split Test Ideas
+        </a>
+        <a class="prove-list__item" href="#prove3">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/tests-grey.svg") %>" alt="Shared Tests Icon">
+          Shared Tests
+        </a>
+      </nav>
+    </header>
+    <div class="info-block info-block--prove" id="prove1">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/ab.svg") %>" alt="A/B Split Testing Icon">
+          A/B Split Testing
+        </h3>
+        <p class="info-block-content__desc">
+          We're all about getting you results, so you can create as many split tests as you'd like. Test new ideas on your home page, your optin pages, checkout pages or eCommerce store pages. If it's a web page, you'll be able to test the ideas you gather during the "learn" stage. Website traffic can perform differently depending on the device that is being used. Whether it's a desktop, a mobile device like an iPhone or an Android, or a tablet, you'll be able to segment and/or ignore your website traffic depending on the device, allowing you to better understand what's leading to sales.
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>" data-show-subscribe-popup>
+          Join for free today
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--fourth">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/prove/pic-ab.png") %>" alt="A/B Split Testing Illustration">
+      </div>
+    </div>
+    <div class="info-block info-block--ideas" id="prove2">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/ideas.svg") %>" alt="1000s of Split Test Ideas Icon">
+          1000s of Split Test Ideas
+        </h3>
+        <p class="info-block-content__desc">
+          If you’re struggling to come up with things you can do to improve your conversions, you’ll never run short on ideas with the Testly Idea lab which lists 1,050 (and growing every week) proven ideas that you can split test. You’ll find split test ideas for Landing Pages, eCommerce Websites, Checkout Pages, Facebook Ads, Emails, Video Sales Letters, Adwords Ads, And More. Every idea comes complete with an Impact Score that measures how big (or small) of an effect the idea could have on your business. The entire database is ever-growing and changing. As new idea emerge,they’re added to the site. It’s also sortable, filterable… and interactive. Choose a test idea, and quickly and easily create a live A/B split test, all with a few simple mouse clicks.
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>"  data-show-subscribe-popup>
+          Access Testly free
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--fifth">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/prove/pic-ideas.png") %>" alt="1000s of Split Test Ideas Illustration">
+      </div>
+    </div>
+    <div class="info-block info-block--tests" id="prove3">
+      <div class="info-block-content">
+        <h3 class="info-block-content__caption">
+          <img src="<%= Routes.static_path(@conn, "/images/prove/tests.svg") %>" alt="Shared Tests">
+          Shared Tests
+        </h3>
+        <p class="info-block-content__desc">
+          Testly is more than an optimization tool. It’s also a growing community of smart and experienced online business owners. After you run an A/B split test, you’ll have the option to share your test results with the rest of the community. It’s completely optional. Some share and some don’t. You’ll have instant access to all of the shared split test results that others have shared with the community. Using this data, you’ll learn what’s worked to improve sales for others, and what was tried but may have actually lowered sales. 
+        </p>
+        <div class="info-block-content__cta" href="<%= Routes.user_path(@conn, :new) %>" data-show-subscribe-popup>
+          Free signup now
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="info-block-picture info-block-picture--sixth">
+        <img class="info-block-picture__img" src="<%= Routes.static_path(@conn, "/images/prove/pic-sharedscreen.png") %>" alt="Shared Tests Illustration">
+      </div>
+    </div>
+  </div>
+</section>

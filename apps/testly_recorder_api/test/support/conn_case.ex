@@ -18,10 +18,7 @@ defmodule TestlyRecorderAPI.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      #
-      import Plug.Conn
-      import Phoenix.ConnTest
-
+      use Phoenix.ConnTest
       alias TestlyRecorderAPI.Router.Helpers, as: Routes
 
       # The default endpoint for testing

@@ -1,0 +1,19 @@
+<section class="grow" id="grow">
+  <div class="container">
+    <h2 class="grow-caption">
+      <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="Grow">
+      Grow
+    </h2>
+    <div class="grow-content">
+      <p class="grow-content__desc">
+        <span>Ready to improve your website conversions?</span>
+        <br />
+        Sign up for a free account today!
+      </p>
+      <div class="grow-content-cta">
+        <div href="<%= Routes.user_path(@conn, :new) %>" class="grow-content-cta__btn" data-show-subscribe-popup>Join for free</div>
+        <p class="grow-content-cta__note">No credit card required</p>
+      </div>
+    </div>
+  </div>
+</section>

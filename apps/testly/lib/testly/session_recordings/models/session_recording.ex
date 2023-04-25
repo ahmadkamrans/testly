@@ -6,7 +6,7 @@ defmodule Testly.SessionRecordings.SessionRecording do
     Location,
     ReferrerSourceEnum,
     Page,
-    ProjectGoal
+    Goal
   }
 
   alias Testly.SessionRecordings.SplitTest.VariationVisit
@@ -26,9 +26,9 @@ defmodule Testly.SessionRecordings.SessionRecording do
         }
 
   schema "session_recordings" do
-    many_to_many :converted_project_goals, ProjectGoal,
-      join_through: "project_goal_conversions",
-      join_keys: [session_recording_id: :id, project_goal_id: :id]
+    many_to_many :converted_project_goals, Goal,
+      join_through: "goal_conversions",
+      join_keys: [session_recording_id: :id, goal_id: :id]
 
     has_many :split_test_variation_visits, VariationVisit
     has_many :split_test_variations, through: [:split_test_variation_visits, :variation]

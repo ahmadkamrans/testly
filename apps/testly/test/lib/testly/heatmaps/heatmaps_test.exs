@@ -28,19 +28,6 @@ defmodule Testly.HeatmapsTest do
     end
   end
 
-  describe "#get_pages_count/1" do
-    test "works" do
-      project = insert(:project)
-      page = insert(:heatmap_page, project_id: project.id)
-      snapshot = insert(:heatmap_snapshot, page: page)
-      snapshot2 = insert(:heatmap_snapshot, page: page, device_type: :mobile)
-      insert(:heatmap_view, snapshot: snapshot)
-      insert_list(2, :heatmap_view, snapshot: snapshot2)
-
-      assert Heatmaps.get_pages_count(project) == 1
-    end
-  end
-
   describe "#get_page/2" do
     test "works" do
       project = insert(:project)

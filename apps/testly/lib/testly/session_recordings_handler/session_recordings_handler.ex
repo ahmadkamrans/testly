@@ -2,6 +2,12 @@ defmodule Testly.SessionRecordingsHandler do
   alias Testly.SessionRecordings
   alias Testly.Goals
   alias Testly.SessionEvents
+  alias Testly.Repo
+  alias Ecto.Multi
+
+  use Appsignal.Instrumentation.Decorators
+
+  import Appsignal.Instrumentation.Helpers, only: [instrument: 3]
 
   @moduledoc ~S"""
   ## Workflow
@@ -25,23 +31,64 @@ defmodule Testly.SessionRecordingsHandler do
   1. Only one SessionRecording will be handled per time
   2. All SessionRecording will be handled, no matter if all servers will go down and then up
 
+  ## TODO
+  1. Use Horde.Registry instead of :pg2, to track which session recordings are in progress.
+     Waiting for https://github.com/derekkraan/horde/issues/37 to resolve
+
   ## Buffering
   There is no events and demand buffering
   """
 
+  @decorate transaction(:events_handling)
   def process_session_recording(session_recording) do
+    Appsignal.Transaction.set_sample_data("tags", %{session_recording_id: session_recording.id})
+
     unprocessed_events = SessionEvents.get_unprocessed_events(session_recording.id)
     grouped_events = SessionEvents.group_events_by_page_visited(unprocessed_events)
 
-    {:ok, pages} = SessionRecordings.calculate_pages(session_recording, grouped_events)
-    :ok = SessionEvents.process_events(pages, grouped_events)
+    result =
+      Multi.new()
+      |> Multi.run(:pages, fn _repo, _changes ->
+        instrument("SessionRecordings.calculate_pages", "Calculating pages", fn ->
+          SessionRecordings.calculate_pages(session_recording, grouped_events)
+        end)
+      end)
+      |> Multi.run(:events, fn _repo, %{pages: pages} ->
+        instrument("SessionEvents.process_events", "Processing events", fn ->
+          :ok = SessionEvents.process_events(pages, grouped_events)
+          {:ok, "events"}
+        end)
+      end)
+      |> Multi.run(:session_recording, fn _repo, _changes ->
+        instrument("SessionRecordings.calculate_session_recording", "Calculating session recoridngs", fn ->
+          SessionRecordings.calculate_session_recording(session_recording)
+        end)
+      end)
+      |> Multi.run(:goals, fn _repo, _changes ->
+        instrument("Goals.convert_goals", "Converting goals", fn ->
+          session_recording = SessionRecordings.get_session_recording(session_recording.id)
+          Goals.convert_goals(session_recording)
+          {:ok, session_recording}
+        end)
+      end)
+      |> Multi.run(:heatmaps, fn _repo, %{pages: pages} ->
+        instrument("Heatmaps.track", "Tracking heatmaps", fn ->
+          for page <- pages do
+            Testly.Heatmaps.track(session_recording, page)
+          end
 
-    {:ok, _} = SessionRecordings.calculate_session_recording(session_recording)
+          {:ok, "heatmaps"}
+        end)
+      end)
+      |> Repo.transaction(timeout: 60_000)
 
-    session_recording = SessionRecordings.get_session_recording(session_recording.id)
-    :ok = Goals.convert_goals(session_recording)
+    case result do
+      {:ok, _changes} ->
+        :ok
 
-    :ok
+      {:error, :events, changesets, _changes} ->
+        {:error, changesets}
+    end
   end
 
   @callback track_session_recording(SessionRecording.t(), [map()]) :: :ok | {:error, [Ecto.Changeset.t()]}

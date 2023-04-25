@@ -9,7 +9,5 @@ defmodule Testly.SessionRecordings.SplitTest.VariationVisit do
     belongs_to :session_recording, SessionRecording
 
     has_many :goal_conversions, GoalConversion, foreign_key: :split_test_variation_visit_id
-
-    field :visited_at, :utc_datetime
   end
 end

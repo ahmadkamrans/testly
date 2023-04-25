@@ -4,16 +4,12 @@ defmodule Testly.ProjectsFactory do
       alias Testly.Projects.{Project, User}
 
       def project_factory do
+        %{id: user_id} = insert(:user)
+
         %Project{
-          user: build(:project_user),
+          user_id: user_id,
           domain: sequence(:domain, &"example#{&1}.com"),
           is_deleted: false
-        }
-      end
-
-      def project_user_factory do
-        %User{
-          full_name: Faker.Name.name()
         }
       end
     end

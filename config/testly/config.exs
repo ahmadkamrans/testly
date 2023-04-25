@@ -7,10 +7,6 @@ config :testly, Testly.TrackingScript,
   source_script_url: "http://localhost:3001/testly.js",
   bucket: "cdn-localhost.testly.com"
 
-config :testly, Testly.CloudFlare,
-  zone_identifier: '',
-  auth_token: ''
-
 config :testly, Testly.Repo,
   migration_timestamps: [type: :utc_datetime, inserted_at: :created_at],
   migration_primary_key: [type: :uuid]
@@ -34,15 +30,5 @@ config :testly, :session_cookie_domain, "localhost"
 config :testly, Testly.SmartProxy, proxy_url: "http://localhost:4003/proxy/:recording_id/:url"
 
 config :testly, Testly.SplitTests.VariationReportDbDumper, enabled: true
-
-config :testly, Testly.SessionRecordings.Cleaner, enabled: true
-
-config :testly, Testly.Heatmaps.ViewsCleaner, enabled: true
-
-config :joken,
-  default_signer: [
-    signer_alg: "HS256",
-    key_octet: "test"
-  ]
 
 import_config "#{Mix.env()}.exs"

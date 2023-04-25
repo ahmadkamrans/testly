@@ -9,17 +9,6 @@ use Mix.Config
 # back to each application for organization purposes.
 import_config "*/config.exs"
 
-config :exq,
-  name: Exq,
-  namespace: "exq",
-  queues: [{"default", 10_000}, {"database", 10}],
-  poll_timeout: 50,
-  scheduler_poll_timeout: 200,
-  scheduler_enable: true,
-  max_retries: 10,
-  shutdown_timeout: 5000,
-  dead_max_jobs: 10_000
-
 config :geolix, init: {GeolixInit, :init}
 
 config :ua_inspector,
@@ -54,11 +43,13 @@ config :libcluster,
     ]
   ]
 
+config :phoenix, :template_engines,
+  eex: Appsignal.Phoenix.Template.EExEngine,
+  exs: Appsignal.Phoenix.Template.ExsEngine
+
 config :arc,
   storage: Arc.Storage.Local,
   asset_host: "http://localhost:4000"
-
-config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

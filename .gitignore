@@ -13,6 +13,7 @@ node_modules
 .vscode
 /priv
 /uploads
+/Mnesia.nonode@nohost
 
 shipit.sh
 docker-compose.yml

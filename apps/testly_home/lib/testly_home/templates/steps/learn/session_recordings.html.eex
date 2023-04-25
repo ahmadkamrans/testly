@@ -1,0 +1,40 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :learn, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :learn, feature: :session_recordings) %>
+
+  <div class="feature-content">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-learn-1">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/feature-pic-1.png") %>" alt="" class="feature-block-picture__img feature-pic-learn-1">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-recordings-1.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Session Recordings</h3>
+          <p class="feature-block-content__desc">Watch live, visitor session recordings of every single person that comes to your website. You’ll be able to see exactly how they interact with your site. Where are they scrolling? What are they clicking on? Are they confused by certain parts of your website? You’ll learn all of this and more by watching live session recordings. It’s like you’re sitting right next to them, looking over their shoulder, as they navigate your website. All it takes is copying and pasting 1 short line of code onto your website and you can be up and running in a matter of seconds.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-learn-2">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/learn/feature-pic-2.png") %>" alt="" class="feature-block-picture__img feature-pic-learn-2">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/learn-recordings-bg-2.svg") %>" alt="" class="feature-block-picture__bg feature-pic-learn-bg-2">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-recordings-2.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Screen Recording Details</h3>
+          <p class="feature-block-content__desc">Website traffic can perform differently depending on the device that is being used. Whether that's a desktop, a mobile device like an iPhone or an Android, or a tablet, you'll be able to segment and/or ignore your website traffic depending on the device, allowing you to better understand what's leading to sales.</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

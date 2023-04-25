@@ -10,10 +10,8 @@ pool_size =
 config :testly, Testly.Repo,
   url: "${DATABASE_URL}",
   database: "",
-  ssl: false,
-  pool_size: pool_size,
-  timeout: 60_000,
-  pool_timeout: 60_000
+  ssl: true,
+  pool_size: pool_size
 
 config :testly, Testly.SmartProxy, proxy_url: "${TESTLY_SMART_PROXY_URL}"
 
@@ -23,13 +21,3 @@ config :testly, Testly.TrackingScript,
   enable_supervisor: true,
   source_script_url: "${TRACKING_SCRIPT_URL}",
   bucket: "${TRACKING_SCRIPT_BUCKET}"
-
-config :testly, Testly.CloudFlare,
-  zone_identifier: "${TESTLY_CLOUDFLARE_ZONE_IDENTIFIER}",
-  auth_token: "${TESTLY_CLOUDFLARE_AUTH_TOKEN}"
-
-config :joken,
-  default_signer: [
-    signer_alg: "HS256",
-    key_octet: "${TESTLY_JWT_SIGN_KEY}"
-  ]

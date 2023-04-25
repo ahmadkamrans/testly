@@ -23,7 +23,7 @@ defmodule Testly.Mixfile do
   def application do
     [
       mod: {Testly.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :appsignal]
     ]
   end
 
@@ -37,21 +37,24 @@ defmodule Testly.Mixfile do
   defp deps do
     [
       {:testly_mailer, in_umbrella: true},
+      {:dataloader, "~> 1.0.0"},
       {:nimble_csv, "~> 0.3"},
       {:arc_ecto, "~> 0.11.1"},
       {:scrivener_ecto, "~> 2.0"},
+      {:appsignal, "~> 1.0"},
       {:proper_case, "~> 1.3.0"},
       {:libcluster, "~> 3.0"},
       {:ex_aws, "~> 2.1", override: true},
       {:hackney, "~> 1.9"},
       {:sweet_xml, "~> 0.6"},
       {:ex_aws_s3, "~> 2.0"},
+      {:honeybadger, "~> 0.7"},
       {:plug, "~> 1.7"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.1"},
       {:ecto_sql, "~> 3.0"},
       {:ecto_enum, "~> 1.0"},
-      {:exq, "~> 0.13"},
+      {:honeydew, "~> 1.4.0"},
       {:bcrypt_elixir, "~> 1.1"},
       {:comeonin, "~> 4.1"},
       {:timex, "~> 3.1"},
@@ -59,15 +62,14 @@ defmodule Testly.Mixfile do
       {:ua_inspector, "~> 0.18"},
       {:ref_inspector, "~> 0.20"},
       {:httpotion, "~> 3.1.0"},
-      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix_pubsub, "~> 1.1"},
       {:gen_stage, "~> 0.14.1"},
-      {:paginator, "~> 0.6"},
-      {:joken, "~> 2.0"},
+      {:horde, "~> 0.4.0-rc.2"},
       {:mox, "~> 0.5.0", only: :test},
       # Because of https://github.com/cmullaparthi/ibrowse/issues/162
       {:ibrowse, github: "cmullaparthi/ibrowse", override: true},
       {:faker, "~> 0.10", only: :test},
-      {:ex_machina, github: "thoughtbot/ex_machina", only: :test},
+      {:ex_machina, github: "thoughtbot/ex_machina", only: :test}
     ]
   end
 

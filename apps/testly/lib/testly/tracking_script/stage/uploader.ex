@@ -5,16 +5,15 @@ defmodule Testly.TrackingScript.Uploader do
   require Logger
 
   alias Testly.TrackingScript.Script
-  alias Testly.CloudFlare
 
   def start_link({project_id, content}) do
     Task.start_link(fn ->
-      with {:ok, _reponse} <- Script.store(content, project_id),
-           :ok <- CloudFlare.reset_cdn_cache() do
-        Logger.info("Tracking Script Upload Success (project_id : #{project_id})")
-      else
-        e ->
-          Logger.error("Tracking Script Upload Error (project_id : #{project_id}, error: #{inspect(e)}")
+      case Script.store(content, project_id) do
+        {:ok, _response} ->
+          Logger.info("Tracking Script Upload Success (project_id : #{project_id})")
+
+        {:error, error} ->
+          Logger.error("Tracking Script Upload Error (project_id : #{project_id}, error: #{inspect(error)}")
       end
     end)
   end

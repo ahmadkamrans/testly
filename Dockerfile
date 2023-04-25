@@ -1,6 +1,6 @@
 ARG APP_NAME
 
-FROM elixir:1.10-alpine as builder
+FROM elixir:1.8-alpine as builder
 RUN apk add --no-cache \
   gcc \
   git \
@@ -56,11 +56,11 @@ COPY . .
 COPY --from=home-frontend app/apps/testly_home /app/apps/testly_home
 COPY --from=admin-frontend app/apps/testly_admin /app/apps/testly_admin
 RUN mix do phx.digest, compile
-RUN mix distillery.release --env=prod --profile=testly:prod --verbose \
+RUN mix release --env=prod --profile=testly:prod --verbose \
   && mv _build/prod/rel/${APP_NAME} /app/release \
   && mv /app/release/bin/${APP_NAME} /app/release/bin/start_server
 
-FROM elixir:1.10-alpine as testly
+FROM elixir:1.8-alpine as testly
 ENV MIX_ENV=prod REPLACE_OS_VARS=true
 WORKDIR /app
 RUN apk add --no-cache bash curl jq imagemagick

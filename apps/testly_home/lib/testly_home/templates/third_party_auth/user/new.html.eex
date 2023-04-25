@@ -1,0 +1,8 @@
+<%= render TestlyHome.UserView, "form.html", 
+  Map.merge(assigns, %{
+    action: Routes.third_party_user_path(@conn, :create),
+    show_password_field: false,
+    show_fb_button: false,
+    hidden_fields: %{encrypted_facebook_identifier: @encrypted_facebook_identifier}
+  })
+%>

@@ -1,0 +1,46 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :prove, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :prove, feature: :idea_lab) %>
+
+  <div class="feature-content feature-content--prove">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-ideas-1">
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ideas-1.png") %>" alt="" class="feature-block-picture__img feature-block-prove-ideas-pic-1">
+        </div>
+        <div class="feature-block-content">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ideas-1.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Take The Ideas & Integrate Them Into Your Business</h3>
+          <p class="feature-block-content__desc">
+            Our Idea Lab allows you to quickly and easily search for split test ideas that you can implement on your website. You can then run a specific split test within Testly to track the results that you get from each of the ideas you try.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-prove-ideas-2">
+      <div class="feature-block-heading">
+        <div class="container">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-icons/prove-ideas-2.svg") %>" alt="" class="feature-block-content__icon">
+          <h3 class="feature-block-content__caption">Browse Through 1000s Of Unique Split Test Ideas</h3>
+        </div>
+      </div>
+      <div class="container">
+        <div class="feature-block-picture">
+          <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/prove-ideas-2.png") %>" alt="" class="feature-block-picture__img feature-block-prove-ideas-pic-2">
+        </div>
+        <div class="feature-block-content">
+          <p class="feature-block-content__desc">Inside of the Idea Lab, you'll be able to search through the largest repository of split test ideas on the planet. You'll find ideas you can split test on your landing pages, sales pages, optin pages, eCommerce pages, checkout pages, and much more. Every split test idea is categorized and color-coded by the type of split test. Every idea is also give an impact score from 1-5, indicating the size of impact that the idea may have on your business. You'll be able to sort and filter your results to find the best split test idea for your business.</p>
+
+          <p class="feature-block-content__note">1000s Of Split Test Ideas At Your Fingertips</p>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

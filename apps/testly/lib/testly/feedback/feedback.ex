@@ -1,6 +1,11 @@
 defmodule Testly.Feedback do
   alias Ecto.{Changeset, Multi}
-  alias Testly.{Repo, CursorPagination}
+
+  alias Testly.{
+    Repo,
+    Pagination
+  }
+
   alias Testly.Projects.Project
   alias Testly.SessionRecordings.SessionRecording
 
@@ -44,21 +49,15 @@ defmodule Testly.Feedback do
 
   def get_responses(_model, options \\ [])
 
-  def get_responses(%Poll{id: poll_id}, options) do
-    pagination = struct(CursorPagination, options[:pagination] || %{})
+  def get_responses(%Poll{id: poll_id}, params) do
+    pagination = Pagination.cast_params(params[:pagination] || %{})
 
     ResponseQuery.from_response()
+    |> Pagination.query(pagination)
     |> ResponseQuery.preload_assocs()
     |> ResponseQuery.where_poll_id(poll_id)
     |> ResponseQuery.order_by_field(:desc, :created_at)
-    # |> ResponseQuery.order_by_field(:asc, :id)
-    |> Repo.paginate(
-      cursor_fields: [:created_at],
-      limit: pagination.limit,
-      before: pagination.before,
-      after: pagination.after,
-      sort_direction: :desc
-    )
+    |> Repo.all()
   end
 
   def get_responses(%SessionRecording{id: session_recording_id}, _options) do
@@ -78,13 +77,13 @@ defmodule Testly.Feedback do
     |> Enum.map(&Poll.populate_questions/1)
   end
 
-  @spec get_active_polls_count(Project.t()) :: non_neg_integer()
-  def get_active_polls_count(%Project{id: project_id}) do
-    PollQuery.from_poll()
-    |> PollQuery.where_project_id(project_id)
-    |> PollQuery.where_active()
-    |> Repo.aggregate(:count, :id)
-  end
+  # @spec get_active_polls_count(Project.t()) :: non_neg_integer()
+  # def get_active_polls_count(%Project{id: project_id}) do
+  #   PollQuery.from_poll()
+  #   |> PollQuery.where_project_id(project_id)
+  #   |> PollQuery.where_active()
+  #   |> Repo.aggregate(:count, :id)
+  # end
 
   @spec get_polls_count(Project.t()) :: non_neg_integer()
   def get_polls_count(%Project{id: project_id}) do

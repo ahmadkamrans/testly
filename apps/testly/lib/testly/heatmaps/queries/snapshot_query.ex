@@ -1,7 +1,7 @@
 defmodule Testly.Heatmaps.SnapshotQuery do
   import Ecto.Query
 
-  alias Testly.Heatmaps.{Snapshot, View}
+  alias Testly.Heatmaps.{Snapshot}
 
   def from_snapshot do
     from(s in Snapshot, as: :snapshot)
@@ -16,10 +16,6 @@ defmodule Testly.Heatmaps.SnapshotQuery do
   end
 
   def preload_assocs(query) do
-    one_week_ago = Timex.subtract(Timex.now(), Timex.Duration.from_days(7))
-
-    view_query = from(v in View, where: v.visited_at >= ^one_week_ago)
-
-    preload(query, views: ^view_query)
+    preload(query, [:views])
   end
 end

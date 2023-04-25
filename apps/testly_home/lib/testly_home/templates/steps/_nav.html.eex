@@ -1,0 +1,78 @@
+<div class="feature-toc feature-toc--<%= @step %>">
+  <div class="container">
+    <nav class="feature-toc-main-nav">
+      <a 
+        class="feature-toc-main-nav__item <%= if(@step == :learn, do: "active") %>" 
+        href="<%= Routes.learn_path(@conn, :session_recordings) %>"
+        data-turbolinks-persist-scroll="true">Learn</a>
+      <a 
+        class="feature-toc-main-nav__item <%= if(@step == :prove, do: "active") %>" 
+        href="<%= Routes.prove_path(@conn, :ab_split_testing) %>"
+        data-turbolinks-persist-scroll="true">Prove</a>
+      <a 
+        class="feature-toc-main-nav__item <%= if(@step == :grow, do: "active") %>" 
+        href="<%= Routes.grow_path(@conn, :index) %>"
+        data-turbolinks-persist-scroll="true">Grow</a>
+    </nav>
+
+    <%= case @step do %>
+      <% :learn -> %>
+        <nav class="feature-toc-secondary-nav">
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :session_recordings, do: "active") %>" 
+            href="<%= Routes.learn_path(@conn, :session_recordings) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/learn/recording.svg") %>" alt="">
+            Visitor Session Recordings
+          </a>
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :heatmaps, do: "active") %>" 
+            href="<%= Routes.learn_path(@conn, :heatmaps) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/learn/heatmap.svg") %>" alt="">
+            Heat Maps
+          </a>
+          <!-- <a class="feature-toc-secondary-nav__item" href="">
+            <img src="" alt="">
+            Scroll Maps
+          </a> -->
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :feedback_polls, do: "active") %>" 
+            href="<%= Routes.learn_path(@conn, :feedback_polls) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/learn/feedback.svg") %>" alt="">
+            Feedback Polls
+          </a>
+        </nav>
+      <% :prove -> %>
+        <nav class="feature-toc-secondary-nav">
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :ab_split_testing, do: "active") %>" 
+            href="<%= Routes.prove_path(@conn, :ab_split_testing) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/prove/icon11.svg") %>" alt="">
+            A/B Split Testing
+          </a>
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :idea_lab, do: "active") %>" 
+            href="<%= Routes.prove_path(@conn, :idea_lab) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/prove/icon12.svg") %>" alt="">
+            Idea Lab
+          </a>
+          <a 
+            class="feature-toc-secondary-nav__item <%= if(@feature == :shared_tests, do: "active") %>" 
+            href="<%= Routes.prove_path(@conn, :shared_tests) %>"
+            data-turbolinks-persist-scroll="true">
+            <img src="<%= Routes.static_path(@conn, "/images/prove/icon13.svg") %>" alt="">
+            Shared Tests
+          </a>
+        </nav>
+      <% :grow -> %>
+    <% end %>
+  </div>
+  <div class="feature-toc-bg">
+    <div class="feature-toc-bg__shape-top"></div>
+    <div class="feature-toc-bg__shape-bottom"></div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<section class="reset-password">
+  <div class="container">
+    <h1 class="reset-password-caption">
+      Email password reset instruction
+    </h1>
+    <%= unless assigns[:success] do %>
+      <p class="reset-password-caption__desc">
+        Enter your email address for password reset instructions
+      </p>
+    <% end %>
+    <div class="reset-password-panel <%= if(assigns[:success], do: "reset-password-panel--success") %>">
+      <%= if assigns[:success] do %>
+        Password reset instructions have been sent to <%= @email %>. Please check your email.
+      <% else %>
+        <%= form_for @changeset, Routes.password_path(@conn, :create), fn f -> %>
+
+          <div class="panel-form-group">
+            <%= label(f, :email, "Email", class: "panel-form-label") %>
+            <%= email_input(f, :email, class: "panel-form-input", placeholder: "youremail@email.com") %>
+            <%= error_tag(f, :email) %>
+          </div>
+
+          <%= submit "Send password reset instruction", class: "panel-form-btn" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

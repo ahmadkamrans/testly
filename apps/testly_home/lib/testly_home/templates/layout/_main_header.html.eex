@@ -1,0 +1,81 @@
+<header class="main-header <%= if(assigns[:header_inverted], do: "main-header--inverted") %> <%= if(assigns[:header_for_features], do: "main-header--feature") %>">
+  <%= if assigns[:header_inverted] || assigns[:header_for_features] do %>
+    <style>
+      .turbolinks-progress-bar {
+        background-color: #0076ff;
+        height: 4px;
+      }
+    </style>
+  <% else %>
+    <style>
+      .turbolinks-progress-bar {
+        background-color: #380D40;
+        height: 4px;
+      }
+    </style>
+  <% end %>
+  
+  <div class="container">
+    <a class="main-header-logo-wrapper" href="/">
+      <img 
+        class="main-header-logo" 
+        src="<%= Routes.static_path(@conn, if(assigns[:header_inverted] || assigns[:header_for_features], do: "/images/logo-green.svg", else: "/images/logo.svg")) %>" 
+        alt="Testly"
+      >
+    </a>
+    <button class="main-header-navs-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </button>
+    <div class="main-header-navs">
+      <div class="main-header-navs-close">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="main-header-products">
+        <h6 class="main-header-products__caption">Products</h6>
+        <nav class="main-header-products-nav">
+          <a class="main-header-products-nav__item" href="<%= Routes.learn_path(@conn, :session_recordings) %>">
+            <img src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" alt="Learn icon">
+            Learn
+            <i class="fas fa-angle-right"></i>
+          </a>
+          <a class="main-header-products-nav__item" href="<%= Routes.prove_path(@conn, :ab_split_testing) %>">
+            <img src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" alt="Prove icon">
+            Prove
+            <i class="fas fa-angle-right"></i>
+          </a>
+          <a class="main-header-products-nav__item" href="<%= Routes.grow_path(@conn, :index) %>">
+            <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="Grow icon">
+            Grow
+            <i class="fas fa-angle-right"></i>
+          </a>
+        </nav>
+      </div>
+      <nav class="main-header-nav">
+        <a class="main-header-nav__item main-header-nav__item--bold" href="<%= Routes.learn_path(@conn, :session_recordings) %>">Features</a>
+        <a class="main-header-nav__item main-header-nav__item--bold" href="<%= Routes.pricing_path(@conn, :index) %>">Pricing</a>
+      </nav>
+      <nav class="main-header-nav">
+        <a class="main-header-nav__item" href="<%= customer_support_url() %>" target="_blank">Support</a>
+        <%= if current_user(@conn) do %>
+          <%= dashboard_link @conn, [class: "main-header-nav__item"], fn(_type) -> %>
+            Dashboard
+          <% end %>
+
+          <%= if false do %>
+            <%= link(to: Routes.session_path(@conn, :delete), method: :delete, class: "main-header-nav__item") do %>
+              Log out
+              <i class="fas fa-long-arrow-alt-right"></i>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link(to: "#", class: "main-header-nav__item", data: [show_subscribe_popup: ""]) do %>
+            Sign in
+            <i class="fas fa-long-arrow-alt-right"></i>
+          <% end %>
+        <% end %>
+      </nav>
+    </div> 
+  </div>
+</header>

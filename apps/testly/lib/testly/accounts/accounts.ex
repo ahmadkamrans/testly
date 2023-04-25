@@ -16,7 +16,6 @@ defmodule Testly.Accounts do
     @callback get_admin_by_email(String.t()) :: User.t() | nil
     @callback get_user_by_facebook_identifier(String.t()) :: User.t() | nil
     @callback get_user(String.t()) :: User.t() | nil
-    @callback get_user!(String.t()) :: User.t() | nil
     @callback change_registration_form(RegistrationForm.t() | ThirdPartyRegistrationForm.t()) ::
                 Changeset.t()
     @callback change_sign_in_form(SignInForm.t()) :: Changeset.t()
@@ -29,7 +28,7 @@ defmodule Testly.Accounts do
     @callback sign_in_admin(map()) :: {:ok, SignInForm.t()} | {:error, Changeset.t()}
     @callback reset_password_token(map()) :: {:ok, User.t()} | {:error, Changeset.t()}
     @callback reset_password(User.t(), map()) :: {:ok, User.t()} | {:error, Changeset.t()}
-    @callback update_user(User.t(), map(), boolean()) :: {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
+    @callback update_user(User.t(), map()) :: {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
     @callback update_user_password(User.t(), map()) :: :ok | {:error, Ecto.Changeset.t()}
     @callback delete_user!(User.t()) :: User.t()
   end
@@ -47,12 +46,11 @@ defmodule Testly.Accounts do
     PasswordManager,
     ResetPasswordTokenForm,
     ResetPasswordForm,
-    SendWelcomeEmailWorker,
-    SendResetPasswordEmailWorker,
     UpdatePasswordForm,
     UserQuery,
     UserFilter,
-    UserOrder
+    UserOrder,
+    Worker
   }
 
   @config Application.fetch_env!(:testly, __MODULE__)
@@ -131,19 +129,14 @@ defmodule Testly.Accounts do
   end
 
   @impl true
-  def get_user!(id) do
-    Repo.get!(User, id)
-  end
-
-  @impl true
   def delete_user!(user) do
     Repo.delete!(user)
   end
 
   @impl true
-  def update_user(user, params, is_admin \\ false) do
+  def update_user(user, params) do
     user
-    |> User.update_changeset(params, is_admin)
+    |> User.update_changeset(params)
     |> Repo.update()
   end
 
@@ -195,8 +188,8 @@ defmodule Testly.Accounts do
   end
 
   @impl true
-  def register_user(params, is_admin_allowed \\ false) do
-    case RegistrationForm.changeset(%RegistrationForm{}, params, &was_email_taken?/1, is_admin_allowed) do
+  def register_user(params) do
+    case RegistrationForm.changeset(%RegistrationForm{}, params, &was_email_taken?/1) do
       %Changeset{valid?: true} = changeset ->
         form = Changeset.apply_changes(changeset)
 
@@ -205,7 +198,7 @@ defmodule Testly.Accounts do
           |> User.register_changeset(form, &PasswordManager.encrypt/1)
           |> Repo.insert!()
 
-        SendWelcomeEmailWorker.enqueue(user.email, user.full_name, user.email)
+        Worker.enqueue_send_welcome_email(user)
 
         {:ok, user}
 
@@ -229,7 +222,7 @@ defmodule Testly.Accounts do
           |> User.register_changeset(form)
           |> Repo.insert!()
 
-        SendWelcomeEmailWorker.enqueue(user.email, user.full_name, user.email)
+        Worker.enqueue_send_welcome_email(user)
 
         {:ok, user}
 
@@ -281,11 +274,7 @@ defmodule Testly.Accounts do
           |> User.reset_password_token_changeset()
           |> Repo.update!()
 
-        SendResetPasswordEmailWorker.enqueue(
-          user.email,
-          user.full_name,
-          user.reset_password_token
-        )
+        Worker.enqueue_send_reset_password_email(user)
 
         {:ok, user}
 

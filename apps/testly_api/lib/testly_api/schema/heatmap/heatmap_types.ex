@@ -1,8 +1,7 @@
 defmodule TestlyAPI.Schema.HeatmapTypes do
   use Absinthe.Schema.Notation
 
-  alias Testly.Heatmaps
-  alias Testly.Projects.Project
+  alias TestlyAPI.HeatmapResolver
 
   enum(:heatmap_page_order_field,
     values: [
@@ -28,10 +27,7 @@ defmodule TestlyAPI.Schema.HeatmapTypes do
 
     field :snapshot, non_null(:heatmap_snapshot) do
       arg(:device_type, non_null(:device_type))
-
-      resolve(fn page, %{device_type: device_type}, _ctx ->
-        {:ok, Heatmaps.get_snapshot(page, device_type)}
-      end)
+      resolve(&HeatmapResolver.snapshot/3)
     end
   end
 
@@ -46,7 +42,6 @@ defmodule TestlyAPI.Schema.HeatmapTypes do
     field(:device_type, non_null(:device_type))
     field(:doc_type, non_null(:string))
     field(:dom_nodes, non_null(:json))
-
     field(:elements, non_null(list_of(non_null(:heatmap_element))))
   end
 
@@ -61,49 +56,22 @@ defmodule TestlyAPI.Schema.HeatmapTypes do
     field(:count, non_null(:integer))
   end
 
-  object :heatmap_pages_connection do
-    field :heatmap_pages, non_null(list_of(non_null(:heatmap_page))) do
-      resolve(fn %{project: project, pagination: pagination, filter: filter, order: order},
-                 _args,
-                 _resolution ->
-        {:ok, Heatmaps.get_pages(project, pagination: pagination, filter: filter, order: order)}
-      end)
-    end
-
-    field :total_records, non_null(:integer) do
-      resolve(fn %{project: project}, _args, _resolution ->
-        {:ok, Heatmaps.get_pages_count(%Project{id: project.id})}
-      end)
-    end
+  object :heatmap_page_connection do
+    field(:nodes, non_null(list_of(non_null(:heatmap_page))))
+    field(:total_count, non_null(:integer))
   end
 
   object :heatmap_queries do
-    field :heatmap_pages_connection, non_null(:heatmap_pages_connection) do
+    field :heatmap_pages, non_null(:heatmap_page_connection) do
       arg(:pagination, :pagination)
       arg(:filter, :heatmap_page_filter)
       arg(:order, :heatmap_page_order)
-
-      resolve(fn project, args, _resolution ->
-        {:ok,
-         %{
-           project: project,
-           pagination: args[:pagination],
-           filter: args[:filter],
-           order: args[:order]
-         }}
-      end)
+      resolve(&HeatmapResolver.heatmap_pages/3)
     end
 
     field :heatmap_page, non_null(:heatmap_page) do
       arg(:id, non_null(:uuid4))
-
-      resolve(fn %Project{} = _project,
-                 %{id: id},
-                 %{context: %{current_project_user: _current_project_user}} ->
-        # TODO: auth
-
-        {:ok, Heatmaps.get_page(id)}
-      end)
+      resolve(&HeatmapResolver.heatmap_page/3)
     end
   end
 end

@@ -7,7 +7,6 @@ defmodule TestlyRecorderAPI.Application do
     import Supervisor.Spec
     # Define workers and child supervisors to be supervised
     children = [
-      {Phoenix.PubSub, name: TestlyRecorderAPI.PubSub},
       # worker(TestlyRecorderAPI.ScriptCacher, []),
       supervisor(TestlyRecorderAPI.Endpoint, [])
       # Start your own worker by calling: TestlyRecorderAPI.Worker.start_link(arg1, arg2, arg3)

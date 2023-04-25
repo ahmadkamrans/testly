@@ -1,0 +1,36 @@
+<footer class="main-footer">
+  <div class="container">
+    <div class="main-footer-info">
+      <a href="/">
+        <img class="main-footer-logo" src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="">
+      </a>
+      <p class="main-footer-info__desc">The New Standard In Website Conversion Optimization</p>
+      <p class="main-footer-info__desc">© Testly</p>
+    </div>
+    <div class="main-footer-navs">
+      <div class="main-footer-navs__item">
+        <strong class="main-footer__caption">Resources</strong>
+        <nav class="main-footer-nav">
+          <a href="<%= blog_url() %>" class="main-footer-nav__item">Blog</a>
+        </nav>
+      </div>
+      <div class="main-footer-navs__item">
+        <strong class="main-footer__caption">Support</strong>
+        <nav class="main-footer-nav">
+          <a href="<%= knowledgebase_url() %>" class="main-footer-nav__item">Knowledgebase</a>
+          <a href="<%= customer_support_url() %>" class="main-footer-nav__item">Customer Support</a>
+        </nav>
+      </div>
+      <div class="main-footer-navs__item">
+        <strong class="main-footer__caption">Legal</strong>
+        <nav class="main-footer-nav">
+          <%= link "Legal", to: Routes.legal_path(@conn, :legal), class: "main-footer-nav__item" %>
+          <%= link "Privacy Policy", to: Routes.legal_path(@conn, :policy), class: "main-footer-nav__item" %>
+          <%= link "Terms of Use", to: Routes.legal_path(@conn, :terms), class: "main-footer-nav__item" %>
+          <%= link "Earnings Disclaimer", to: Routes.legal_path(@conn, :disclaimer), class: "main-footer-nav__item" %>
+          <%= link "Affiliate Agreement", to: Routes.legal_path(@conn, :agreement), class: "main-footer-nav__item" %>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

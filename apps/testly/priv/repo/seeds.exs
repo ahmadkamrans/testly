@@ -13,6 +13,7 @@
 alias Testly.Repo
 alias Testly.Projects.Project
 alias Testly.Accounts.User
+alias Testly.Goals.Goal
 alias Testly.SplitTests.{PageCategory, PageType}
 alias Testly.IdeaLab.Category, as: IdeaLabCategory
 
@@ -22,7 +23,7 @@ Repo.transaction(fn ->
       email: "user1@example.com",
       full_name: "John Smith",
       # password: qwerty
-      encrypted_password: "$2a$12$fjBfgWPUUU4xrHKpB16qt.ecSp3jXZcygj6rrbagKzkpRlk4lQHni",
+      encrypted_password: "$2b$12$yF3t4v8Glue9/N/pTeZ0Wus4M.G69hcVVKK2Rge6IzT8NvrghRdAK",
       is_admin: true
     })
 
@@ -51,7 +52,7 @@ Repo.transaction(fn ->
       domain: "doodly.com"
     })
 
-  Repo.insert!(%Testly.Goals.ProjectGoal{
+  Repo.insert!(%Goal{
     project_id: project_id,
     name: "Sale",
     value: 0,

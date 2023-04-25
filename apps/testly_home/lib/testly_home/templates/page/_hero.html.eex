@@ -1,0 +1,47 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-caption">
+        All-In-One Website Conversion Optimization
+      </h1>
+      <nav class="hero-steps">
+        <a class="hero-steps__item" href="#learn">
+          <img src="<%= Routes.static_path(@conn, "/images/learn.svg") %>" alt="Learn icon">
+          Learn
+          <i class="fas fa-angle-right"></i>
+        </a>
+        <a class="hero-steps__item" href="#prove">
+          <img src="<%= Routes.static_path(@conn, "/images/prove.svg") %>" alt="Prove icon">
+          Prove
+          <i class="fas fa-angle-right"></i>
+        </a>
+        <a class="hero-steps__item" href="#grow">
+          <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="Grow icon">
+          Grow
+          <i class="fas fa-angle-right"></i>
+        </a>
+      </nav>
+      <p class="hero-desc">
+        Testly gives you the tools you need to improve your website. We help you get more from your website traffic. More leads and more buyers, adding more customer value.
+      </p>
+      <div class="hero-controls">
+        <div>
+          <a class="hero-btn hero-btn--white" href="<%= Routes.learn_path(@conn, :session_recordings) %>">How Testly works</a>
+        </div>
+        <div class="hero-controls__group">
+          <div class="hero-btn" data-show-subscribe-popup role="button">JOIN FOR FREE</div>
+          <p class="hero-controls__note">No credit card required.</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-picture">
+      <img src="<%= Routes.static_path(@conn, "/images/hero-picture.png") %>" alt="Testly Services Illustration">
+    </div>
+  </div>
+  <div class="hero-bg">
+    <div class="hero-bg__shape-top"></div>
+    <div class="hero-bg__shape-middle-left"></div>
+    <div class="hero-bg__shape-middle-right"></div>
+    <div class="hero-bg__shape-bottom"></div>
+  </div>
+</section>

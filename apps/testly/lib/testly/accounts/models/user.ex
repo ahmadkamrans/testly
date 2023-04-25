@@ -36,9 +36,9 @@ defmodule Testly.Accounts.User do
     timestamps()
   end
 
-  def update_changeset(schema, params, is_admin \\ false) do
+  def update_changeset(schema, params) do
     schema
-    |> cast(params, [:full_name, :company_name, :phone] ++ if(is_admin, do: [:email, :is_admin], else: []))
+    |> cast(params, [:full_name, :company_name, :phone])
     |> cast_attachments(params, [:avatar])
     |> validate_required([:full_name])
   end
@@ -72,9 +72,7 @@ defmodule Testly.Accounts.User do
     |> change(%{
       full_name: form.full_name,
       email: form.email,
-      encrypted_password: encrypt.(form.password),
-      company_name: form.company_name,
-      is_admin: form.is_admin
+      encrypted_password: encrypt.(form.password)
     })
   end
 

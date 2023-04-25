@@ -36,7 +36,7 @@ jobs:
       - run: mix credo
       - run: MIX_ENV=test mix do ecto.create, ecto.migrate
       - run: mix test
-  deploy-stage:
+  deploy:
     working_directory: ~/testly_umbrella
     machine:
       enabled: true
@@ -50,36 +50,15 @@ jobs:
       - run: docker tag testly-stage:latest 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-stage:latest
       - run: docker push 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-stage:latest
       - run: aws ecs update-service --force-new-deployment --service testly-stage-app --cluster testly-stage-3 --region us-east-1
-
-  deploy-production:
-    working_directory: ~/testly_umbrella
-    machine:
-      enabled: true
-      docker_layer_caching: true
-    steps:
-      - run: sudo pip install awscli
-      - checkout
-      - run: $(aws ecr get-login --no-include-email --region us-east-1)
-
-      - run: docker build --target testly -t testly-production .
-      - run: docker tag testly-production:latest 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-production:latest
-      - run: docker push 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-production:latest
-      - run: aws ecs update-service --force-new-deployment --service testly-app --cluster testly-production --region us-east-1
 workflows:
   version: 2
 
   build-deploy:
     jobs:
       - build
-      - deploy-stage:
+      - deploy:
           requires:
             - build
           filters:
             branches:
               only: stage
-      - deploy-production:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master

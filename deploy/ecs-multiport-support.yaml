@@ -1,0 +1,210 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'Registers ecs tasks to a second target group'
+Parameters:
+  ClusterArn:
+    Description: 'ANR of cluster the service resides in'
+    Type: String
+  ServiceName:
+    Description: 'Name of the service to register'
+    Type: String
+  VpcId:
+    Description: 'VPC ID'
+    Type: String
+Outputs:
+  LambdaFunction:
+    Value: !GetAtt LambdaFunction.Arn
+Resources:
+  ALBTargetGroupApi:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: '5'
+      HealthCheckPath: '/health'
+      HealthCheckProtocol: 'HTTP'
+      HealthCheckTimeoutSeconds: '3'
+      HealthyThresholdCount: '2'
+      Port: '80'
+      Protocol: 'HTTP'
+      TargetGroupAttributes:
+      - Key: 'deregistration_delay.timeout_seconds'
+        Value: '60'
+      UnhealthyThresholdCount: '3'
+      VpcId: !Ref VpcId
+      TargetType: ip
+
+  ALBTargetGroupRecorderApi:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: '5'
+      HealthCheckPath: '/health'
+      HealthCheckProtocol: 'HTTP'
+      HealthCheckTimeoutSeconds: '3'
+      HealthyThresholdCount: '2'
+      Port: '80'
+      Protocol: 'HTTP'
+      TargetGroupAttributes:
+      - Key: 'deregistration_delay.timeout_seconds'
+        Value: '60'
+      UnhealthyThresholdCount: '3'
+      VpcId: !Ref VpcId
+      TargetType: ip
+
+
+  ALBTargetGroupSmartProxy:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: '5'
+      HealthCheckPath: '/health'
+      HealthCheckProtocol: 'HTTP'
+      HealthCheckTimeoutSeconds: '3'
+      HealthyThresholdCount: '2'
+      Port: '80'
+      Protocol: 'HTTP'
+      TargetGroupAttributes:
+      - Key: 'deregistration_delay.timeout_seconds'
+        Value: '60'
+      UnhealthyThresholdCount: '3'
+      VpcId: !Ref VpcId
+      TargetType: ip
+
+
+  ECSTaskStateChangeEventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: !Sub "Invoke Lambda Function for ECS Task Stage Changes of ${ServiceName}"
+      State: ENABLED
+      EventPattern:
+        source:
+          - "aws.ecs"
+        detail-type:
+          - "ECS Task State Change"
+        detail:
+          clusterArn:
+            - !Ref ClusterArn
+          group:
+            - !Sub "service:${ServiceName}"
+      Targets:
+        -
+          Arn: !GetAtt LambdaFunction.Arn
+          Id: "lambda"
+
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !Sub ${LambdaFunction.Arn}
+      Principal: 'events.amazonaws.com'
+      SourceArn: !Sub ${ECSTaskStateChangeEventRule.Arn}
+
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: !Sub 'Lambda function for registering and de-registering target of ${ServiceName}'
+      Environment:
+        Variables:
+          SERVICE: !Ref ServiceName
+          TARGET_GROUP_API: !Ref ALBTargetGroupApi
+          TARGET_GROUP_RECORDER_API: !Ref ALBTargetGroupRecorderApi
+          TARGET_GROUP_SMART_PROXY: !Ref ALBTargetGroupSmartProxy
+      Handler: 'index.lambda_handler'
+      MemorySize: 128
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: python3.6
+      Timeout: 10
+      Code:
+        ZipFile: |
+          import os
+          import json
+          import boto3
+
+          SERVICE = os.environ['SERVICE']
+          TARGET_GROUP_API = os.environ['TARGET_GROUP_API']
+          TARGET_GROUP_RECORDER_API = os.environ['TARGET_GROUP_RECORDER_API']
+          TARGET_GROUP_SMART_PROXY = os.environ['TARGET_GROUP_SMART_PROXY']
+
+          elbv2 = boto3.client('elbv2')
+          ecs = boto3.client('ecs')
+
+          def lambda_handler(event, context):
+
+              if event["source"] != "aws.ecs":
+                  raise ValueError("Function only supports input from events with a source type of: aws.ecs")
+
+              if event["detail-type"] != "ECS Task State Change":
+                  raise ValueError("Function only supports input from events with a detail-type of: ECS Task State Change")
+
+              lastStatus = event['detail']['lastStatus']
+              desiredStatus = event['detail']['desiredStatus']
+
+              if lastStatus == 'PENDING':
+                  # In Pending state we do not know host port yet
+                  return
+
+              print("Last Status: %s" % lastStatus)
+              print("Desired Status: %s" % desiredStatus)
+
+              res = ecs.describe_tasks(cluster=event['detail']['clusterArn'],tasks=[event['detail']['taskArn']])
+              details = res['tasks'][0]['attachments'][0]['details']
+
+              ip = next(x["value"] for x in details if x['name'] == "privateIPv4Address")
+
+              array = [
+                  [TARGET_GROUP_API, 4001],
+                  [TARGET_GROUP_RECORDER_API, 4002],
+                  [TARGET_GROUP_SMART_PROXY, 4003]
+              ]
+
+              for target_group_config in array:
+                  target = {'Id': ip,'Port': target_group_config[1]}
+                  print("Target: %s" % target)
+
+                  if lastStatus == 'RUNNING' and desiredStatus == 'RUNNING':
+                      print('Registering Target')
+                      elbv2.register_targets(TargetGroupArn=target_group_config[0], Targets=[target])
+
+                  if lastStatus == 'STOPPED' and desiredStatus == 'STOPPED':
+                      print('Deregistering Target')
+                      elbv2.deregister_targets(TargetGroupArn=target_group_config[0], Targets=[target])
+
+  LambdaExecutionRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            -
+              Effect: "Allow"
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        ManagedPolicyArns:
+          - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        Policies:
+          -
+            PolicyName: "DescribeECSAndElasticLoadBalancing"
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                -
+                  Effect: "Allow"
+                  Action:
+                    - "ecs:DescribeServices"
+                    - "ecs:DescribeTasks"
+                    - "ecs:DescribeContainerInstances"
+                  Resource: "*"
+          -
+            PolicyName: "UpdateTargetGroup"
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                -
+                  Effect: "Allow"
+                  Action:
+                    - "elasticloadbalancing:RegisterTargets"
+                    - "elasticloadbalancing:DeregisterTargets"
+                  Resource: 
+                    - !Ref ALBTargetGroupApi
+                    - !Ref ALBTargetGroupRecorderApi
+                    - !Ref ALBTargetGroupSmartProxy
+        Path: "/service-role/"

@@ -1,4 +1,4 @@
-defmodule TestlyAPI.Mixfile do
+defmodule TestlyApi.Mixfile do
   use Mix.Project
 
   def project do
@@ -23,7 +23,7 @@ defmodule TestlyAPI.Mixfile do
   def application do
     [
       mod: {TestlyAPI.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon]
+      extra_applications: [:logger, :runtime_tools, :appsignal]
     ]
   end
 
@@ -37,18 +37,17 @@ defmodule TestlyAPI.Mixfile do
   defp deps do
     [
       {:testly, in_umbrella: true},
-      {:phoenix, "~> 1.5"},
-      {:phoenix_live_dashboard, "~> 0.1"},
-      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix, "~> 1.4.0"},
+      {:honeybadger, "~> 0.7"},
+      {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_html, "~> 2.10"},
       {:gettext, "~> 0.11"},
-      {:plug_cowboy, "~> 2.2"},
-      {:absinthe, "1.5.0"},
-      {:absinthe_plug, "~> 1.5"},
+      {:plug_cowboy, "~> 2.0"},
+      {:absinthe, "1.5.0-alpha.4", override: true},
+      {:absinthe_plug, "~> 1.4"},
+      {:dataloader, "~> 1.0.0"},
       {:cors_plug, "~> 1.5.2"},
       {:proper_case, "~> 1.3.0"},
-      {:telemetry_poller, "~> 0.4"},
-      {:telemetry_metrics, "~> 0.4"},
       # TODO: change kronky to official when https://github.com/Ethelo/kronky/pull/5 will be merged
       {:kronky, github: "mirego/kronky"}
     ]

@@ -9,7 +9,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item">
-      <%= link "Users", to: Routes.user_path(@conn, :index), class: "" %>
+      <%= link "Test Ideas", to: Routes.user_path(@conn, :index), class: "" %>
     </li>
     <li class="breadcrumb-item active"><%= @user.full_name %></li>
   </ol>

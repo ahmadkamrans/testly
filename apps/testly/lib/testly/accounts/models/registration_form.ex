@@ -15,18 +15,13 @@ defmodule Testly.Accounts.RegistrationForm do
     field :full_name, :string, default: ""
     field :email, :string, default: ""
     field :password, :string, default: ""
-    field :company_name, :string, default: ""
     field :tos_accepted, :boolean, default: false
-    field :is_admin, :boolean, default: false
   end
 
-  @spec changeset(t(), map(), EmailValidator.was_email_taken(), boolean()) :: Changeset.t()
-  def changeset(form, params, was_email_taken?, is_admin_cast_allowed) do
+  @spec changeset(t(), map(), EmailValidator.was_email_taken()) :: Changeset.t()
+  def changeset(form, params, was_email_taken?) do
     form
-    |> cast(
-      params,
-      [:full_name, :email, :password, :tos_accepted] ++ if(is_admin_cast_allowed, do: [:is_admin], else: [])
-    )
+    |> cast(params, [:full_name, :email, :password, :tos_accepted])
     |> validate_required([:full_name, :email, :password, :tos_accepted])
     |> validate_acceptance(:tos_accepted, message: "you must accept the terms of service")
     |> EmailValidator.validate(was_email_taken?)

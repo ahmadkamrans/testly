@@ -1,0 +1,70 @@
+<section class="platforms">
+  <div class="container">
+    <h3 class="platforms-caption">
+      Testly is compatible with all<br /> website platforms, including<br /> but not limited too:
+    </h3>
+    <div class="platforms-list">
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/squarespace.png") %>" alt="Squarespace">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/clickfunnels.png") %>" alt="Click Funnels">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/magento.png") %>" alt="Magento">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/hubspot.png") %>" alt="hubspot">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/instapage.png") %>" alt="instapage">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/prestashop.png") %>" alt="prestashop">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/drupal.png") %>" alt="drupal">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/weebly.png") %>" alt="weebly">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/lightcms.png") %>" alt="lightcms">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/joomla.png") %>" alt="joomla">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/shopify.png") %>" alt="shopify">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/wix.png") %>" alt="wix">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/unbounce.png") %>" alt="unbounce">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/wordpress.png") %>" alt="wordpress">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/gtm.png") %>" alt="Google Tag Manager">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/leadpages.png") %>" alt="leadpages">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/infusionsoft.png") %>" alt="infusionsoft">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/duda.png") %>" alt="duda">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/mobirise.png") %>" alt="mobirise">
+      </div>
+      <div class="platforms-list__item">
+        <img src="<%= Routes.static_path(@conn, "/images/platforms/kartra.png") %>" alt="kartra">
+      </div>
+    </div>
+  </div>
+  <div class="platforms-bg"></div>
+</section>

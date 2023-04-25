@@ -1,21 +1,21 @@
 defmodule TestlySmartProxyWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :testly_smart_proxy_web
+  use Appsignal.Phoenix
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    plug(Phoenix.CodeReloader)
+    plug Phoenix.CodeReloader
   end
 
-  plug(Plug.Logger)
+  plug Plug.Logger
 
-  plug(Plug.Parsers,
+  plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Jason
-  )
+    json_decoder: Poison
 
-  plug(Plug.Head)
+  plug Plug.Head
 
   plug(CORSPlug,
     origin: [
@@ -26,7 +26,7 @@ defmodule TestlySmartProxyWeb.Endpoint do
     ]
   )
 
-  plug(TestlySmartProxyWeb.Router)
+  plug TestlySmartProxyWeb.Router
 
   @doc """
   Callback invoked for dynamically configuring the endpoint.

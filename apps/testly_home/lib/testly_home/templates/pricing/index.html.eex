@@ -1,0 +1,298 @@
+<section class="pricing-hero">
+  <div class="container">
+    <h1 class="pricing-hero__caption">Simple And Transparent Pricing</h1>
+    
+    <div class="pricing-hero-switch-wrapper">
+      <span>Annual (Save up to 30%)</span>
+      <label class="switch">
+        <input type="checkbox" id="pricingPlan" checked>
+        <span class="slider round"></span>
+      </label>
+      <span>Monthly</span>
+    </div>
+
+    <div class="pricing-packages">
+      <h3 class="pricing-packages-caption">
+        My website gets 
+        <span class="pricing-packages-caption__count">
+          <span id="pricingSliderValue">100,000</span><span id="priceSliderValuePlus" style="display: none;">+</span>
+        </span>
+        pageviews per month.
+      </h3>
+
+      <div class="pricing-slider-wrapper">
+          <!-- <input type="range" min="1" max="550" value="100" class="pricing-slider" id="pricingSlider"> -->
+          <div id="pricingSlider"></div>
+      </div>
+
+      <div class="pricing-packages-table">
+        <div class="pricing-packages-table-heading">
+          <div class="pricing-packages-table-heading__item">Pageviews/Month</div>
+          <div class="pricing-packages-table-heading__item">Price</div>
+        </div>
+        <div class="pricing-packages-table-content">
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue1" class="pricing-packages-table-content-item">
+            <div class="pricing-packages-table-content-item__views">1,000 pageviews</div>
+            <div class="pricing-packages-table-content-item__price">FREE</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue75" class="pricing-packages-table-content-item">
+            <div class="pricing-packages-table-content-item__views">7,500 pageviews</div>
+            <div class="pricing-packages-table-content-item__price js-package-price">$49/month</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue20" class="pricing-packages-table-content-item">
+            <div class="pricing-packages-table-content-item__views">20,000 pageviews</div>
+            <div class="pricing-packages-table-content-item__price js-package-price">$99/month</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue100" class="pricing-packages-table-content-item active">
+            <div class="pricing-packages-table-content-item__views">100,000 pageviews</div>
+            <div class="pricing-packages-table-content-item__price js-package-price">$149/month</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue300" class="pricing-packages-table-content-item ">
+            <div class="pricing-packages-table-content-item__views">300,000 pageviews</div>
+            <div class="pricing-packages-table-content-item__price js-package-price">$249/month</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue500" class="pricing-packages-table-content-item">
+            <div class="pricing-packages-table-content-item__views">500,000 pageviews</div>
+            <div class="pricing-packages-table-content-item__price js-package-price">$349/month</div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Get Started</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+          <!-- PRICING TABLE ITEM -->
+          <div id="pricingValue550" class="pricing-packages-table-content-item">
+            <div class="pricing-packages-table-content-item__views">550,000+ pageviews</div>
+            <div class="pricing-packages-table-content-item__price"></div>
+            <button class="pricing-packages-table-content-item__btn" data-show-subscribe-popup>Contact Us</button>
+          </div>
+          <!-- END PRICING TABLE ITEM -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="hero-bg">
+    <div class="hero-bg__shape-top"></div>
+    <div class="hero-bg__shape-middle-left"></div>
+    <div class="hero-bg__shape-middle-right"></div>
+    <div class="hero-bg__shape-bottom"></div>
+  </div>
+</section>
+
+
+<div class="container">
+  <h3 class="pricing-caption">Every level comes with all Testly features. Here's what you'll get...</h3>
+</div>
+
+<section class="pricing-block">
+  <div class="container">
+    <div class="pricing-block-name">
+      <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon-main.svg") %>" alt="">
+      <h5>Learn</h5>
+    </div>
+    <div class="pricing-block-content">
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Visitor Session Recordings</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon1.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">Watch live, visitor session recordings of every single person that comes to your website. You’ll be able to see exactly how they interact with your site. Where are they scrolling? What are they clicking on? Are they confused by certain parts of your website? You’ll learn all of this and more by watching live session recordings. It’s like you’re sitting right next to them, looking over their shoulder, as they navigate your website. All it takes is copying and pasting 1 short line of code onto your website and you can be up and running in a matter of seconds.</p>
+            <nav class="pricing-block-content-item-nav">
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/learn-icon1.svg") %>" alt="">
+                Visitor Session Recordings
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/learn-icon2.svg") %>" alt="">
+                Screen Recording Details
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Heat Maps</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon1-2.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">Our detailed heat maps and scroll maps will quickly and easily show you exactly which areas of your website users attention is drawn to. Are there certain images that users think are clickable and are distracting them from taking the action you want? You’ll learn this in seconds. Are areas of your website boring and other areas more exciting? Are there areas that cause your visitor to stop scrolling and read what you have to say? By studying the scroll maps, you’ll learn what is important and what isn’t, so you can improve the bad stuff, and do more of the good stuff.</p>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+      <!-- PRICING BLOCK ITEM -->
+      <!-- <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Scroll Maps</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon4.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit</p>
+          </div>
+        </div>
+      </div> -->
+      <!-- END PRICING BLOCK ITEM -->
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Feedback Polls</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon1-3.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">When in doubt, just ask. There’s no better way to fully understand why our visitors aren’t buying than by asking. You can set up action-based feedback polls which will appear on your website as your website visitors interact with certain elements on your website. Ask them multiple choice, or open ended questions for anything you’d like. It’s point and click easy, and the feedback you’ll receive from your visitors will be invaluable with helping you come up with ways to improve the user experience and your business.</p>
+            <nav class="pricing-block-content-item-nav">
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/feature-learn-feedbackpolls-icon1.svg") %>" alt="">
+                Create Widget Feedback
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/feature-learn-feedbackpolls-icon3.svg") %>" alt="">
+                Widget Customizable
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/feature-learn-feedbackpolls-icon2.svg") %>" alt="">
+                Create Unlimited Feedback Polls
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+    </div>
+  </div>
+</section>
+
+<section class="pricing-block pricing-block--prove">
+  <div class="container">
+    <div class="pricing-block-name">
+      <img src="<%= Routes.static_path(@conn, "/images/pricing/vector-icon2.svg") %>" alt="">
+      <h5>Prove</h5>
+    </div>
+    <div class="pricing-block-content">
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">A/B Split Testing</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/icon11.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">We're all about getting you results, so you can create as many split tests as you'd like. Test new ideas on your home page, your optin pages, checkout pages or eCommerce store pages. If it's a web page, you'll be able to test the ideas you gather during the "learn" stage. Website traffic can perform differently depending on the device that is being used. Whether it's a desktop, a mobile device like an iPhone or an Android, or a tablet, you'll be able to segment and/or ignore your website traffic depending on the device, allowing you to better understand what's leading to sales.</p>
+            <nav class="pricing-block-content-item-nav">
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon1.svg") %>" alt="">
+                Run Unlimited A/B Testing
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon3.svg") %>" alt="">
+                Segment Traffic By Device
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon2.svg") %>" alt="">
+                Bayesian Accuracy Technology
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon4.svg") %>" alt="">
+                Quick And Easy Split Test Setup
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Idea Lab</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/icon12.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">If you’re struggling to come up with things you can do to improve your conversions, you’ll never run short on ideas with the Testly Idea lab which lists 1,050 (and growing every week) proven ideas that you can split test. You’ll find split test ideas for Landing Pages, eCommerce Websites, Checkout Pages, Facebook Ads, Emails, Video Sales Letters, Adwords Ads, And More. Every idea comes complete with an Impact Score that measures how big (or small) of an effect the idea could have on your business. The entire database is ever-growing and changing. As new idea emerge,they’re added to the site. It’s also sortable, filterable… and interactive. Choose a test idea, and quickly and easily create a live A/B split test, all with a few simple mouse clicks.</p>
+            <nav class="pricing-block-content-item-nav">
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon7.svg") %>" alt="">
+                Run Unlimited A/B Testing
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon8.svg") %>" alt="">
+                Segment Traffic By Device
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+      <!-- PRICING BLOCK ITEM -->
+      <div class="pricing-block-content-item">
+        <h6 class="pricing-block-content-item__caption">Shared tests</h6>
+        <div class="pricing-block-content-item-content">
+          <div class="pricing-block-content-item-content__icon">
+            <img src="<%= Routes.static_path(@conn, "/images/pricing/icon13.svg") %>" alt="">
+          </div>
+          <div>
+            <p class="pricing-block-content-item-content__desc">Testly is more than an optimization tool. It’s also a growing community of smart and experienced online business owners. After you run an A/B split test, you’ll have the option to share your test results with the rest of the community. It’s completely optional. Some share and some don’t. You’ll have instant access to all of the shared split test results that others have shared with the community. Using this data, you’ll learn what’s worked to improve sales for others, and what was tried but may have actually lowered sales.</p>
+            <nav class="pricing-block-content-item-nav">
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon9.svg") %>" alt="">
+                Learn Which Strategies Are Working For Others
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon10.svg") %>" alt="">
+                View Proven Split Test Winners From All Industries
+              </div>
+              <div href="" class="pricing-block-content-item-nav__item">
+                <img src="<%= Routes.static_path(@conn, "/images/pricing/prove-icon11.svg") %>" alt="">
+                Rate Shared Split Test
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- END PRICING BLOCK ITEM -->
+    </div>
+  </div>
+</section>
+
+<section class="pricing-grow">
+  <div class="container">
+    <div class="grow-content">
+      <h2 class="grow-caption">
+        <img src="<%= Routes.static_path(@conn, "/images/grow.svg") %>" alt="Grow">
+        Grow
+      </h2>
+      <p class="grow-content__desc">
+        <span>Ready to improve your website conversions?</span>
+        <br />
+        Sign up for a free account today!
+      </p>
+      <div class="grow-content-cta">
+        <div href="#" class="grow-content-cta__btn" data-show-subscribe-popup role="button">Join for free</div>
+        <p class="grow-content-cta__note">No credit card required</p>
+      </div>
+    </div>
+  </div>
+</section>

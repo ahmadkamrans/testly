@@ -1,0 +1,27 @@
+<svg id="icon_9" data-name="icon 9" xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dae3f2;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #b7cae7;
+      }
+    </style>
+  </defs>
+  <circle id="Ellipse_10_copy" data-name="Ellipse 10 copy" class="cls-1" cx="300" cy="300" r="300"/>
+  <g>
+    <path id="Ellipse_16_copy_4" data-name="Ellipse 16 copy 4" class="cls-2" d="M431.334,278a130.987,130.987,0,1,0-.9,47h40.733a170,170,0,1,1,.419-47H431.334Zm-110.8,37.476a22,22,0,1,1,.887-27.87L297,301l21,13Z"/>
+    <path id="Ellipse_16_copy_5" data-name="Ellipse 16 copy 5" class="cls-3" d="M395.814,325a95.525,95.525,0,1,1,.5-47H373V258l-21.329,12.323a57.013,57.013,0,1,0-1.86,62.185L373,346V325h22.814Z"/>
+    <path class="cls-2" d="M573,350H547l-22.372-37H512.209L532,350H506l-22.372-37H366v21l-55-32,55-31v20H483.628L506,254h26l-19.791,37h12.419L547,254h26l-25.812,47.936Z"/>
+  </g>
+</svg>

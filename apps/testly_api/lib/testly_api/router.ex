@@ -1,15 +1,12 @@
 defmodule TestlyAPI.Router do
   use TestlyAPI, :router
-  import Phoenix.LiveDashboard.Router
+  use Honeybadger.Plug
 
   pipeline :auth do
     plug(Testly.Authenticator.InvalidateSessionPlug)
     plug(Testly.Authenticator.FetchUserPlug)
-    plug(TestlyAPI.Plug.AuthContext)
-  end
 
-  pipeline :ensure_admin do
-    plug TestlyAPI.EnsureAdmin
+    plug(TestlyAPI.Plug.AuthContext)
   end
 
   pipeline :api do
@@ -41,12 +38,6 @@ defmodule TestlyAPI.Router do
     )
 
     resources("/sessions", TestlyAPI.SessionController, only: [:delete], singleton: true)
-  end
-
-  scope "/" do
-    pipe_through([:browser, :auth, :ensure_admin])
-
-    live_dashboard "/dashboard", metrics: TestlyAPI.Telemetry
   end
 
   scope "/" do

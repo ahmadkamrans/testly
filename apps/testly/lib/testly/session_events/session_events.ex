@@ -18,8 +18,6 @@ defmodule Testly.SessionEvents do
     ProxyUrlReplacer
   }
 
-  @stale_period_in_days 30
-
   @spec create_events(Testly.Schema.pk(), [map()]) :: :ok | {:error, [Changeset.t()]}
   def create_events(session_recording_id, events_params) do
     case Event.create_changesets(session_recording_id, events_params) do
@@ -68,23 +66,22 @@ defmodule Testly.SessionEvents do
   @spec process_events([Page.t()], [[Event.t()]]) :: :ok
   # def process_events(unprocessed_events) do
   def process_events(pages, grouped_events) do
-    pages
-    |> Enum.zip(grouped_events)
-    |> Enum.map(fn {page, page_events} ->
-      page_events
-      |> proxify_assets
-      |> Enum.map(&Event.process_event(&1, page))
-    end)
-    |> List.flatten()
-    |> Enum.chunk_every(20)
-    |> Enum.each(fn chunked_events ->
-      Repo.insert_all(
-        EventSchema,
-        Enum.map(chunked_events, &Event.to_entry/1),
-        on_conflict: {:replace_all_except, [:id]},
-        conflict_target: [:id]
-      )
-    end)
+    events =
+      pages
+      |> Enum.zip(grouped_events)
+      |> Enum.map(fn {page, page_events} ->
+        page_events
+        |> proxify_assets
+        |> Enum.map(&Event.process_event(&1, page))
+      end)
+      |> List.flatten()
+
+    Repo.insert_all(
+      EventSchema,
+      Enum.map(events, &Event.to_entry/1),
+      on_conflict: :replace_all,
+      conflict_target: [:id]
+    )
 
     :ok
   end
@@ -157,21 +154,15 @@ defmodule Testly.SessionEvents do
   end
 
   def get_not_processed_session_recording_ids(limit: limit, except_ids: except_ids) do
-    limited_events =
-      from(
-        e in EventSchema,
-        where: e.is_processed == false,
-        where: not (e.session_recording_id in ^except_ids),
-        limit: 10_000
-      )
-
     from(
-      e in Ecto.Query.subquery(limited_events),
+      e in EventSchema,
+      where: e.is_processed == false,
+      where: not (e.session_recording_id in ^except_ids),
       limit: ^limit,
       group_by: e.session_recording_id,
       select: e.session_recording_id
     )
-    |> Repo.all(timeout: 120_000)
+    |> Repo.all()
   end
 
   def group_events_by_page_visited(events) do
@@ -180,21 +171,6 @@ defmodule Testly.SessionEvents do
     |> List.delete([])
     |> Enum.map(&Enum.reverse(&1))
     |> Enum.reverse()
-  end
-
-  def delete_recordings(recording_ids) do
-    {deleted_count, _} =
-      from(e in EventSchema, where: e.id in ^recording_ids)
-      |> Repo.delete_all()
-
-    deleted_count
-  end
-
-  def get_staled_event_ids(limit: limit) do
-    staled_time = Timex.shift(DateTime.utc_now(), days: -@stale_period_in_days)
-
-    from(e in EventSchema, where: e.happened_at < ^staled_time, select: e.id, limit: ^limit)
-    |> Repo.all()
   end
 
   defp calculate_page_visited_group(%PageVisitedEvent{} = event, grouped_events) do

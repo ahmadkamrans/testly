@@ -1,0 +1,40 @@
+<section class="feature">
+  <%= render(TestlyHome.StepsView, "_hero.html", step: :learn, conn: @conn) %>
+
+  <%= render(TestlyHome.StepsView, "_nav.html", conn: @conn, step: :learn, feature: :heatmaps) %>
+
+  <div class="feature-content">
+    <!-- FEATURE BLOCK -->
+    <div class="feature-block feature-block-heatmaps-1">
+      <div class="feature-block-picture">
+        <img src="<%= Routes.static_path(@conn, "/images/feature-screenshots/learn-heatmaps-1.png") %>" alt="" class="feature-block-picture__img feature-block-heatmaps-pic-1">
+      </div>
+      <div class="feature-block-heading">
+        <div class="container">
+          <h3 class="feature-block-content__caption">Watch LIVE Visitor Recordings & Analyze each and every visitor experience </h3>
+          <p>See how they are interacting with your website or specific pages.</p>
+        </div>
+      </div>
+      <div class="feature-block-content">
+        <div class="container">
+          <div class="feature-block-content__col">
+            <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-heatmaps-1.svg") %>" alt="" class="feature-block-content__icon">
+            <p class="feature-block-content__desc">Watch live, visitor session recordings of every single person that comes to your website. You’ll be able to see exactly how they interact with your site. Where are they scrolling? What are they clicking on? Are they confused by certain parts of your website?</p>
+          </div>
+          <div class="feature-block-content__col">
+            <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-heatmaps-2.svg") %>" alt="" class="feature-block-content__icon">
+            <p class="feature-block-content__desc">Where are they scrolling? What are they clicking on? Are they confused by certain parts of your website?<br/>
+            You’ll learn all of this and more by watching live session recordings. It’s like you’re sitting right next to them, looking over their shoulder, as they navigate your website. </p>
+          </div>
+          <div class="feature-block-content__col">
+            <img src="<%= Routes.static_path(@conn, "/images/feature-icons/learn-heatmaps-3.svg") %>" alt="" class="feature-block-content__icon">
+            <p class="feature-block-content__desc">You’ll learn all of this and more by watching live session recordings. It’s like you’re sitting right next to them, looking over their shoulder, as they navigate your website. All it takes is copying and pasting 1 short line of code onto your website and you can be up and running in a matter</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURE BLOCK -->
+  </div>
+
+  <%= render(TestlyHome.StepsView, "_footer.html", step: "learn", conn: @conn) %>
+</section>

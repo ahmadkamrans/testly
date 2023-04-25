@@ -5,9 +5,8 @@ defmodule Testly.Projects do
 
   defmodule Behaviour do
     alias Ecto.Changeset
-    alias Testly.Projects.{Project, User}
+    alias Testly.Projects.{Project}
 
-    @callback get_user(String.t()) :: User.t() | nil
     @callback get_project(String.t()) :: Project.t() | nil
     @callback get_project!(String.t()) :: Project.t()
     @callback get_relevant_project(String.t()) :: Project.t() | nil
@@ -30,17 +29,11 @@ defmodule Testly.Projects do
   alias Ecto.Changeset
 
   alias Testly.Projects.{
-    User,
     Project,
     ProjectQuery,
     ProjectFilter,
     ProjectOrder
   }
-
-  @impl true
-  def get_user(id) do
-    Repo.get(User, id)
-  end
 
   @impl true
   def get_project(id) do

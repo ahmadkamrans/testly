@@ -1,8 +1,9 @@
 use Mix.Config
 
+# TODO: Use ENV
 config :testly_mailer, :external_urls,
-  reset_password_form_url: "${TESTLY_MAILER_RESET_PASSWORD_FORM_URL}",
-  login_url: "${TESTLY_MAILER_LOGIN_URL}"
+  reset_password_form_url: "https://stage.testly.com/user/password/edit",
+  login_url: "https://stage.testly.com/sessions/new"
 
 config :testly_mailer, TestlyMailer,
   adapter: Bamboo.SMTPAdapter,

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <%= csrf_meta_tag() %>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= Routes.static_path(@conn, "/apple-touch-icon.png") %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= Routes.static_path(@conn, "/favicon-32x32.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/favicon-16x16.png") %>">
+    <link rel="manifest" href="<%= Routes.static_path(@conn, "/site.webmanifest") %>">
+    <link rel="mask-icon" href="<%= Routes.static_path(@conn, "/safari-pinned-tab.svg") %>" color="#5bbad5">
+  
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Testly</title>
+
+    <script src="https://recorder-stage.testly.com/script/98e01a0f-f7fc-4e02-a697-dd88b62d16b4.js"></script>
+
+    <script data-turbolinks-track="reload" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <link data-turbolinks-track="reload" rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <%= if honeybadger_js_enabled() do %>
+      <script src="//js.honeybadger.io/v0.5/honeybadger.min.js" type="text/javascript" data-apiKey="69bbf6f6"></script>
+    <% end %>
+  </head>
+
+  <body>
+    <%= render TestlyHome.LayoutView, "_main_header.html", assigns %>
+
+    <%= if assigns[:hero_neutral] do %>
+      <section class="hero hero--neutral">
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="hero-caption">
+              <%= @hero_neutral %>
+            </h1>
+            <div class="hero-contacts">
+              <p>Contact: <a href="mailto:<%= contact_support_email() %>"><%= contact_support_email() %></a></p>
+              <p>Last Updated: 06-24-2018</p>
+              <p><a href="<%= knowledgebase_url() %>">Visit Knowledge Base</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bg">
+          <div class="hero-bg__shape-top"></div>
+          <div class="hero-bg__shape-middle-left"></div>
+          <div class="hero-bg__shape-middle-right"></div>
+          <div class="hero-bg__shape-bottom"></div>
+        </div>
+      </section>
+    <% end %>
+
+    <%= render @view_module, @view_template, assigns %>
+
+    <%= render TestlyHome.LayoutView, "_main_footer.html", assigns %>
+
+    <%= render "_presale_popup.html" %>
+
+    <div class="dimmer"></div>
+  </body>
+</html>

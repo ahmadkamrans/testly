@@ -18,9 +18,7 @@ defmodule TestlySmartProxyWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
-
+      use Phoenix.ConnTest
       import TestlySmartProxyWeb.Router.Helpers
 
       # The default endpoint for testing

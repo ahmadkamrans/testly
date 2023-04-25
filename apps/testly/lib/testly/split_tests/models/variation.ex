@@ -23,12 +23,4 @@ defmodule Testly.SplitTests.Variation do
     |> validate_length(:url, max: 2000)
     |> validate_length(:name, max: 2000)
   end
-
-  def from_variations do
-    from(v in Variation, as: :variation)
-  end
-
-  def order_by_index(q) do
-    order_by(q, [variation: v], asc: :index)
-  end
 end
