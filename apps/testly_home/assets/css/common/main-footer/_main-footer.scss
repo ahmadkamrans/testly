@@ -1,0 +1,32 @@
+.main-footer {
+  width: 100%;
+  padding: 80px 0;
+
+  position: relative;
+
+  background-color: #0b2534;
+
+  color: $light-text;
+
+  z-index: 5;
+
+  @include r(880) {
+    padding: 40px 0;
+  }
+}
+
+.main-footer .container {
+  display: flex;
+  justify-content: space-between;
+
+  @include r(880) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  @include r(600) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+}

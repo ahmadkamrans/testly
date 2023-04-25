@@ -1,0 +1,85 @@
+jobs:
+  build:
+    working_directory: ~/testly_umbrella
+    docker:
+      - image: circleci/elixir:1.8.0-node-browsers
+        environment:
+          MIX_ENV: test
+
+      - image: circleci/postgres:10.5-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: testly_test
+          POSTGRES_PASSWORD: postgres
+      - image: redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-plt-cache-{{ checksum "mix.lock" }}
+      - restore_cache:
+          keys:
+            - v2-deps-cache-{{ checksum "mix.lock" }}
+      # - run: wget https://s3.us-east-2.amazonaws.com/stagetestlycom/GeoLite2-City_20181016.tar.gz -P apps/testly/priv/geo
+      # - run: mix do ua_inspector.download.databases --force, ua_inspector.download.short_code_maps --force, ref_inspector.download --force
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix compile --warnings-as-errors
+      - save_cache:
+          key: v2-deps-cache-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - ~/.mix
+      - run: mix format --check-formatted
+      - run: mix credo
+      - run: MIX_ENV=test mix do ecto.create, ecto.migrate
+      - run: mix test
+  deploy-stage:
+    working_directory: ~/testly_umbrella
+    machine:
+      enabled: true
+      docker_layer_caching: true
+    steps:
+      - run: sudo pip install awscli
+      - checkout
+      - run: $(aws ecr get-login --no-include-email --region us-east-1)
+
+      - run: docker build --target testly -t testly-stage .
+      - run: docker tag testly-stage:latest 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-stage:latest
+      - run: docker push 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-stage:latest
+      - run: aws ecs update-service --force-new-deployment --service testly-stage-app --cluster testly-stage-3 --region us-east-1
+
+  deploy-production:
+    working_directory: ~/testly_umbrella
+    machine:
+      enabled: true
+      docker_layer_caching: true
+    steps:
+      - run: sudo pip install awscli
+      - checkout
+      - run: $(aws ecr get-login --no-include-email --region us-east-1)
+
+      - run: docker build --target testly -t testly-production .
+      - run: docker tag testly-production:latest 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-production:latest
+      - run: docker push 490080012060.dkr.ecr.us-east-1.amazonaws.com/testly-production:latest
+      - run: aws ecs update-service --force-new-deployment --service testly-app --cluster testly-production --region us-east-1
+workflows:
+  version: 2
+
+  build-deploy:
+    jobs:
+      - build
+      - deploy-stage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: stage
+      - deploy-production:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

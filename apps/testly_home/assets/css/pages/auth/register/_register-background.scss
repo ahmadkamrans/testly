@@ -1,0 +1,44 @@
+.register-bg {
+  @extend .login-bg;
+
+  top: 290px;
+}
+
+.register-bg__highlight {
+  @extend .login-bg__highlight;
+}
+
+.register-bg__shade {
+  @extend .login-bg__shade;
+}
+
+.register-bg__blue-shade {
+  width: 520px;
+  height: 35px;
+
+  position: absolute;
+  top: -35px;
+  left: -400px;
+
+  background-color: #d5e1e9;
+  border-radius: 0 100px 0 0;
+  z-index: 2;
+}
+
+.register-bg__green-shade {
+  width: 520px;
+  height: 45px;
+
+  position: absolute;
+  top: -45px;
+  left: calc(50% - 425px);
+
+  background-color: #05ac6a;
+  border-radius: 100px 100px 0 0;
+  z-index: 2;
+
+  @include r(1000) {
+    left: auto;
+    right: -400px;
+  }
+}

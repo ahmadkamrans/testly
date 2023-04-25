@@ -1,0 +1,45 @@
+.feature-toc {
+  margin-top: 100px;
+  padding: 100px 0 150px;
+
+  position: relative;
+
+  & > .container {
+    position: relative;
+
+    z-index: 5;
+  }
+
+  @include r(1000) {
+    margin-top: 50px;
+    padding-bottom: 100px;
+  }
+
+  @include r(400) {
+    padding: 75px 0;
+  }
+}
+
+.feature-toc--prove {
+  .feature-toc-main-nav__item.active {
+    background-color: #a78ce9;
+  }
+
+  .feature-toc-secondary-nav__item {
+    color: #a78ce9;
+
+    &.active {
+      border-color: #a78ce9;
+    }
+  }
+}
+
+.feature-toc--grow {
+  .feature-toc-main-nav__item.active {
+    background-color: #19b5fe;
+  }
+
+  .feature-toc-bg__shape-bottom {
+    display: none;
+  }
+}

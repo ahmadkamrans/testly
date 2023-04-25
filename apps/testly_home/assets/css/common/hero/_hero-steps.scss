@@ -1,0 +1,45 @@
+.hero-steps {
+  display: flex;
+  align-items: center;
+
+  width: 260px;
+  padding: 5px 7.5px;
+
+  background-color: rgba($color: #000, $alpha: .15);
+  border-radius: 25px;
+
+  @include r(880) {
+    margin: 0 auto;
+  }
+}
+
+.hero-steps__item {
+  display: flex;
+  align-items: center;
+
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none; 
+
+  transition: opacity .2s;
+
+  &:hover {
+    opacity: .75;
+  }
+
+  & + & {
+    margin-left: 15px;
+  }
+
+  & > img {
+    margin-right: 5px;
+    width: 20px;
+  }
+
+  & > i {
+    margin-left: 5px;
+
+    position: relative;
+    top: 1px;
+  }
+}

@@ -1,0 +1,24 @@
+<%
+  distance = Map.get(@pagination, :distance, 5) 
+  page_number = @pagination.page
+  total_pages = @total_pages
+%>
+<nav>
+  <ul class="pagination">
+    <li class="page-item">
+      <%= prev_link(@conn, page_number, total_pages) %>
+    </li>
+    <%= if total_pages > 1 do %>
+      <%= for num <- start_page(page_number, distance)..end_page(page_number, total_pages, distance) do %>
+        <li class="page-item <%= if page_number == num, do: "active", else: "" %>">
+          <a href="?<%= querystring( @conn, %{"pagination[page]" => num} ) %>" class="page-link">
+            <%= num %>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+    <li class="page-item">
+      <%= next_link(@conn, page_number, total_pages) %>
+    </li>
+  </ul>
+</nav>

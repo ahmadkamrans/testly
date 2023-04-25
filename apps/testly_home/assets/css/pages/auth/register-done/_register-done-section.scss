@@ -1,0 +1,31 @@
+.register-done {
+  margin-top: 65px;
+  padding: 20px 0 50px;
+
+  position: relative;
+
+  overflow: hidden;
+  z-index: 5;
+
+  @include r(1000) {
+    padding-bottom: 20px;
+  }
+}
+
+.register-done-caption {
+  @extend .register-caption;
+
+  margin-bottom: 65px;
+
+  position: relative;
+
+  line-height: 1.25;
+
+  z-index: 5;
+}
+
+.register-done-caption__line-break {
+  @include r(767) {
+    display: none;
+  }
+}

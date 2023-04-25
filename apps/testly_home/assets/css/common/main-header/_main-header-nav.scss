@@ -1,0 +1,130 @@
+.main-header-navs {
+  display: flex;
+  align-items: center;
+
+  @include r(580) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 20px;
+
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    right: 10px;
+
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 25px rgba(0,0,0,.2);
+    opacity: 0;
+    
+    z-index: 6;
+    pointer-events: none;
+    transform: scale(0.95);
+    transform-origin: right top;
+    transition: transform .06s ease-in-out, opacity .11s ease-in-out;
+  }
+
+  &.is-active {
+    opacity: 1;
+
+    pointer-events: all;
+    transform: scale(1);
+  }
+
+  @include r(400) {
+    padding: 15px;
+  }
+}
+
+.main-header-nav {
+  &:last-of-type {
+    @include r(580) {
+      width: calc(100% + 40px);
+      margin: 20px -20px -20px -20px !important;
+      padding: 10px 20px 20px;
+
+      background-color: #edf3f9;
+      border-radius: 0 0 5px 5px;
+
+      & > .main-header-nav__item {
+        font-weight: 700;
+
+        &:first-child {
+          display: none;
+        }
+      }
+    }
+
+    @include r(400) {
+      &:last-of-type {
+        width: calc(100% + 30px);
+        margin: 15px -15px -15px -15px !important;
+        padding: 5px 15px 15px;
+      }
+    }
+  }
+
+  & + & {
+    margin-left: 75px;
+
+    @include r(767) {
+      margin-left: 30px;
+    }
+
+    @include r(580) {
+      margin: 10px 0 0;
+    }
+  }
+
+  @include r(580) {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 20px;
+  }
+}
+
+.main-header-nav__item {
+  font-size: 17px;
+  color: #fff;
+  text-decoration: none;
+  
+  transition: opacity .15s;
+
+  &:hover {
+    opacity: .5;
+  }
+
+  & + & {
+    margin-left: 25px;
+
+    @include r(580) {
+      margin: 10px 0 0;
+    }
+  }
+
+  & > i {
+    margin-left: 5px;
+
+    position: relative;
+    top: 1px;
+  }
+
+  @include r(580) {
+    font-size: 16px;
+    color: $dark-text;
+  }
+
+  @include r(400) {
+    font-size: 14px;
+  }
+}
+
+.main-header-nav__item--bold {
+  font-weight: 700;
+
+  @include r(580) {
+    font-weight: 400;
+  }
+}

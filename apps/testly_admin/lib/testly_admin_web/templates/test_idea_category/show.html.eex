@@ -1,0 +1,39 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="mb-0">
+    <%= @category.name %>
+  </h1>
+
+  <%= link "Edit", to: Routes.test_idea_category_path(@conn, :edit, @category), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+      <%= link "Test Ideas", to: Routes.test_idea_category_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active"><%= @category.name %></li>
+  </ol>
+</nav>
+
+<section class="card">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>ID</th>
+        <td><%= @category.id %></td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td><%= @category.name %></td>
+      </tr>
+      <tr>
+        <th>Color</th>
+        <td><%= @category.color %></td>
+      </tr>
+      <tr>
+        <th>Icon</th>
+        <td><img src="<%= Testly.IdeaLab.CategoryIcon.url({@category.icon, @category}) %>" alt="Icon"/></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

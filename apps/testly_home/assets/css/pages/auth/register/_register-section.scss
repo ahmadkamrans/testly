@@ -1,0 +1,43 @@
+.register {
+  margin-top: 75px;
+  padding-top: 20px;
+
+  position: relative;
+  overflow: hidden;
+
+  @include r(580) {
+    margin-top: 65px;
+  }
+}
+
+.register .container {
+  position: relative;
+
+  z-index: 4;
+}
+
+.register-caption {
+  margin-bottom: 15px;
+
+  font-size: 36px;
+  font-weight: 400;
+  color: $dark-text;
+  text-align: center;
+
+  @include r(580) {
+    font-size: 32px;
+  }
+
+  @include r(400) {
+    font-size: 26px;
+    font-weight: 500;
+  }
+}
+
+.register-caption__desc {
+  margin-bottom: 50px;
+
+  font-size: 17px;
+  color: $dark-text;
+  text-align: center;
+}

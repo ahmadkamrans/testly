@@ -1,0 +1,20 @@
+.panel-form-input {
+  display: block;
+
+  width: 100%;
+  padding: 12px 15px;
+
+  border: none;
+  border-radius: 3px;
+  background-color: #eff3f7;
+
+  font-size: 14px;
+
+  &::placeholder {
+    color: #abb2c0;
+  }
+
+  @include r(400) {
+    padding: 10px;
+  }
+}

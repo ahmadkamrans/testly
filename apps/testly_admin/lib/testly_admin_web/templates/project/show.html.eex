@@ -1,0 +1,35 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="mb-0">
+    Project <%= @project.domain %>
+  </h1>
+
+  <%= link "Edit", to: Routes.project_path(@conn, :edit, @project), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+      <%= link "Projects", to: Routes.project_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active"><%= @project.domain %></li>
+  </ol>
+</nav>
+
+<section class="card">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Domain</th>
+        <td><%= @project.domain %></td>
+      </tr>
+      <tr>
+        <th>Is recording enabled</th>
+        <td><%= @project.is_recording_enabled %></td>
+      </tr>
+      <tr>
+        <th>Is deleted</th>
+        <td><%= @project.is_deleted %></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

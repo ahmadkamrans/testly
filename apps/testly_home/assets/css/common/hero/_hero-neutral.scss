@@ -1,0 +1,63 @@
+.hero--neutral {
+  padding-bottom: 300px;
+
+  @include r(960) {
+    padding-bottom: 100px;
+  }
+}
+
+.hero--neutral .hero-content {
+  width: 100%;
+}
+
+.hero--neutral .hero-caption {
+  margin-top: 50px;
+
+  font-size: 45px;
+}
+
+.hero-contacts {
+  position: absolute;
+  top: 220px;
+  right: 0;
+
+  color: $dark-text;
+  text-align: right;
+
+  & > p {
+    margin: 0 0 5px;
+
+    & > a {
+      color: $main-green;
+      transition: color .2s;
+
+      &:hover {
+        color: lighten($main-green, 10%);
+
+        @include r(960) {
+          color: lighten($main-green, 40%);
+        }
+      }
+
+      @include r(960) {
+        right: auto;
+        left: 0;
+
+        color: lighten($main-green, 60%);
+      }
+    }
+  }
+
+  @include r(1500) {
+    top: 300px;
+  }
+
+  @include r(960) {
+    position: relative;
+    top: 0;
+    right: 0;
+
+    color: #fff;
+    text-align: left;
+  }
+}

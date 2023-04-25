@@ -1,0 +1,23 @@
+.panel-form-label {
+  display: block;
+  margin-bottom: 7px;
+  padding-left: 4px;
+
+  font-size: 15px;
+  letter-spacing: .25px;
+  font-weight: 500;
+  color: $dark-text;
+  text-align: left;
+
+  @include r(400) {
+    font-size: 13px;
+  }
+}
+
+.panel-form-label__line-break {
+  display: none;
+  
+  @include r(670) {
+    display: block;
+  }
+}

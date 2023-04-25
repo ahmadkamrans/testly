@@ -1,0 +1,26 @@
+.info-block {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 25px 0;
+
+  &:nth-child(odd) {
+    flex-direction: row-reverse;
+    
+    @include r(999) {
+      flex-direction: column;
+    }
+  }
+
+  & + & {
+    margin-top: 50px;
+
+    @include r(880) {
+      margin-top: 25px;
+    }
+  }
+
+  @include r(999) {
+    flex-direction: column;
+  }
+}

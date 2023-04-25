@@ -1,0 +1,29 @@
+.grow {
+  padding-bottom: 50px;
+
+  position: relative;
+
+  background-color: $dark-background;
+
+  z-index: 5;
+
+  @include r(880) {
+    padding-bottom: 20px;
+  }
+}
+
+
+
+.grow .container {
+  padding-top: 50px;
+
+  position: relative;
+
+  border-top: 3px solid #14425c;
+
+  z-index: 5;
+
+  @include r(880) {
+    padding-top: 20px;
+  }
+}

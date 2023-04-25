@@ -1,0 +1,7 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= input f, :name %>
+  <%= input f, :color %>
+  <%= input f, :icon, input_opts: [type: :file_input] %>
+
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

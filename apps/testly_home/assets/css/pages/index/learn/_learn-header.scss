@@ -1,0 +1,62 @@
+.learn-header {
+  display: flex;
+  align-items: center;
+
+  @include r(1200) {
+    justify-content: center;
+  }
+
+  @include r(400) {
+    flex-direction: column;
+  }
+}
+
+.learn-caption {
+  display: flex;
+  align-items: center;
+
+  margin-right: 40px;
+
+  font-size: 40px;
+  font-weight: 400;
+  color: $main-blue;
+
+  & > img {
+    margin-right: 10px;
+  }
+
+  @include r(550) {
+    margin-right: 20px;    
+  }
+}
+
+.learn-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.learn-list__item {
+  display: flex;
+  align-items: center;
+
+  opacity: .8;
+
+  color: #777;
+  font-size: 17px;
+  text-decoration: none;
+
+  transition: opacity .15s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & + & {
+    margin-top: 8px;
+  }
+
+  & > img {
+    width: 20px;
+    margin-right: 5px;
+  }
+}

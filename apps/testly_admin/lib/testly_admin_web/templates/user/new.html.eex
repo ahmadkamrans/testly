@@ -1,0 +1,14 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link "Users", to: Routes.user_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active">Edit</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-body">
+    <%= render "registration_form.html", assigns %>
+  </div>
+</div>

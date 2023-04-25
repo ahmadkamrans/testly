@@ -1,0 +1,43 @@
+.feature-toc-bg {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: #0f4969;
+
+  transform: skewY(-10deg);
+  z-index: 1;
+}
+
+.feature-toc-bg__shape-top {
+  height: 40%;
+  width: 30%;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background: linear-gradient(to right, transparent, #1e6287);
+
+  @include r(767) {
+    display: none;
+  }
+}
+
+.feature-toc-bg__shape-bottom {
+  height: 60%;
+  width: 30%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  background: linear-gradient(to left, transparent, #2f5d78);
+
+  @include r(767) {
+    display: none;
+  }
+}

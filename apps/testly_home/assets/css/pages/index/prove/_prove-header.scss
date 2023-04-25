@@ -1,0 +1,62 @@
+.prove-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 75px;
+}
+
+.prove-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 40px;
+  font-weight: 400;
+  color: $main-blue;
+
+  & > img {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+}
+
+.prove-list {
+  display: flex;
+  align-items: center;
+
+  @include r(400) {
+    flex-direction: column;
+  }
+}
+
+.prove-list__item {
+  display: flex;
+  align-items: center;
+
+  opacity: .8;
+
+  color: #b0b5c3;
+  font-size: 17px;
+  text-decoration: none;
+
+  transition: opacity .15s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & + & {
+    margin-left: 20px;
+
+    @include r(400) {
+      margin: 10px 0 0;
+    }
+  }
+
+  & > img {
+    width: 18px;
+    margin-right: 5px;
+  }
+
+}

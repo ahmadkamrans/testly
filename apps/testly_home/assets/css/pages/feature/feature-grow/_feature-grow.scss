@@ -1,0 +1,18 @@
+.feature-grow {
+  margin-top: -200px;
+  padding-bottom: 60px;
+
+  overflow: hidden;
+
+  background-color: transparent;
+}
+
+.feature-grow .container {
+  padding-top: 280px;
+
+  border-top: none;
+
+  @include r(1000) {
+    padding-top: 200px;
+  }
+}

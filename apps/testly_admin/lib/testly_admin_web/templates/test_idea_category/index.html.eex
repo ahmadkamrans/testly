@@ -1,0 +1,42 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="h3 mb-0">
+    Idea Categories
+  </h1>
+
+  <%= link "New Category", to: Routes.test_idea_category_path(@conn, :new), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<%= if length(@entries) > 0 do %>
+  <div class="card">
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th class="sorting"><%= table_link(@conn, @order, "Name", :name) %></th>
+          <th class="sorting"><%= table_link(@conn, @order, "Color", :color) %></th>
+          <th><span>Icon</span></th>
+          <th><span>Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for category <- @entries do %>
+          <tr>
+            <td><%= link category.name, to: Routes.test_idea_category_path(@conn, :show, category) %></td>
+            <td><%= category.color %></td>
+            <td><img src="<%= Testly.IdeaLab.CategoryIcon.url({category.icon, category}) %>" alt="Icon"/></td>
+            <td class="table-action">
+              <%= link to: Routes.test_idea_category_path(@conn, :edit, category) do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+              <% end %>
+              <%= link to: Routes.test_idea_category_path(@conn, :delete, category), method: :delete, data: [confirm: "Are you sure?"]  do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= render TestlyAdminWeb.PaginationView, "_pagination.html", assigns %>
+<% else %>
+  <p>No Categories match your search.</p>
+<% end %>

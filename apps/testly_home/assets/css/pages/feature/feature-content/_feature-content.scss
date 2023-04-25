@@ -1,0 +1,17 @@
+.feature-content {
+  position: relative;
+
+  z-index: 5;
+}
+
+.feature-content--prove {
+  .feature-block-content__caption {
+    color: #573e8e;
+  }
+}
+
+.feature-content--grow {
+  background-color: #0f4969;
+
+  color: #fff;
+}

@@ -1,0 +1,43 @@
+.register-done-panel {
+  @extend .register-panel;
+
+  width: 480px;
+  height: 500px;
+
+  padding: 50px 60px;
+  margin: 0;
+  
+  @include r(1000) {
+    height: auto;
+    margin: 0 auto 20px;
+    padding: 50px;
+  }
+
+  @include r(767) {
+    width: 100%;
+  }
+
+  @include r(480) {
+    padding: 20px 30px;
+  }
+}
+
+.register-done-form__label {
+  letter-spacing: .75px;
+
+  @include r(767) {
+    padding-left: 0;
+
+    letter-spacing: 0;
+  }
+}
+
+.register-done-form__btn {
+  width: 250px;
+  padding: 20px;
+
+  @include r(767) {
+    width: 100%;
+    padding: 15px;
+  }
+}

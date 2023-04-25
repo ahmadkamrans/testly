@@ -1,0 +1,40 @@
+.platforms-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.platforms-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: calc(20% - 10px);
+  height: 80px;
+  padding: 20px;
+  margin: 5px;
+
+  background-color: #14435c;
+  border-radius: 5px;
+
+  transition: background-color .15s;
+
+  &:hover {
+    background-color: lighten(#14435c, 8%);
+  }
+
+  & > img {
+    max-width: 100%;
+    transform: scale(.8);
+  }
+
+  @include r(880) {
+    width: calc(25% - 10px);
+  }
+
+  @include r(650) {
+    height: 50px;
+    width: calc(50% - 10px);
+    padding: 10px;
+    margin: 0 5px 5px 0;
+  }
+}

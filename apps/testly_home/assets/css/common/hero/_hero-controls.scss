@@ -1,0 +1,86 @@
+.hero-controls {
+  display: flex;
+
+  margin-top: 50px;
+
+  @include r(880) {
+    justify-content: center;
+  }
+
+  @include r(400) {
+    flex-direction: column;
+
+    width: 200px;
+    margin: 0 auto;
+  }
+}
+
+.hero-controls__group {
+  padding: 0 20px;
+
+  @include r(400) {
+    margin: 10px 0 0;
+  }
+}
+
+.hero-btn {
+  display: inline-block;
+
+  padding: 12px 15px;
+
+  position: relative;
+
+  background-color: $main-blue;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 $shadow;
+
+  font-size: 15px;
+  letter-spacing: 0.025em;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: box-shadow 0.15s;
+
+  &:hover {
+    top: -1px;
+
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+
+  &:active {
+    top: 0;
+
+    background-color: darken($main-blue, 3%);
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+
+  @include r(400) {
+    padding: 10px;
+    font-size: 15px;
+  }
+}
+
+.hero-btn--white {
+  background-color: #fff;
+  color: $main-green;
+
+  &:active {
+    background-color: darken(#fff, 3%);
+    box-shadow: 0 4px 8px 0 $shadow;
+
+    transform: translateY(0);
+  }
+}
+
+.hero-controls__note {
+  margin-top: 10px;
+
+  opacity: .75;
+
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  text-align: center;
+}

@@ -1,0 +1,46 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="h3 mb-0">
+    Projects
+  </h1>
+</section>
+
+<section>
+  <%= if length(@entries) > 0 do %>
+    <div class="card">
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th><%= table_link(@conn, @order, "Domain", :domain) %></th>
+            <th>Is Recording Enabled</th>
+            <th>Marked As Deleted</th>
+            <th><span>Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for project <- @entries do %>
+            <tr>
+              <td><%= link project.domain, to: Routes.project_path(@conn, :show, project) %></td>
+              <td><%= project.is_recording_enabled %></td>
+              <td><%= project.is_deleted %></td>
+              <td class="table-action">
+                <%= link to: Routes.project_path(@conn, :edit, project) do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                <% end %>
+                <%= link to: Routes.project_path(@conn, :delete, project), method: :delete, data: [confirm: "Are you sure?"]  do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= render TestlyAdminWeb.PaginationView, "_pagination.html", assigns %>
+  <% else %>
+    <div class="card">
+      <div class="card-body">
+        <p>No Projects match your search.</p>
+      </div>
+    </div>
+  <% end %>
+</section>

@@ -1,0 +1,17 @@
+.grow-bg {
+  height: 500px;
+  width: 100%;
+
+  position: absolute;
+  top: 150px;
+  left: 0;
+
+  background-color: #0f4969;
+
+  transform: skewY(-8deg);
+  z-index: 1;
+
+  @include r(1000) {
+    top: 100px;
+  }
+}

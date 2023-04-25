@@ -1,0 +1,24 @@
+.login {
+  margin-top: 75px;
+  padding-top: 75px;
+
+  position: relative;
+  overflow: hidden;
+
+  @include r(550) {
+    margin-top: 25px;
+  }
+}
+
+.login .container {
+  display: flex;
+  align-items: flex-start;
+
+  position: relative;
+
+  z-index: 4;
+
+  @include r(767) {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,15 @@
+.login-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include r(400) {
+    flex-direction: column;
+  }
+}
+
+.login-link {
+  @include r(400) {
+    margin: 10px auto 0;
+  }
+}

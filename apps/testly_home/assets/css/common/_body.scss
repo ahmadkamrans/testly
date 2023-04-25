@@ -1,0 +1,13 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
+}
+
+:focus:not(:focus-visible) { outline: none }

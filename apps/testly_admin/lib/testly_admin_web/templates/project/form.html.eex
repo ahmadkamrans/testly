@@ -1,0 +1,6 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= input(f, :domain) %>
+  <%= checkbox_input(f, :is_recording_enabled) %>
+
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,157 @@
+.pricing-caption {
+  margin: 0;
+
+  font-size: 32px;
+  color: #32325d;
+  font-weight: 500;
+  text-align: center;
+
+  @include r(767) {
+    font-size: 28px;
+  }
+
+  @include r(400) {
+    font-size: 24px;
+  }
+}
+
+.pricing-block {
+  padding: 90px 0;
+
+  @include r(767) {
+    padding: 50px 0;
+  }
+
+  @include r(400) {
+    padding: 35px 0;
+  }
+}
+
+.pricing-block--prove {
+  background-color: #f5f9fc;
+}
+
+.pricing-block .container {
+  display: flex;
+  align-items: flex-start;
+  
+  @include r(767) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include r(400) {
+    align-items: flex-start;
+  }
+}
+
+.pricing-block-name {
+  display: flex;
+  align-items: center;
+
+  min-width: 280px;
+  width: 280px;
+
+  & > img {
+    width: 66px;
+    margin-right: 20px;
+
+    @include r(400) {
+      width: 50px;
+    }
+  }
+
+  & > h5 {
+    margin: 0;
+
+    font-size: 26px;
+    color: #32325d;
+    font-weight: 400;
+
+    @include r(400) {
+      font-size: 22px;
+    }
+  }
+  
+  @include r(767) {
+    width: auto;
+    min-width: 0;
+    margin-bottom: 40px;
+  }
+
+  @include r(400) {
+    margin-bottom: 20px;
+  }
+}
+
+.pricing-block-content-item {
+  & + & {
+    margin-top: 75px;
+  
+    @include r(767) {
+      margin-top: 35px;
+    }
+
+    @include r(400) {
+      margin-top: 25px;
+    }
+  }
+}
+
+.pricing-block-content-item-content {
+  display: flex;
+}
+
+.pricing-block-content-item-content__icon {
+  width: 48px;
+  margin-right: 35px;
+
+  & > img {
+    width: 48px;
+  }
+}
+
+.pricing-block-content-item__caption {
+  margin: 0 0 20px;
+
+  font-size: 18px;
+  color: #32325d;
+  font-weight: 500;
+}
+
+.pricing-block-content-item-content__desc {
+  max-width: 600px;
+  margin: 0 0 25px;
+
+  color: #4f5d7e;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.pricing-block-content-item-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pricing-block-content-item-nav__item {
+  display: flex;
+  align-items: center;
+
+  margin: 0 80px 15px 0;
+
+  color: #4f5d7e;
+  font-size: 16px;
+  text-decoration: none;
+
+  transition: .2s ease;
+
+  & > img {
+    width: 24px;
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: #000;
+  }
+}

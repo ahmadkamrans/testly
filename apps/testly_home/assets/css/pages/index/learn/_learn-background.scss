@@ -1,0 +1,53 @@
+.learn-bg {
+  height: 100%;
+  width: 100%;
+
+  position: absolute;
+  top: 80px;
+  left: 0;
+
+  background-color: #f8fafd;
+
+  overflow: hidden;
+  transform: skewY(-12deg);
+  transform-origin: 0;
+  z-index: 1;
+}
+
+.learn-bg__shape-top {
+  height: 220px;
+  width: calc(50% + 100px);
+
+  position: absolute;
+  top: -100px;
+  right: -100px;
+
+  background: linear-gradient(to right, #9ab 50%, lighten(#9ab, 40%));
+  border-radius: 75px;
+  opacity: .1;
+
+  transform: skewY(12deg) rotate(-12deg);
+
+  @include r(880) {
+    display: none;
+  }
+}
+
+.learn-bg__shape-top-alt {
+  height: 140px;
+  width: 75%;
+
+  position: absolute;
+  top: -100px;
+  right: -100px;
+
+  background: linear-gradient(to right, #9ab 50%, lighten(#9ab, 40%));
+  border-radius: 75px;
+  opacity: .1;
+
+  transform: skewY(12deg) rotate(-12deg);
+
+  @include r(880) {
+    display: none;
+  }
+}

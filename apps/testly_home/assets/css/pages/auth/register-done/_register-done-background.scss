@@ -1,0 +1,23 @@
+.register-done-bg {
+  @extend .register-bg;
+
+  top: 400px;
+
+  background-color: #395794;
+
+  transform: skewY(18deg);
+
+  @include r(1000) {
+    top: 320px;
+  }
+}
+
+.register-done-pattern {
+  width: 68%;
+  height: 100%;
+
+  position: absolute;
+  right: 0;
+
+  background: url(/images/register-done-pattern.png);
+}

@@ -1,0 +1,65 @@
+.hero-bg {
+  height: 100%;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background: linear-gradient(to left, $main-green, lighten($main-green, 2%));
+
+  overflow: hidden;
+  transform: skewY(-12deg);
+  transform-origin: 0;
+  z-index: 1;
+}
+
+.hero-bg__shape-top {
+  height: 240px;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+
+  background: linear-gradient(to right, $main-green 25%, lighten($main-green, 10%));
+}
+
+.hero-bg__shape-middle-left {
+  height: 240px;
+  width: 150%;
+
+  position: absolute;
+  top: 240px;
+  left: -100px;
+
+  background: linear-gradient(to right, $main-green 25%, darken($main-green, .25%));
+  transform: skewY(12deg) rotate(-12deg);
+}
+
+.hero-bg__shape-middle-right {
+  height: 240px;
+  width: 20%;
+
+  position: absolute;
+  top: 240px;
+  right: 0;
+
+  background: linear-gradient(to left, $main-green, lighten($main-green, 4%));
+
+  transform: skewY(12deg) rotate(-12deg);
+}
+
+.hero-bg__shape-bottom {
+  height: 200px;
+  width: calc(50% + 100px);
+
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+
+  background: linear-gradient(to right, $main-green 50%, darken($main-green, 3%));
+  border-radius: 75px;
+  opacity: .4;
+
+  transform: skewY(12deg) rotate(-12deg);
+}

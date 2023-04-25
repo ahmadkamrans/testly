@@ -1,0 +1,92 @@
+.login-panel {
+  width: 50%;
+  margin-right: 50px;
+  padding: 60px 65px 140px;
+
+  position: relative;
+
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 5px $shadow, 0 0 20px rgba(0,0,0,0.075);
+
+  &:after {
+    content: "OR";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 56px;
+    height: 56px;
+
+    position: absolute;
+    top: 50%;
+    right: -28px;
+
+    background: #fff;
+    border-radius: 50%;
+    border: 6px solid $dark-background;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    transform: translateY(-50%);
+
+    @include r(1000) {
+      width: 44px;
+      height: 44px;
+
+      right: -22px;
+
+      font-size: 13px;
+    }
+
+    @include r(1000) {
+      display: none;
+    }
+  }
+
+  @include r(1000) {
+    padding: 50px 50px 100px;
+  }
+
+  @include r(890) {
+    padding: 30px 30px 100px;
+  }
+
+  @include r(767) {
+    width: 75%;
+    margin: 0 auto;
+    padding: 50px;
+  }
+
+  @include r(550) {
+    width: 100%;
+    padding: 30px;
+  }
+
+  @include r(400) {
+    padding: 20px;
+  }
+}
+
+.login-panel__caption {
+  margin: 0 0 50px;
+
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 400;
+  color: $dark-text;
+
+  @include r(890) {
+    margin-bottom: 30px;
+
+    font-size: 32px;
+  }
+
+  @include r(400) {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+}

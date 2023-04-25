@@ -1,0 +1,72 @@
+.panel-form-btn {
+  display: block;
+
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+
+  position: relative;
+
+  background-color: $main-green-alt;
+  border-radius: 3px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+
+  transition: box-shadow 0.15s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lighten($main-green-alt, 3%)
+  }
+
+  &:active {
+    background-color: darken($main-green-alt, 3%);
+  }
+
+  &, &:focus {
+    outline: none;
+  }
+
+  @include r(400) {
+    padding: 10px;
+
+    font-size: 15px;
+  }
+}
+
+.panel-form-btn--facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 70%;
+  margin: 20px auto;
+
+  background-color: #fff;
+  border: 2px solid #adbad4;
+  border-radius: 5px;
+
+  color: $facebook;
+
+  transition: all .2s;
+
+  & > i {
+    margin-right: 5px;
+
+    font-size: 22px;
+  }
+
+  &:hover {
+    background-color: $facebook;
+    border-color: $facebook;
+
+    color: #fff;
+  }
+
+  @include r(480) {
+    width: 100%;
+  }
+}

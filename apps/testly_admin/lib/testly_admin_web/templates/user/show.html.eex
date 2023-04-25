@@ -1,0 +1,51 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="mb-0">
+    <%= @user.full_name %>
+  </h1>
+
+  <%= link "Edit", to: Routes.user_path(@conn, :edit, @user), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+      <%= link "Users", to: Routes.user_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active"><%= @user.full_name %></li>
+  </ol>
+</nav>
+
+<section class="card">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>ID</th>
+        <td><%= @user.id %></td>
+      </tr>
+      <tr>
+        <th>Full Name</th>
+        <td><%= @user.full_name %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th>Company Name</th>
+        <td><%= @user.company_name %></td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= @user.phone %></td>
+      </tr>
+      <tr>
+        <th>Is Admin</th>
+        <td><%= @user.is_admin %></td>
+      </tr>
+      <tr>
+        <th>Created At</th>
+        <td><%= @user.created_at %></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,76 @@
+.pricing-grow {
+  padding: 80px 0;
+
+  background-color: #154b68;
+
+  .grow-content {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .grow-caption {
+    margin: 0 70px 0 0;
+
+    font-size: 30px;
+    text-transform: capitalize;
+
+    & > img {
+      width: 65px;
+      margin-right: 20px;
+    }
+  }
+  
+  .grow-content__desc {
+    font-size: 23px;
+
+    & > span {
+      color: #a9ff5e;
+    }
+  }
+
+  .grow-content-cta {
+    margin-left: auto
+  }
+
+  .grow-content-cta__btn {
+    width: 160px;
+    height: 45px;
+    padding: 15px;
+
+    background-color: #5ca961;
+
+    font-size: 16px;
+    text-align: center;
+  }
+
+  @include r(900) {
+    padding: 50px 0;
+
+    .grow-content {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .grow-caption {
+      width: 100%;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .grow-content__desc {
+      margin-right: 50px;
+    }
+  }
+
+  @include r(900) {
+    padding: 40px 0;
+
+    .grow-content {
+      flex-flow: column nowrap;
+    }
+
+    .grow-content__desc {
+      margin: 0 0 20px;
+    }
+  }
+}

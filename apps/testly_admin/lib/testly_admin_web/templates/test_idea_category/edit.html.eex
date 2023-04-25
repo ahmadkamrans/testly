@@ -1,0 +1,14 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link "Idea Categories", to: Routes.test_idea_category_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active">Edit</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-body">
+    <%= render "form.html", Map.put(assigns, :action, Routes.test_idea_category_path(@conn, :update, @category)) %>
+  </div>
+</div>

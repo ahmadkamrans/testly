@@ -1,0 +1,9 @@
+_build
+deps
+test
+node_modules
+.git
+apps/**/config/*.secret.exs
+apps/**/node_modules
+apps/**/priv/cert
+apps/**/priv/static

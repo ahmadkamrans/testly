@@ -1,0 +1,74 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="h3 mb-0">
+    Users
+  </h1>
+
+  <%= link "New User", to: Routes.user_path(@conn, :new), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<div class="card">
+  <div class="card-body">
+    <%= form_for Ecto.Changeset.change(@filter), Routes.user_path(@conn, :index), [method: :get, as: :filter], fn f -> %>
+      <div class="row">
+        <div class="col-sm">
+          <%= input f, :email_cont, label_value: "Email contains" %>
+          <%= input f, :full_name_cont, label_value: "Full name contains" %>
+        </div>
+
+        <div class="col-sm">
+          <%= input f, :company_name_cont, label_value: "Company name contains" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <%= submit "Apply filter", class: "btn btn-primary" %>
+          <%= link "Clear filters", to: Routes.user_path(@conn, :index), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= if length(@entries) > 0 do %>
+  <div class="card">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th><%= table_link(@conn, @order, "Email", :email) %></th>
+          <th><%= table_link(@conn, @order, "Full Name", :full_name) %></th>
+          <th><%= table_link(@conn, @order, "Company Name", :company_name) %></th>
+          <th><%= table_link(@conn, @order, "Is Admin", :company_name) %></th>
+          <th><span>Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for user <- @entries do %>
+          <tr>
+            <td><%= link user.email, to: Routes.user_path(@conn, :show, user) %></td>
+            <td><%= user.full_name %></td>
+            <td><%= user.company_name %></td>
+            <td><%= user.is_admin %></td>
+            <td class="table-action">
+              <%= link to: Routes.user_path(@conn, :edit, user) do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+              <% end %>
+              <%= link to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"]  do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <% end %>
+              <%= link to: Routes.user_path(@conn, :sign_in, user), method: :post, target: "_blank" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in align-middle mr-2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= render TestlyAdminWeb.PaginationView, "_pagination.html", assigns %>
+<% else %>
+  <div class="card">
+    <div class="card-body">
+      No users match your search.
+    </div>
+  </div>
+<% end %>

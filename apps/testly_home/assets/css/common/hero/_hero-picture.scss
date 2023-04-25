@@ -1,0 +1,22 @@
+.hero-picture {
+  align-self: flex-end;
+  
+  width: 50%;
+
+  & > img {
+    width: 800px;
+
+    @include r(1600) {
+      width: 600px;
+    }
+
+    @include r(1200) {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+
+  @include r(880) {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+.platforms-bg {
+  width: 100%;
+  height: 150%;
+
+  position: absolute;
+  top: 0;
+
+  background-color: $dark-background;
+
+  transform: skewY(-12deg);
+  z-index: 1;
+}

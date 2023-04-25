@@ -1,0 +1,77 @@
+.grow-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include r(767) {
+    flex-direction: column;
+  }
+}
+
+.grow-content__desc {
+  margin: 0;
+  
+  font-size: 32px;
+  line-height: 1.25;
+  color: #fff;
+
+  & > span {
+    color: $main-green;
+  }
+
+  @include r(950) {
+    font-size: 25px;
+  }
+
+  @include r(767) {
+    text-align: center;
+  }
+}
+
+.grow-content-cta__btn {
+  display: block;
+
+  padding: 15px 25px;
+
+  position: relative;
+
+  background-color: $main-green;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 $shadow;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: box-shadow 0.15s;
+
+  &:hover {
+    top: -1px;
+
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+
+  &:active {
+    top: 0;
+    
+    background-color: darken($main-green, 3%);
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+
+  @include r(767) {
+    margin-top: 20px;
+  }
+}
+
+.grow-content-cta__note {
+  margin: 10px 0 0;
+
+  opacity: .75;
+
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  text-align: center;
+}

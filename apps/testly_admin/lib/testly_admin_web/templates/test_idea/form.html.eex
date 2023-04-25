@@ -1,0 +1,14 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= input f, 
+            :category_id, 
+            input_opts: [type: :select, select_options: Enum.map(@categories, &{&1.name, &1.id}), prompt: "Choose Category"],
+            label_value: "Category"
+  %>
+
+  <%= input f, :title %>
+  <%= input f, :description %>
+  <%= input f, :impact_rate %>
+  <%= input f, :cover, input_opts: [type: :file_input] %>
+
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

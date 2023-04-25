@@ -1,0 +1,27 @@
+.info-block-picture {
+  width: 53%;
+
+  position: relative;
+
+  @include r(1200) {
+    width: 50%;
+
+    text-align: center;
+  }
+
+  @include r(999) {
+    width: 100%; 
+  }
+}
+
+.info-block-picture__img {
+  position: relative;
+
+  z-index: 5;
+}
+
+.info-block-picture__bg {
+  position: absolute;
+
+  z-index: 1;
+}

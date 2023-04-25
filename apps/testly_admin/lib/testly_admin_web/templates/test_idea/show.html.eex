@@ -1,0 +1,48 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="mb-0">
+    <%= @idea.title %>
+  </h1>
+
+  <%= link "Edit", to: Routes.test_idea_path(@conn, :edit, @idea), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+      <%= link "Test Ideas", to: Routes.test_idea_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active"><%= @idea.category.name %></li>
+  </ol>
+</nav>
+
+<section class="card">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>ID</th>
+        <td><%= @idea.id %></td>
+      </tr>
+      <tr>
+      <tr>
+        <th>Category</th>
+        <td><%= @idea.category.name %></td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td><%= @idea.title %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= @idea.description %></td>
+      </tr>
+      <tr>
+        <th>Impact Rate</th>
+        <td><%= @idea.impact_rate %></td>
+      </tr>
+      <tr>
+        <th>Cover</th>
+        <td><img src="<%= Testly.IdeaLab.Cover.url({@idea.cover, @idea}) %>" alt="Cover"/></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

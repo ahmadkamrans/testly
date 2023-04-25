@@ -1,0 +1,78 @@
+.login-info {
+  padding: 110px 0 80px;
+
+  color: #fff;
+
+  @include r(890) {
+    padding: 80px 0 50px;
+  }
+
+  @include r(767) {
+    margin: 0 auto;
+  }
+
+  @include r(550) {
+    padding: 25px 0;
+  }
+}
+
+.login-info__caption {
+  margin-bottom: 30px;
+
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: #f5f6f7;
+
+  @include r(400) {
+    margin-bottom: 25px;
+
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.login-info-cta__btn {
+  display: block;
+
+  margin-top: 46px;
+  padding: 15px 25px;
+
+  position: relative;
+
+  background-color: $main-green-alt;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 $shadow;
+
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+
+  transition: box-shadow 0.15s;
+
+  &:hover {
+    top: -1px;
+
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+
+  &:active {
+    top: 0;
+    
+    background-color: darken($main-green-alt, 3%);
+    box-shadow: 0 4px 8px 0 $shadow;
+  }
+}
+
+.login-info-cta__note {
+  margin-top: 10px;
+
+  opacity: .75;
+
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  text-align: center;
+}

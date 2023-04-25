@@ -1,0 +1,33 @@
+.platforms {
+  margin-top: -200px;
+  padding-top: 25px;
+  padding-bottom: 75px;
+
+  position: relative;
+
+  @include r(1200) {
+    margin-top: -140px;
+  }
+
+  @include r(950) {
+    margin-top: -80px;
+  }
+
+  @include r(880) {
+    margin-top: -80px;
+  }
+
+  @include r(767) {
+    margin-top: 20px;
+  }
+
+  @include r(540) {
+    padding-top: 50px;
+  }
+}
+
+.platforms .container {
+  position: relative;
+
+  z-index: 5;
+}

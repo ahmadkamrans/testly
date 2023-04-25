@@ -1,0 +1,15 @@
+.info-block--feedback {
+  margin-top: 80px !important;
+
+  @include r(1200) {
+    margin-top: 25px !important;
+  }
+}
+
+.info-block--tests {
+  margin-top: 0 !important;
+
+  @include r(1200) {
+    margin-top: 25px !important;
+  }
+}

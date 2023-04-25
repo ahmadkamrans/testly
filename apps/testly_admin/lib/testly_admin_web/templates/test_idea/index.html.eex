@@ -1,0 +1,74 @@
+<section class="d-flex align-items-center mb-3">
+  <h1 class="h3 mb-0">
+    Test Ideas
+  </h1>
+
+  <%= link "New Idea", to: Routes.test_idea_path(@conn, :new), class: "btn btn-primary flex-grow-0 ml-auto" %>
+</section>
+
+<div class="card">
+  <div class="card-body">
+    <%= form_for Ecto.Changeset.change(@filter), Routes.test_idea_path(@conn, :index), [method: :get, as: :filter], fn f -> %>
+      <div class="row">
+        <div class="col-sm">
+          <%= input f, 
+                    :category_id_eq, 
+                    input_opts: [type: :select, select_options: Enum.map(@categories, &{&1.name, &1.id}), prompt: "Choose Category"],
+                    label_value: "Category"
+          %>
+          <%= input f, :title_cont, label_value: "Title contains" %>
+        </div>
+
+        <div class="col-sm">
+          <%= input f, :description_cont, label_value: "Description contains" %>
+          <%= input f, :impact_rate_eq, label_value: "Impact Rate" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <%= submit "Apply filter", class: "btn btn-primary" %>
+          <%= link "Clear filters", to: Routes.test_idea_path(@conn, :index), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= if length(@entries) > 0 do %>
+  <div class="card">
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th class="sorting" scope="col"><%= table_link(@conn, @order, "Title", :title) %></th>
+          <th class="sorting" scope="col"><%= table_link(@conn, @order, "Category", :category_name) %></th>
+          <th class="sorting" scope="col"><%= table_link(@conn, @order, "Impact Rate", :impact_rate) %></th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for entry <- @entries do %>
+          <tr>
+            <td><%= link entry.title, to: Routes.test_idea_path(@conn, :show, entry) %></td>
+            <td><%= entry.category.name %></td>
+            <td><%= entry.impact_rate %></td>
+            <td class="table-action">
+              <%= link to: Routes.test_idea_path(@conn, :edit, entry) do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+              <% end %>
+              <%= link to: Routes.test_idea_path(@conn, :delete, entry), method: :delete, data: [confirm: "Are you sure?"]  do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= render TestlyAdminWeb.PaginationView, "_pagination.html", assigns %>
+<% else %>
+  <div class="card">
+    <div class="card-body">
+      No Ideas match your search.
+    </div>
+  </div>
+<% end %>

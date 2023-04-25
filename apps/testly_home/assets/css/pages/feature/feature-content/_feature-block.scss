@@ -1,0 +1,178 @@
+.feature-block {
+  position: relative;
+
+  &:nth-child(odd) {
+    &:after {
+      content: "";
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      background-color: #fff;
+      transform: skewY(-10deg);
+      z-index: 1;
+    }
+
+    & > .container {
+      flex-direction: row;
+
+      @include r(1000) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.feature-block .container {
+  display: flex;
+  flex-direction: row-reverse;
+
+  position: relative;
+  z-index: 5;
+
+  @include r(1000) {
+    flex-direction: column;
+  }
+}
+
+.feature-block-heading {
+  margin-bottom: 20px;
+}
+
+.feature-block-heading .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-block-picture {
+  width: calc(100% - 500px);
+
+  position: relative;
+
+  z-index: 5;
+
+  @include r(1000) {
+    width: 100%;
+    margin-bottom: 25px;
+
+    text-align: center;
+  }
+}
+
+.feature-block-picture--centered {
+  width: 100%;
+
+  text-align: center;
+}
+
+.feature-block-picture__img {
+  z-index: 6;
+}
+
+.feature-block-picture__bg {
+  position: absolute;
+  z-index: 5;
+
+  @include r(1000) {
+    display: none;
+  }
+}
+
+.feature-block-content {
+  width: 500px;
+  padding-left: 50px;
+
+  @include r(1000) {
+    width: 500px;
+    margin: 0 auto;
+    padding-left: 0;
+  }
+
+  @include r(767) {
+    width: 100%;
+  }
+}
+
+.feature-block-content--centered {
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 0;
+
+  text-align: center;
+}
+
+.feature-block-content__icon {
+  width: 66px;
+}
+
+.feature-block-content__caption {
+  margin: 23px 0;
+
+  font-size: 32px;
+  font-weight: 400;
+  color: #06ac6a;
+
+  @include r(400) {
+    font-size: 28px;
+  }
+}
+
+.feature-block-content__desc {
+  max-width: 100%;
+
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4f5d7e;
+}
+
+.feature-block-content__note {
+  @extend .feature-block-content__desc;
+
+  margin-top: 140px;
+
+  position: relative;
+
+  &:before {
+    content: "";
+
+    display: block;
+
+    height: 16px;
+    width: 16px;
+
+    position: absolute;
+    top: 5px;
+    right: -10px;
+
+    background-color: #d9dce3;
+    border-radius: 50%;
+  }
+
+  &:after {
+    content: "";
+
+    display: block;
+
+    height: 5px;
+    width: 100px;
+
+    position: absolute;
+    top: 10px;
+    right: -101px;
+
+    background-color: #d9dce3;
+  }
+
+  @include r(1000) {
+    display: none;
+  }
+}

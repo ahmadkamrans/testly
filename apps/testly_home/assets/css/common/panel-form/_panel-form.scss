@@ -1,0 +1,25 @@
+.panel-form-group {
+  margin-bottom: 25px;
+
+  @include r(400) {
+    margin-bottom: 15px;
+  }
+}
+
+.panel-form-link {
+  font-size: 15px;
+  color: $dark-text;
+
+  &:hover {
+    color: lighten($dark-text, 10%);
+  }
+
+  @include r(400) { 
+    font-size: 14px;
+  }
+} 
+
+.panel-form-note {
+  font-size: 13px;
+  color: $dark-text;
+}

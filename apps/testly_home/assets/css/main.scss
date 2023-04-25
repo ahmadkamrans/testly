@@ -1,0 +1,146 @@
+@import "utils/normalizer";
+@import "utils/vars";
+@import "utils/mixins";
+
+@import "common/body";
+@import "common/container";
+
+@import "common/main-header/main-header";
+@import "common/main-header/main-header-inverted";
+@import "common/main-header/main-header-feature";
+@import "common/main-header/main-header-logo";
+@import "common/main-header/main-header-nav";
+@import "common/main-header/mobile-menu";
+
+@import "common/main-footer/main-footer";
+@import "common/main-footer/main-footer-info";
+@import "common/main-footer/main-footer-navs";
+
+@import "common/info-block/info-block";
+@import "common/info-block/info-block-content";
+@import "common/info-block/info-block-picture";
+@import "common/info-block/custom-pics-position";
+@import "common/info-block/custom-margins";
+
+@import "common/hero/hero";
+@import "common/hero/hero-background";
+@import "common/hero/hero-content";
+@import "common/hero/hero-steps";
+@import "common/hero/hero-controls";
+@import "common/hero/hero-picture";
+@import "common/hero/hero-neutral";
+
+@import "common/panel-form/panel-form";
+@import "common/panel-form/panel-form-btn";
+@import "common/panel-form/panel-form-checkbox";
+@import "common/panel-form/panel-form-label";
+@import "common/panel-form/panel-form-input";
+
+@import "pages/index/index";
+@import "pages/legal/legal";
+@import "pages/auth/auth";
+@import "pages/feature/feature";
+@import "pages/pricing/pricing";
+
+.login-panel {
+  padding-bottom: 60px;
+}
+
+.help-block {
+  display: block;
+  color: red;
+  margin-top: 5px;
+  margin-left: 4px;
+  font-size: 15px;
+}
+
+label + .help-block {
+  margin-top: -15px;
+  margin-bottom: 20px;
+}
+
+.login-panel__fb-btn {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.reset-password {
+  @extend .register;
+}
+
+.reset-password-caption {
+  @extend .register-caption;
+}
+
+.reset-password-panel {
+  @extend .register-panel;
+
+  &--success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    min-height: 250px;
+
+    margin-top: 50px;
+
+    line-height: 25px;
+  }
+}
+
+.reset-password-caption__desc {
+  @extend .register-caption__desc;
+}
+
+.grow-content-cta__btn {
+  cursor: pointer;
+}
+
+.info-block-content__cta {
+  cursor: pointer;
+}
+
+.prove-list__item {
+  color: #777;
+}
+
+.lightbox-content__success-text {
+  display: none;
+}
+
+.lightbox-content.submitted {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .lightbox-content__desc,
+  .lightbox-form {
+    display: none;
+  }
+
+  .lightbox-content__success-text {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1.4;
+  }
+}
+
+.hero-btn {
+  cursor: pointer;
+}
+
+.lightbox-content__old-site,
+.lightbox-content__old-site a {
+  color: rgb(79, 93, 126);
+
+  font-size: 13px;
+  margin-top: -5px;
+
+  opacity: 0.75;
+  letter-spacing: 0.2px;
+}

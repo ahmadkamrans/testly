@@ -1,0 +1,97 @@
+.register-password-hints {
+  display: flex;
+  flex-flow: column wrap;
+
+  height: 66px;
+  margin-top: 20px;
+
+  & > li {
+    height: 22px;
+
+    font-size: 13px;
+    color: $dark-text;
+
+    @include r(480) {
+      height: auto;
+      margin-bottom: 10px;
+    }
+  }
+
+  @include r(580) {
+    padding-left: 20px;
+  }
+
+  @include r(480) {
+    height: auto;
+    flex-wrap: nowrap;
+  }
+}
+
+.register-login {
+  margin-top: 50px;
+
+  font-size: 15px;
+  color: $dark-text;
+  text-align: center;
+}
+
+.register-or {
+  margin: 25px 0;
+
+  position: relative;
+
+  color: #999;
+  text-align: center;
+
+  &:before {
+    content: "";
+
+    display: block;
+    height: 2px;
+    width: 150px;
+
+    position: absolute;
+    top: 50%;
+    left: 35px;
+
+    background-color: #f5f6fa;
+
+    @include r(767) {
+      left: 0;
+    }
+
+    @include r(480) {
+      width: 100px;
+    }
+
+    @include r(400) {
+      width: 75px;
+    }
+  }
+
+  &:after {
+    content: "";
+
+    display: block;
+    height: 2px;
+    width: 150px;
+
+    position: absolute;
+    top: 50%;
+    right: 35px;
+
+    background-color: #f5f6fa;
+
+    @include r(767) {
+      right: 0;
+    }
+
+    @include r(480) {
+      width: 100px;
+    }
+
+    @include r(400) {
+      width: 75px;
+    }
+  }
+}

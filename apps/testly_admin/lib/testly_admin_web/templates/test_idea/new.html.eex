@@ -1,0 +1,15 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link "Test Ideas", to: Routes.test_idea_path(@conn, :index), class: "" %>
+    </li>
+    <li class="breadcrumb-item active">New</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-body">
+    <%= render "form.html", Map.put(assigns, :action, Routes.test_idea_path(@conn, :create)) %>
+  </div>
+</div>
+  

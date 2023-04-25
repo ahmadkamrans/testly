@@ -1,0 +1,23 @@
+.register-panel {
+  width: 620px;
+  margin: 0 auto 50px;
+  padding: 50px 75px;
+
+  position: relative;
+
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 5px $shadow, 0 0 20px rgba(0,0,0,0.075);
+
+  @include r(767) {
+    width: 100%;
+  }
+
+  @include r(580) {
+    padding: 40px;
+  }
+
+  @include r(400) {
+    padding: 20px;
+  }
+}

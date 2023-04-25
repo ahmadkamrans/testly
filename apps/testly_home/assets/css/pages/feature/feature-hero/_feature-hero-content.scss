@@ -1,0 +1,157 @@
+.feature-hero-content {
+  display: flex;
+
+  @include r(767) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.feature-hero-content-col {
+  padding: 0 50px 0 0;
+  margin-bottom: 30px;
+  color: #19b5fe;
+
+  @include r(1200) {
+    padding-right: 25px;
+  }
+
+  @include r(1000) {
+    width: 50%;
+  }
+
+  @include r(767) {
+    width: 500px;
+    padding: 0 0 25px;
+  }
+
+  @include r(560) {
+    width: 100%;
+  }
+}
+
+.feature-hero-content-col--alt {
+  padding: 0 0 0 65px;
+
+  border-left: 3px solid #ebeff1;
+
+  color: #06ab6a;
+
+  @include r(1200) {
+    padding-left: 25px;
+  }
+
+  @include r(767) {
+    padding: 25px 0 0;
+
+    border-left: none;
+    border-top: 3px solid #ebeff1;
+  }
+}
+
+.feature-hero-content-col__caption {
+  margin: 25px 0;
+
+  font-size: 40px;
+  font-weight: 400;
+
+  @include r(1000) {
+    font-size: 32px;
+  }
+
+  @include r(767) {
+    text-align: center;
+  }
+
+  @include r(400) {
+    font-size: 28px;
+  }
+}
+
+.feature-hero-content-col-icons {
+  display: flex;
+  align-items: center;
+
+  font-size: 28px;
+  color: #8ddaff;
+
+  & > i {
+    margin: 0 9px;
+  }
+
+  @include r(767) {
+    justify-content: center;
+  }
+}
+
+.feature-hero-content-col-icons__item {
+  width: 66px;
+
+  @include r(400) {
+    width: 50px;
+  }
+}
+
+.feature-hero-content-col__desc {
+  width: 433px;
+  margin-bottom: 40px;
+
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4f5d7e;
+
+  @include r(1000) {
+    width: auto;
+  }
+}
+
+.feature-hero-content-col__btn {
+  display: block;
+
+  height: 44px;
+  padding: 0 25px;
+
+  border: none;
+  border-radius: 5px;
+  background-color: #1ab5fe;
+
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: .2s ease;
+
+  @include r(767) {
+    margin: 0 auto;
+  }
+
+  @include r(400) {
+    padding: 0 20px;
+  }
+  
+  &:hover {
+    background-color: lighten(#1ab5fe, 5%);
+  }
+
+  &:active {
+    background-color: darken(#1ab5fe, 5%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.feature-hero-content-col__btn--alt {
+  background-color: #06ab6a;  
+
+  &:hover {
+    background-color: lighten(#06ab6a, 5%);
+  }
+
+  &:active {
+    background-color: darken(#06ab6a, 5%);
+  }
+}

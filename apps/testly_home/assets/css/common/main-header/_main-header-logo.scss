@@ -1,0 +1,13 @@
+.main-header-logo-wrapper {
+  margin-right: auto;
+
+  transition: opacity .15s;
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+.main-header-logo {
+  width: 120px;
+}

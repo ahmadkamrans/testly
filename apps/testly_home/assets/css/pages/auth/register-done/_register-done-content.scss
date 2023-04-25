@@ -1,0 +1,38 @@
+.register-done-content {
+  display: flex;
+  align-items: flex-start;
+
+  position: relative;
+
+  z-index: 5;
+
+  @include r(1000) {
+    flex-direction: column;
+  }
+}
+
+.register-done-picture {
+  width: 50%;
+
+  position: relative;
+  top: -40px;
+  left: 5px;
+
+  & > img {
+    width: 700px;
+
+    @include r(767) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  @include r(1000) {
+    width: 100%;
+
+    top: 0;
+    left: 0;
+
+    text-align: center;
+  }
+}

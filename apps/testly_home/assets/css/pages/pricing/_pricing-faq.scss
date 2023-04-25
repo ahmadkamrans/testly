@@ -1,0 +1,80 @@
+.pricing-faq {
+  padding: 70px 0 35px;
+}
+
+.pricing-faq-content {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 65px;
+  
+  @include r(767) {
+    margin-top: 40px;
+  }
+}
+
+.pricing-faq-content-item {
+  display: flex;
+
+  width: calc(50% - 30px);
+  margin-bottom: 65px;
+
+  color: #4f5d7e;
+
+  &:nth-child(odd) {
+    margin-right: 60px;
+
+    @include r(767) {
+      margin-right: 0;
+    }
+  }
+  
+  @include r(767) {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+}
+
+.pricing-faq-content-item__icon {
+  min-width: 36px;
+  height: 36px;
+  margin-right: 15px;
+
+  @include r(400) {
+    display: none;
+  }
+}
+
+.pricing-faq-content-item-content__caption {
+  margin: 0 0 10px;
+
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.pricing-faq-content-item-content__desc {
+  margin: 0;
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.pricing-faq-content-item-content__link {
+  color: #008fd3;
+  text-decoration: none;
+
+  & > i {
+    position: relative;
+    top: 1px;
+
+    transition: all .2s;
+  }
+
+  &:hover {
+    color: darken(#008fd3, 10%);
+
+    & > i {
+      transform: translateX(5px);
+    }
+  }
+}

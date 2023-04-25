@@ -1,0 +1,26 @@
+.platforms-caption {
+  margin: 0 0 40px;
+
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: 400;
+  color: #e2e6e9;
+  text-align: right;
+
+  @include r(950) {
+    margin-top: 50px;
+
+    font-size: 28px;
+    text-align: center;
+  }
+
+  @include r(550) {
+    margin-top: 0;
+    
+    font-size: 25px;
+  }
+
+  @include r(400) {
+    font-size: 20px;
+  }
+}
