@@ -8,6 +8,7 @@ defmodule TestlyHome.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
+      {Phoenix.PubSub, name: TestlyHome.PubSub},
       # Start the endpoint when the application starts
       supervisor(TestlyHome.Endpoint, [])
       # Start your own worker by calling: TestlyHome.Worker.start_link(arg1, arg2, arg3)

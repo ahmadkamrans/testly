@@ -1,44 +1,43 @@
 defmodule Testly.Goals.PathGoal do
-  # use Testly.Goals.Goal
+  use Testly.Goals.Goal
 
-  alias Testly.Goals.{PathStep}
+  alias Testly.Goals.PathStep
   alias Testly.SessionRecordings.{SessionRecording, Page}
 
-  # @type t :: %__MODULE__{
-  #         id: Testly.Schema.pk(),
-  #         project_id: Testly.Schema.pk(),
-  #         name: String.t(),
-  #         value: pos_integer(),
-  #         path: [PathStep.t()],
-  #         type: :path,
-  #         created_at: DateTime.t(),
-  #         updated_at: DateTime.t()
-  #       }
+  @type t :: %__MODULE__{
+          id: Testly.Schema.pk(),
+          assoc_id: Testly.Schema.pk(),
+          name: String.t(),
+          value: pos_integer(),
+          path: [PathStep.t()],
+          type: :path,
+          created_at: DateTime.t(),
+          updated_at: DateTime.t()
+        }
 
-  # goal_schema do
-  #   field :type, GoalTypeEnum, default: :path
-  #   embeds_many :path, PathStep, on_replace: :delete
-  # end
+  goal_model do
+    field :type, GoalTypeEnum, default: :path
+    embeds_many :path, PathStep, on_replace: :delete
+  end
 
-  # @spec changeset(%__MODULE__{}, map) :: Changeset.t()
-  # def changeset(schema, params) do
-  #   schema
-  #   |> base_changeset(params)
-  #   |> cast_embed(:path, required: true)
-  # end
+  @spec goal_changeset(Changeset.t(), map) :: Changeset.t()
+  def goal_changeset(changeset, _params) do
+    changeset
+    |> cast_embed(:path, required: true)
+  end
 
-  # def cast_fields(changeset, _params) do
-  #   changeset
-  #   |> cast_embed(:path)
-  # end
+  def cast_fields(changeset, _params) do
+    changeset
+    |> cast_embed(:path)
+  end
 
-  @spec check_conversion(Goal.t(), SessionRecording.t()) ::
+  @spec check_conversion(PathGoal.t(), SessionRecording.t()) ::
           {:ok, happened_at :: DateTime.t()} | {:error, :no_conversion}
   def check_conversion(goal, session_recording) do
     match_path(session_recording.pages, goal.path, goal.path, :no_happened_at)
   end
 
-  @spec match_path([Page.t()], [Goal.t()], [PathStep.t()], DateTime.t() | :no_happened_at) ::
+  @spec match_path([Page.t()], [PathStep.t()], [PathStep.t()], DateTime.t() | :no_happened_at) ::
           {:ok, happened_at :: DateTime.t()} | {:error, :no_conversion}
   defp match_path([], [], _full_path, conversion_happened_at), do: {:ok, conversion_happened_at}
   defp match_path(_current_pages, [], _full_path, conversion_happened_at), do: {:ok, conversion_happened_at}

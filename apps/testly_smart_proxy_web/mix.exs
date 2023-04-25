@@ -23,7 +23,7 @@ defmodule Testly.SmartProxy.Mixfile do
   def application do
     [
       mod: {TestlySmartProxyWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools, :appsignal]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -37,7 +37,7 @@ defmodule Testly.SmartProxy.Mixfile do
   defp deps do
     [
       {:testly, in_umbrella: true},
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.5.1"},
       {:plug_cowboy, "~> 2.0"},
       {:proper_case, "~> 1.3.0"},
       {:cors_plug, "~> 1.5.2"}

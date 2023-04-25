@@ -8,6 +8,7 @@ defmodule TestlyAdmin.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      {Phoenix.PubSub, name: TestlyAdmin.PubSub},
       # Start the endpoint when the application starts
       TestlyAdminWeb.Endpoint
       # Starts a worker by calling: TestlyAdmin.Worker.start_link(arg)

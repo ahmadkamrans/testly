@@ -15,7 +15,9 @@ config :testly_admin, TestlyAdminWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "2MrP7jaAYQZjspyZ6iz2f/5pBSsInT82VsxB0cqIqD3EDxo5/mtLzOfFQmv4PU0b",
   render_errors: [view: TestlyAdminWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: TestlyAdmin.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: TestlyAdmin.PubSub
+
+config :testly_admin, :external_urls, sign_in: "http://localhost:4000/sessions/create_by_token"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

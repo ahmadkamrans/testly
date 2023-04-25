@@ -1,6 +1,9 @@
 use Mix.Config
 
 config :testly, Testly.SplitTests.VariationReportDbDumper, enabled: false
+config :testly, Testly.SessionRecordings.Cleaner, enabled: true
+config :testly, Testly.Heatmaps.ViewsCleaner, enabled: true
+
 # Configure your database
 config :testly, Testly.Repo,
   username: "postgres",

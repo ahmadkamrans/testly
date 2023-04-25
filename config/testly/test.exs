@@ -14,4 +14,7 @@ config :testly, Testly.SessionRecordingsHandler,
 
 config :testly, Testly.Projects, impl: Testly.ProjectsMock
 config :testly, Testly.SessionRecordings, impl: Testly.SessionRecordingsMock
+
 config :testly, Testly.SplitTests.VariationReportDbDumper, enabled: false
+config :testly, Testly.SessionRecordings.Cleaner, enabled: false
+config :testly, Testly.Heatmaps.ViewsCleaner, enabled: false

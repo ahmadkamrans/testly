@@ -4,6 +4,7 @@ defmodule TestlyHome.SessionController do
   alias Testly.Accounts.SignInForm
   alias Testly.Accounts
   alias Testly.Authenticator.Session
+  alias Testly.Authenticator.SignInToken
 
   @spec new(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def new(conn, _params) do
@@ -29,5 +30,18 @@ defmodule TestlyHome.SessionController do
           header_inverted: true
         )
     end
+  end
+
+  # It is used by admin panel. It adds ability to sign in to any user from admin panel
+  @spec create_by_token(Plug.Conn.t(), map()) :: Plug.Conn.t()
+  def create_by_token(conn, %{"token" => token}) do
+    user =
+      token
+      |> SignInToken.decode!()
+      |> Accounts.get_user!()
+
+    conn
+    |> Session.sign_in(user.id, false)
+    |> redirect_to_relevant_project(user)
   end
 end

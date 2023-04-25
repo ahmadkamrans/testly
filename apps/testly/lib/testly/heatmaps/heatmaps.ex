@@ -10,7 +10,8 @@ defmodule Testly.Heatmaps do
     Snapshot,
     PageFilter,
     PageOrder,
-    Element
+    Element,
+    View
   }
 
   alias Testly.{SessionEvents, Pagination}
@@ -18,7 +19,9 @@ defmodule Testly.Heatmaps do
   alias Testly.SessionRecordings.SessionRecording
   alias Testly.SessionRecordings.Page, as: SessionRecordingPage
 
-  import Appsignal.Instrumentation.Helpers, only: [instrument: 3]
+  import Ecto.Query
+
+  @stale_period_in_days 30
 
   def get_pages(%Project{id: project_id}, options \\ []) do
     filter = struct(PageFilter, options[:filter] || %{})
@@ -28,6 +31,7 @@ defmodule Testly.Heatmaps do
     PageQuery.from_page()
     |> PageQuery.join_snapshot()
     |> PageQuery.join_view()
+    |> PageQuery.where_views_one_week_old()
     |> PageQuery.select_views_count()
     |> PageQuery.where_project_id(project_id)
     |> PageFilter.filter(filter)
@@ -38,6 +42,10 @@ defmodule Testly.Heatmaps do
 
   def get_pages_count(%Project{id: project_id}) do
     PageQuery.from_page()
+    |> PageQuery.select_distinct()
+    |> PageQuery.join_snapshot()
+    |> PageQuery.join_view()
+    |> PageQuery.where_views_one_week_old()
     |> PageQuery.where_project_id(project_id)
     |> Repo.aggregate(:count, :id)
   end
@@ -46,6 +54,7 @@ defmodule Testly.Heatmaps do
     PageQuery.from_page()
     |> PageQuery.join_snapshot()
     |> PageQuery.join_view()
+    |> PageQuery.where_views_one_week_old()
     |> PageQuery.select_views_count()
     |> Repo.get(id)
   end
@@ -59,13 +68,26 @@ defmodule Testly.Heatmaps do
       |> Repo.one()
 
     elements =
-      instrument("Heatmaps.get_snapshot", "Elements grouping", fn ->
-        snapshot.views
-        |> Enum.flat_map(& &1.elements)
-        |> Element.group_elements()
-      end)
+      snapshot.views
+      |> Enum.flat_map(& &1.elements)
+      |> Element.group_elements()
 
     %{snapshot | elements: elements}
+  end
+
+  def get_staled_view_ids(limit: limit) do
+    staled_time = Timex.shift(DateTime.utc_now(), days: -@stale_period_in_days)
+
+    from(v in View, where: v.visited_at < ^staled_time, select: v.id, limit: ^limit)
+    |> Repo.all()
+  end
+
+  def delete_views(view_ids) do
+    {deleted_count, _} =
+      from(v in View, where: v.id in ^view_ids)
+      |> Repo.delete_all()
+
+    deleted_count
   end
 
   @spec track(SessionRecording.t(), SessionRecordingPage.t()) :: Page.t()
@@ -115,7 +137,7 @@ defmodule Testly.Heatmaps do
             elements: elements
           })
           |> Repo.insert!(
-            on_conflict: :replace_all_except_primary_key,
+            on_conflict: {:replace_all_except, [:id]},
             conflict_target: [:session_recording_page_id]
           )
 

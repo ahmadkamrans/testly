@@ -6,7 +6,6 @@ defmodule Testly.Schema do
       use Ecto.Schema
       import Ecto.Changeset
       alias Ecto.Changeset
-      alias __MODULE__
 
       @primary_key {:id, Ecto.UUID, autogenerate: true}
       @foreign_key_type Ecto.UUID

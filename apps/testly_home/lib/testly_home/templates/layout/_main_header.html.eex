@@ -54,11 +54,14 @@
       </div>
       <nav class="main-header-nav">
         <a class="main-header-nav__item main-header-nav__item--bold" href="<%= Routes.learn_path(@conn, :session_recordings) %>">Features</a>
-        <a class="main-header-nav__item main-header-nav__item--bold" href="<%= Routes.pricing_path(@conn, :index) %>">Pricing</a>
+
+        <%= if false do %>
+          <a class="main-header-nav__item main-header-nav__item--bold" href="<%= Routes.pricing_path(@conn, :index) %>">Pricing</a>
+        <% end %>
       </nav>
       <nav class="main-header-nav">
         <a class="main-header-nav__item" href="<%= customer_support_url() %>" target="_blank">Support</a>
-        <%= if current_user(@conn) do %>
+        <%= if current_account_user(@conn) do %>
           <%= dashboard_link @conn, [class: "main-header-nav__item"], fn(_type) -> %>
             Dashboard
           <% end %>
@@ -70,7 +73,7 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= link(to: "#", class: "main-header-nav__item", data: [show_subscribe_popup: ""]) do %>
+          <%= link(to: Routes.session_path(@conn, :new), class: "main-header-nav__item") do %>
             Sign in
             <i class="fas fa-long-arrow-alt-right"></i>
           <% end %>

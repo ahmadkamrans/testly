@@ -34,5 +34,7 @@ defmodule TestlyAdminWeb.Router do
     resources("/users", UserController)
     resources("/test_ideas", TestIdeaController)
     resources("/test_idea_categories", TestIdeaCategoryController)
+
+    post("/users/:user_id/sign_in", UserController, :sign_in)
   end
 end

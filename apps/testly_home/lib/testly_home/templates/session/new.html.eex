@@ -26,10 +26,10 @@
             <a class="panel-form-link login-link" href="<%= Routes.password_path(@conn, :new) %>">Forgot Password?</a>
           </div>
           
-          <a class="login-panel__fb-btn panel-form-btn panel-form-btn--facebook" href="<%= Routes.facebook_auth_path(@conn, :request) %>">
+          <%= link(to: "#", class: "login-panel__fb-btn panel-form-btn panel-form-btn--facebook", data: [show_subscribe_popup: ""]) do %>
             <i class="fab fa-facebook-f"></i>
             Log In With Facebook
-          </a>
+          <% end %>
         <% end %>
       </div>
       <div class="login-info">
@@ -66,9 +66,9 @@
             <div class="login-info-part-list__item" href="#">Ready to improve your <br /> website conversions?</div>
           </div>
         </div>
-        
+
         <div class="login-info-cta">
-          <a href="<%= Routes.user_path(@conn, :new) %>" class="login-info-cta__btn">Sign Up For FREE</a>
+          <%= link("Sign Up For FREE", to: "#", class: "login-info-cta__btn", data: [show_subscribe_popup: ""]) %>
           <p class="login-info-cta__note">No credit card required</p>
         </div>
       </div>

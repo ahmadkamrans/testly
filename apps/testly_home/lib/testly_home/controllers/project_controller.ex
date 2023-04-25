@@ -12,7 +12,7 @@ defmodule TestlyHome.ProjectController do
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"project" => project_params}) do
-    user = conn.assigns.current_user
+    user = conn.assigns.current_account_user
 
     case Projects.create_project(user.id, project_params) do
       {:ok, project} ->

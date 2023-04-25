@@ -2,7 +2,7 @@
   <header class="header">
     <nav role="navigation">
       <ul class="nav nav-pills pull-right">
-        <%= if current_user(@conn) do %>
+        <%= if current_account_user(@conn) do %>
           <li><%= link("Sign out", to: Routes.session_path(@conn, :delete), method: :delete) %></li>
         <% else %>
           <li><%= link("Sign up", to: Routes.user_path(@conn, :new)) %></li>

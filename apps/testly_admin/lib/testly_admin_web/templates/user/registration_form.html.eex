@@ -1,0 +1,10 @@
+<%= form_for @changeset, Routes.user_path(@conn, :create), [multipart: true], fn f -> %>
+  <%= input f, :email %>
+  <%= input f, :full_name %>
+  <%= input f, :company_name %>
+  <%= input f, :password %>
+  <%= input f, :is_admin %>
+  <%= hidden_input f, :tos_accepted, value: true %>
+
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>

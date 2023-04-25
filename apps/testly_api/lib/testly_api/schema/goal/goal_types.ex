@@ -1,8 +1,9 @@
 defmodule TestlyAPI.Schema.GoalTypes do
-  use TestlyAPI.Schema.Notation
+  use Absinthe.Schema.Notation
 
-  alias TestlyAPI.{GoalResolver}
-  alias Testly.Goals.Goal
+  alias Testly.{Goals, Authorizer}
+  alias Testly.Projects.Project
+  alias Testly.Goals.PathGoal
 
   # Taken from Testly.Goals.GoalTypeEnum
   enum(:goal_type,
@@ -11,98 +12,86 @@ defmodule TestlyAPI.Schema.GoalTypes do
     ]
   )
 
+  union :goal do
+    types([:path_goal])
+
+    resolve_type(fn
+      _, _ -> :path_goal
+    end)
+  end
+
+  # object :split_test_variation_conversion_rate_by_date do
+  #   field :date, non_null(:datetime)
+  #   field :conversion_rate, non_null(:float)
+  # end
+
+  # object :goal_conversions_stats do
+  #   field :conversion_rate, non_null(:float)
+  #   field :conversions_count, non_null(:integer)
+  #   field :visits_count, non_null(:integer)
+  #   field :improvement, :integer
+  #   field :is_winner, non_null(:boolean)
+  #   field :revenue, non_null(:float)
+  #   # field :goal_id, non_null(:uuid4)
+  #   field :variation_id, non_null(:uuid4)
+
+  #   field :rates_by_date, non_null(list_of(non_null(:split_test_variation_conversion_rate_by_date)))
+  # end
+
   interface :goal_entity do
     field(:id, non_null(:uuid4))
     field(:type, non_null(:goal_type))
     field(:name, non_null(:string))
     field(:value, non_null(:decimal))
     field(:created_at, non_null(:datetime))
-    field :conversions_count, non_null(:integer)
-
-    resolve_type(fn
-      %Goal{type: :path}, _ -> :path_goal
-    end)
-  end
-
-  union :goal do
-    types([:path_goal])
-
-    resolve_type(fn
-      %Goal{type: :path}, _ -> :path_goal
-    end)
-  end
-
-  payload_object(:goal_payload, :goal)
-
-  input_object :path_goal_step_params do
-    field(:url, non_null(:string))
-    field(:match_type, non_null(:page_matcher_match_type))
-    field(:index, non_null(:integer))
-  end
-
-  input_object :goal_params do
-    field(:id, :uuid4)
-    field(:name, non_null(:string))
-    field(:value, non_null(:decimal))
-    field(:type, non_null(:goal_type))
-    field(:path, list_of(non_null(:path_goal_step_params)))
-  end
-
-  object :path_goal do
-    interface(:goal_entity)
-    field(:id, non_null(:uuid4))
-    field(:type, non_null(:goal_type))
-    field(:name, non_null(:string))
-    field(:value, non_null(:decimal))
-    field(:created_at, non_null(:datetime))
+    # field(:conversions_count, non_null(:integer))
 
     field :conversions_count, non_null(:integer) do
-      resolve(&GoalResolver.conversions_count/3)
+      resolve(fn goal, _args, _resolution ->
+        {:ok, Enum.count(goal.conversions)}
+      end)
     end
 
-    field :path, non_null(list_of(non_null(:path_goal_step)))
+    # field :stats, non_null(list_of()) do
+    # end
+
+    resolve_type(fn
+      _, _ -> :path_goal
+    end)
   end
 
-  object :path_goal_step do
-    field(:url, non_null(:string))
-    field(:match_type, non_null(:page_matcher_match_type))
-    field(:index, non_null(:integer))
-  end
+  object :goals_connection do
+    field :nodes, non_null(list_of(non_null(:goal))) do
+      resolve(fn %{project_id: project_id}, _args, _resolution ->
+        {:ok, Goals.get_goals(%Project{id: project_id})}
+      end)
+    end
 
-  object :goal_connection do
-    field :nodes, non_null(list_of(non_null(:goal)))
-    field :total_count, non_null(:integer)
+    field(:total_records, non_null(:integer))
   end
 
   object :goal_queries do
-    field :goals, non_null(:goal_connection) do
-      resolve(&GoalResolver.goal_connection/3)
+    field :goals, non_null(:goals_connection) do
+      resolve(fn %Project{id: project_id} = project, _args, _resolution ->
+        {:ok,
+         %{
+           project_id: project_id,
+           total_records: Goals.get_goals_count(project),
+           # TODO: I think we need to remove this field?
+           session_recordings_with_goals_count: 0
+         }}
+      end)
     end
 
     field :goal, :goal do
       arg(:id, non_null(:uuid4))
-      resolve(&GoalResolver.goal/3)
-    end
-  end
 
-  object :goal_mutations do
-    field :create_goal, type: :goal_payload do
-      arg(:project_id, non_null(:uuid4))
-      arg(:goal_params, non_null(:goal_params))
-      resolve(&GoalResolver.create_goal/2)
-      middleware(&build_payload/2)
-    end
-
-    field :update_goal, type: :goal_payload do
-      arg(:id, non_null(:uuid4))
-      arg(:goal_params, non_null(:goal_params))
-      resolve(&GoalResolver.update_goal/2)
-      middleware(&build_payload/2)
-    end
-
-    field :delete_goal, :goal do
-      arg(:id, non_null(:uuid4))
-      resolve(&GoalResolver.delete_goal/2)
+      resolve(fn %Project{} = project, %{id: id}, %{context: %{current_project_user: current_project_user}} ->
+        with {:ok, %PathGoal{} = goal} <- {:ok, Goals.get_goal(project, id)},
+             :ok <- Authorizer.authorize(:show, goal, project, current_project_user) do
+          {:ok, Goals.get_goal(project, id)}
+        end
+      end)
     end
   end
 end

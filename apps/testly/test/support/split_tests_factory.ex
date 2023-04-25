@@ -4,19 +4,19 @@ defmodule Testly.SplitTestsFactory do
       alias Testly.SplitTests.{
         SplitTest,
         Variation,
-        FinishCondition,
+        FinishConditionDb,
         PageType,
         PageCategory,
         VariationVisit
       }
 
-      def split_test_page_type_factory do
+      def page_type_factory do
         %PageType{
           name: sequence(:name, &"PageType#{&1}")
         }
       end
 
-      def split_test_page_category_factory do
+      def page_category_factory do
         %PageCategory{
           name: sequence(:name, &"PageCategory#{&1}")
         }
@@ -25,8 +25,8 @@ defmodule Testly.SplitTestsFactory do
       def split_test_factory do
         %SplitTest{
           name: "Split test",
-          page_type: build(:split_test_page_type),
-          page_category: build(:split_test_page_category)
+          page_type: build(:page_type),
+          page_category: build(:page_category)
         }
       end
 
@@ -36,7 +36,7 @@ defmodule Testly.SplitTestsFactory do
             build(:split_test_control_variation),
             build(:split_test_variation)
           ],
-          finish_condition: build(:split_test_visits_finish_condition),
+          finish_condition_db: build(:visits_finish_condition_db),
           status: :active
         })
       end
@@ -49,15 +49,17 @@ defmodule Testly.SplitTestsFactory do
       end
 
       def split_test_variation_visit_factory do
-        %VariationVisit{}
+        %VariationVisit{
+          visited_at: DateTime.utc_now()
+        }
       end
 
       def split_test_control_variation_factory do
         build(:split_test_variation, %{control: true})
       end
 
-      def split_test_visits_finish_condition_factory do
-        %FinishCondition{
+      def visits_finish_condition_db_factory do
+        %FinishConditionDb{
           type: :visits,
           count: 100
         }

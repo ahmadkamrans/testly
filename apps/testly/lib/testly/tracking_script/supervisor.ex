@@ -8,8 +8,25 @@ defmodule Testly.TrackingScript.Supervisor do
     Poller
   }
 
-  def start_link(args \\ []) do
-    Supervisor.start_link(__MODULE__, args, name: __MODULE__)
+  def start_link(_args) do
+    :global.trans(
+      {__MODULE__, __MODULE__},
+      fn ->
+        case Supervisor.start_link(__MODULE__, :ok, name: {:global, __MODULE__}) do
+          {:ok, pid} ->
+            {:ok, pid}
+
+          {:error, {:already_started, pid}} ->
+            Process.link(pid)
+            {:ok, pid}
+
+          error ->
+            error
+        end
+      end,
+      Node.list(:connected),
+      5
+    )
   end
 
   @impl true

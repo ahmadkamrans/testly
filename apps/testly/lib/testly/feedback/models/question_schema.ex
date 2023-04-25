@@ -3,6 +3,8 @@ defmodule Testly.Feedback.QuestionSchema do
 
   alias Testly.Feedback.{Poll}
 
+  @type t :: %__MODULE__{}
+
   schema "feedback_questions" do
     belongs_to :poll, Poll
     field :type, Testly.FeedbackQuestionType

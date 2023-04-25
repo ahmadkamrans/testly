@@ -1,8 +1,9 @@
 defmodule TestlyAPI.Schema.FeedbackPollTypes do
-  use TestlyAPI.Schema.Notation
+  use Absinthe.Schema.Notation
 
-  alias TestlyAPI.FeedbackPollResolver
+  alias Testly.Feedback
   alias Testly.Feedback.{LongTextQuestion, ShortTextQuestion}
+  alias Testly.Projects.Project
 
   enum(:feedback_poll_show_option,
     values: [
@@ -10,26 +11,6 @@ defmodule TestlyAPI.Schema.FeedbackPollTypes do
       :hide_after_submit
     ]
   )
-
-  payload_object(:feedback_poll_payload, :feedback_poll)
-
-  input_object :feedback_poll_question_params do
-    field(:id, :uuid4)
-    field(:type, non_null(:string))
-    field(:title, non_null(:string))
-    field(:index, non_null(:integer))
-  end
-
-  input_object :feedback_poll_params do
-    field(:name, non_null(:string))
-    field(:is_active, non_null(:boolean))
-    field(:page_matchers, non_null(list_of(non_null(:page_matcher_params))))
-    field(:is_page_matcher_enabled, non_null(:boolean))
-    field(:thank_you_message, non_null(:string))
-    field(:questions, non_null(list_of(non_null(:feedback_poll_question_params))))
-    field(:show_poll_option, non_null(:feedback_poll_show_option))
-    field(:is_poll_opened_on_start, non_null(:boolean))
-  end
 
   object :feedback_poll_short_text_question do
     field(:id, non_null(:uuid4))
@@ -58,7 +39,9 @@ defmodule TestlyAPI.Schema.FeedbackPollTypes do
     field(:answered_at, non_null(:datetime))
 
     field :question, non_null(:feedback_poll_question) do
-      resolve(&FeedbackPollResolver.question/3)
+      resolve(fn answer, _args, _resolution ->
+        {:ok, Feedback.get_question(answer)}
+      end)
     end
   end
 
@@ -68,10 +51,18 @@ defmodule TestlyAPI.Schema.FeedbackPollTypes do
     field(:created_at, non_null(:datetime))
     field(:page_url, non_null(:string))
     field(:answers, non_null(list_of(non_null(:feedback_poll_response_answer))))
-    field :session_recording_id, non_null(:uuid4)
+
+    field :session_recording, :session_recording do
+      resolve(fn response, _args, _resolution ->
+        # Just avoid excess preload, cause frontend need only id of session recording
+        {:ok, %{id: response.session_recording_id}}
+      end)
+    end
 
     field :feedback_poll, non_null(:feedback_poll) do
-      resolve(&FeedbackPollResolver.feedback_poll/3)
+      resolve(fn response, _args, _resolution ->
+        {:ok, Feedback.get_poll(response.poll_id)}
+      end)
     end
   end
 
@@ -88,61 +79,74 @@ defmodule TestlyAPI.Schema.FeedbackPollTypes do
     field(:show_poll_option, non_null(:feedback_poll_show_option))
     field(:is_poll_opened_on_start, non_null(:boolean))
 
-    field :responses, non_null(:feedback_poll_response_connection) do
-      arg(:pagination, :pagination)
-      resolve(&FeedbackPollResolver.feedback_poll_response_connection/3)
+    field :responses, non_null(:feedback_poll_responses_connection) do
+      arg(:pagination, :cursor_pagination)
+
+      resolve(fn poll, args, _resolution ->
+        %{entries: entries, metadata: metadata} =
+          Feedback.get_responses(
+            poll,
+            pagination: args[:pagination]
+          )
+
+        {:ok, %{nodes: entries, page_info: metadata}}
+      end)
+    end
+
+    field :responses_count, non_null(:integer) do
+      resolve(fn poll, _args, _resolution ->
+        {:ok, Feedback.get_responses_count(poll)}
+      end)
     end
   end
 
-  object :feedback_poll_response_connection do
-    field(:nodes, non_null(list_of(non_null(:feedback_poll_response))))
-    field(:total_count, non_null(:integer))
+  object :feedback_poll_responses_connection do
+    field :nodes, non_null(list_of(non_null(:feedback_poll_response)))
+    field :page_info, non_null(:cursor_page_info)
   end
 
-  object :feedback_poll_connection do
-    field(:nodes, non_null(list_of(non_null(:feedback_poll))))
-    field(:total_count, non_null(:integer))
+  object :project_feedback_polls_connection do
+    field :nodes, non_null(list_of(non_null(:feedback_poll))) do
+      resolve(fn %{project: project}, _args, _resolution ->
+        {:ok, Feedback.get_polls(project)}
+      end)
+    end
 
-    # TODO: ask About
-    # field :total_responses_count, non_null(:integer) do
-    #   resolve(fn %{project: project}, _args, _resolution ->
-    #     {:ok, Feedback.get_responses_count(project)}
-    #   end)
-    # end
+    field :total_records, non_null(:integer) do
+      resolve(fn %{project: project}, _args, _resolution ->
+        {:ok, Feedback.get_polls_count(project)}
+      end)
+    end
+
+    field :active_polls_count, non_null(:integer) do
+      resolve(fn %{project: project}, _args, _resolution ->
+        {:ok, Feedback.get_active_polls_count(project)}
+      end)
+    end
+
+    field :responses_count, non_null(:integer) do
+      resolve(fn %{project: project}, _args, _resolution ->
+        {:ok, Feedback.get_responses_count(project)}
+      end)
+    end
   end
 
   object :feedback_poll_queries do
-    field(:feedback_polls, non_null(:feedback_poll_connection))
+    field :feedback_polls, non_null(:project_feedback_polls_connection) do
+      resolve(fn project, _data, _context ->
+        {:ok,
+         %{
+           project: project
+         }}
+      end)
+    end
 
     field :feedback_poll, non_null(:feedback_poll) do
       arg(:id, non_null(:uuid4))
-      resolve(&FeedbackPollResolver.feedback_poll/3)
-    end
-  end
 
-  object :feedback_poll_mutations do
-    field :create_feedback_poll, type: :feedback_poll_payload do
-      arg(:project_id, non_null(:uuid4))
-      arg(:feedback_poll_params, non_null(:feedback_poll_params))
-      resolve(&FeedbackPollResolver.create_feedback_poll/2)
-      middleware(&build_payload/2)
-    end
-
-    field :update_feedback_poll, type: :feedback_poll_payload do
-      arg(:feedback_poll_id, non_null(:uuid4))
-      arg(:feedback_poll_params, non_null(:feedback_poll_params))
-      resolve(&FeedbackPollResolver.update_feedback_poll/2)
-      middleware(&build_payload/2)
-    end
-
-    field :delete_feedback_poll, :feedback_poll do
-      arg(:id, non_null(:uuid4))
-      resolve(&FeedbackPollResolver.delete_feedback_poll/2)
-    end
-
-    field :delete_feedback_poll_response, :feedback_poll_response do
-      arg(:id, non_null(:uuid4))
-      resolve(&FeedbackPollResolver.delete_feedback_poll_response/2)
+      resolve(fn %Project{} = _project, %{id: id}, %{context: %{current_project_user: _current_project_user}} ->
+        {:ok, Feedback.get_poll(id)}
+      end)
     end
   end
 end

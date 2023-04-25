@@ -16,12 +16,6 @@ defmodule Testly.Pagination do
     |> cast(params, [:page, :per_page])
   end
 
-  def cast_params(schema \\ %Pagination{}, params) do
-    schema
-    |> cast(params, [:page, :per_page])
-    |> apply_changes
-  end
-
   def paginate(query, pagination) do
     query
     |> limit(^pagination.per_page)

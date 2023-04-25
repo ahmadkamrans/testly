@@ -3,7 +3,7 @@ defmodule Testly.Repo.Migrations.CreateGoalVariationReportTable do
 
   def change do
     create table(:split_test_goal_variation_reports) do
-      add(:goal_id, references(:goals, on_delete: :delete_all), null: false)
+      add(:goal_id, references(:split_test_goals, on_delete: :delete_all), null: false)
       add(:variation_id, references(:split_test_variations, on_delete: :delete_all), null: false)
 
       add(:conversions_count, :integer)

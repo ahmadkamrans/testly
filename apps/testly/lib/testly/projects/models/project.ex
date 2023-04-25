@@ -3,6 +3,8 @@ defmodule Testly.Projects.Project do
   import Ecto.Query
 
   alias __MODULE__
+  alias Testly.Projects.User
+  # alias Testly.SessionRecordings.SessionRecording
 
   @type t :: %__MODULE__{
           id: Schema.pk(),
@@ -15,9 +17,12 @@ defmodule Testly.Projects.Project do
         }
 
   schema "projects" do
-    field :user_id, Ecto.UUID
+    belongs_to :user, User
+    # has_many :session_recordings, SessionRecording
+
     field :domain, :string
     field :uploaded_script_hash, :string
+    # actually it is is_project_recrodings_enabled
     field :is_recording_enabled, :boolean
     field :is_tracking_code_installed, :boolean
     field :is_deleted, :boolean, default: false

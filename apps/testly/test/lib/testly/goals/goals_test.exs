@@ -2,8 +2,12 @@ defmodule Testly.GoalsTest do
   use Testly.DataCase, async: true
   import Testly.DataFactory
 
+  # @url "http://example.com/register"
+
+  alias Ecto.Changeset
   alias Testly.Goals
-  alias Testly.Goals.{Goal, Conversion}
+  alias Testly.Goals.{PathGoal, Conversion}
+  # alias Testly.Projects.Project
 
   setup do
     project = insert(:project)
@@ -29,114 +33,121 @@ defmodule Testly.GoalsTest do
     }
   end
 
-  describe "#get_goal/1" do
-    test "returns goal", %{project: project, session_recording: session_recording} do
+  describe "#get_goal/2" do
+    test "Project", %{project: project, session_recording: session_recording} do
       %{id: id} =
-        insert(:path_goal,
+        insert(:project_path_goal,
           project_id: project.id,
           conversions: [
-            build(:goal_conversion, session_recording_id: session_recording.id)
+            build(:project_goal_conversion, session_recording_id: session_recording.id)
           ]
         )
 
-      response = Goals.get_goal(id)
+      response = Goals.get_goal(project, id)
 
-      assert %Goal{
+      assert %PathGoal{
                conversions: [%Conversion{}]
              } = response
     end
+
+    test "SplitTest", %{split_test: split_test} do
+      %{id: id} = insert(:split_test_path_goal, split_test_id: split_test.id)
+
+      response = Goals.get_goal(split_test, id)
+
+      assert %PathGoal{} = response
+    end
   end
 
-  # describe "#get_goals/2" do
-  #   test "Project", %{project: project} do
-  #     insert(:project_path_goal, project_id: project.id)
+  describe "#get_goals/2" do
+    test "Project", %{project: project} do
+      insert(:project_path_goal, project_id: project.id)
 
-  #     response = Goals.get_goals(project)
+      response = Goals.get_goals(project)
 
-  #     assert [%PathGoal{}] = response
-  #   end
-
-  #   test "SplitTest", %{split_test: split_test} do
-  #     insert(:split_test_path_goal, split_test_id: split_test.id)
-
-  #     response = Goals.get_goals(split_test)
-
-  #     assert [%PathGoal{}] = response
-  #   end
-  # end
-
-  describe "#create_goal/2" do
-    test "ok", %{project: project} do
-      params = string_params_for(:path_goal, %{value: 0})
-
-      response = Goals.create_goal(project, params)
-
-      assert {:ok, %Goal{} = goal} = response
+      assert [%PathGoal{}] = response
     end
 
-    test "error", %{project: project} do
-      params = %{}
+    test "SplitTest", %{split_test: split_test} do
+      insert(:split_test_path_goal, split_test_id: split_test.id)
+
+      response = Goals.get_goals(split_test)
+
+      assert [%PathGoal{}] = response
+    end
+  end
+
+  describe "#create_goal/2" do
+    test "Project: ok", %{project: project} do
+      params = string_params_for(:path_goal) |> Map.put("value", "0")
+
+      response = Goals.create_goal(project, params)
+      assert {:ok, %PathGoal{} = goal} = response
+      assert goal.id
+    end
+
+    test "Project: error", %{project: project} do
+      params = %{type: "path"}
 
       response = Goals.create_goal(project, params)
 
       assert {:error, %Changeset{}} = response
     end
+
+    # test "SplitTest: ok", %{split_test: split_test} do
+    #   params = string_params_for(:path_goal)
+
+    #   response = Goals.create_goal(split_test, params)
+
+    #   assert {:ok, %PathGoal{}} = response
+    # end
+
+    # test "SplitTest: error", %{split_test: split_test} do
+    #   params = %{type: "path"}
+
+    #   response = Goals.create_goal(split_test, params)
+
+    #   assert {:error, %Changeset{}} = response
+    # end
   end
 
-  describe "#update_goal/2" do
-    test "ok", %{project: project} do
-      goal = insert(:path_goal, project_id: project.id)
-      params = %{name: "updated goal"}
+  describe "#update_goal/3" do
+    test "Project: ok", %{project: project} do
+      %{id: id} = insert(:project_path_goal, project_id: project.id)
+      params = string_params_for(:path_goal) |> Map.put("value", "0")
+      goal = Goals.get_goal(project, id)
 
-      response = Goals.update_goal(goal, params)
+      response = Goals.update_goal(project, goal, params)
 
-      assert {:ok, %Goal{name: "updated goal"} = goal} = response
+      assert {:ok, %PathGoal{} = goal} = response
+      assert goal.id
     end
   end
 
-  describe "#delete_goal/1" do
+  describe "#delete_goal/2" do
     test "ok", %{project: project} do
-      goal = insert(:path_goal, project_id: project.id)
+      %{id: id} = insert(:project_path_goal, project_id: project.id)
+      goal = Goals.get_goal(project, id)
 
-      response = Goals.delete_goal(goal)
+      response = Goals.delete_goal(project, goal)
 
-      assert {:ok, %Goal{}} = response
+      assert {:ok, %PathGoal{}} = response
     end
   end
 
-  describe "#convert_goals/1" do
-    test "ok", %{project: project} do
-      goal = insert(:path_goal, project_id: project.id)
+  describe "#get_split_test_goal_conversions_count/1" do
+    test "works", %{
+      split_test: split_test,
+      variation_visit: variation_visit
+    } do
+      %{id: goal_id} = insert(:split_test_path_goal, split_test_id: split_test.id)
+      assert Goals.get_split_test_goal_conversions_count(goal_id) === 0
 
-      session_recording =
-        insert(:session_recording, %{
-          project_id: project.id,
-          pages: [
-            build(:session_recording_page, url: List.first(goal.path).url)
-          ]
-        })
+      insert(:split_test_goal_conversion, split_test_goal_id: goal_id, split_test_variation_visit_id: variation_visit.id)
 
-      response = Goals.convert_goals(session_recording)
-
-      updated_goal = Goals.get_goal(goal.id)
-      assert :ok = response
-      assert 1 = Enum.count(updated_goal.conversions)
+      assert Goals.get_split_test_goal_conversions_count(goal_id) === 1
     end
   end
-
-  # describe "#get_split_test_goal_conversions_count/1" do
-  #   test "works", %{
-  #     split_test: split_test,
-  #     variation_visit: variation_visit
-  #   } do
-  #     %{id: goal_id} = insert(:split_test_path_goal, split_test_id: split_test.id)
-  #     assert Goals.get_split_test_goal_conversions_count(goal_id) === 0
-
-  #     insert(:split_test_goal_conversion, split_test_goal_id: goal_id, split_test_variation_visit_id: variation_visit.id)
-
-  #     assert Goals.get_split_test_goal_conversions_count(goal_id) === 1
-  #   end
-  # end
 
   #   describe "#session_recordings_with_goals_count" do
   #     test "works", %{project: project} do

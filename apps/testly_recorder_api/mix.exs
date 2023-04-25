@@ -23,7 +23,7 @@ defmodule TestlyRecorderAPI.Mixfile do
   def application do
     [
       mod: {TestlyRecorderAPI.Application, []},
-      extra_applications: [:logger, :runtime_tools, :appsignal]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -37,16 +37,15 @@ defmodule TestlyRecorderAPI.Mixfile do
   defp deps do
     [
       {:testly, in_umbrella: true},
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:phoenix, "~> 1.5"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:plug_cowboy, "~> 2.2"},
       {:httpotion, "~> 3.1.0"},
       {:ibrowse, github: "cmullaparthi/ibrowse", override: true},
       {:cors_plug, "~> 1.5.2"},
       {:mox, "~> 0.5.0", only: :test},
       {:proper_case, "~> 1.3.0"},
-      {:remote_ip, "~> 0.1.0"},
-      {:honeybadger, "~> 0.7"}
+      {:remote_ip, "~> 0.1.0"}
     ]
   end
 end

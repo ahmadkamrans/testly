@@ -1,166 +1,156 @@
 defmodule Testly.Goals.Goal do
-  use Testly.Schema
-  alias Testly.Goals.{PathGoal, GoalTypeEnum, Conversion, PathStep}
+  @moduledoc """
+    Base module for type goals
+  """
 
-  @type t :: %__MODULE__{
-          id: Testly.Schema.pk(),
-          project_id: Testly.Schema.pk(),
-          name: String.t(),
-          value: float(),
-          path: [map()],
-          type: GoalTypeEnum.t(),
-          created_at: DateTime.t(),
-          updated_at: DateTime.t()
-        }
+  alias Ecto.Changeset
+  alias Testly.Projects.Project
+  alias Testly.SplitTests.SplitTest
 
-  schema "goals" do
-    has_many :conversions, Conversion
-    field :type, GoalTypeEnum
-    field :project_id, Ecto.UUID
-    field :name, :string
-    field :value, :decimal, default: Decimal.from_float(0.0)
-    # field :path, {:array, :map}
-    embeds_many :path, PathStep, on_replace: :delete
-    timestamps()
+  @type assoc :: Project.t() | SplitTest.t()
+  @type goal :: PathGoal.t()
+  @type t :: PathGoal.t()
+
+  alias Testly.Goals.PathGoal
+
+  @modules %{
+    "path" => Testly.Goals.PathGoal
+  }
+
+  @spec changeset(String.t(), map()) :: Changeset.t()
+  def changeset(assoc_id, params) do
+    module = type_to_module(params["type"] || params[:type])
+
+    module
+    |> struct(assoc_id: assoc_id)
+    |> module.changeset(params)
   end
 
-  def create_changeset(schema, params) do
-    schema
-    |> cast(params, [:name, :value, :type])
-    |> validate_required([:name, :value, :type])
-    |> type_changeset(params)
-  end
-
+  @spec update_changeset(Goal.t(), map()) :: Changeset.t()
   def update_changeset(schema, params) do
-    schema
-    |> cast(params, [:name, :value])
-    |> validate_required([:name, :value])
-    |> type_changeset(params)
+    module = type_to_module(params["type"] || params[:type])
+
+    module.changeset(schema, params)
+    |> Map.put(:action, :update)
   end
 
-  defp type_changeset(%Changeset{valid?: true} = changeset, params) do
-    case Changeset.get_field(changeset, :type) do
-      :path ->
-        changeset
-        |> cast_embed(:path, required: true)
+  @spec delete_changeset(Goal.t()) :: Changeset.t()
+  def delete_changeset(schema) do
+    schema
+    |> Changeset.change()
+    |> Map.put(:action, :delete)
+  end
+
+  @spec changesets(String.t(), [Goal.t()], [map()]) :: {:ok, [Changeset.t()]} | {:error, [Changeset.t()]}
+  def changesets(assoc_id, goals, goals_params) do
+    goals_params =
+      goals_params
+      |> Enum.with_index()
+      |> Enum.map(fn {params, i} ->
+        put_in(params[:index], i)
+      end)
+
+    update_changesets =
+      for goal <- goals do
+        case Enum.find(goals_params, &(&1[:id] == goal.id)) do
+          nil -> delete_changeset(goal)
+          goal_params -> update_changeset(goal, goal_params)
+        end
+      end
+
+    create_changesets =
+      for goal_params <- goals_params, goal_params[:id] == nil do
+        changeset(assoc_id, goal_params)
+        |> Map.put(:action, :insert)
+      end
+
+    changesets = update_changesets ++ create_changesets
+
+    invalid_changesets = Enum.filter(changesets, &(&1.valid? == false))
+
+    if Enum.empty?(invalid_changesets) do
+      {:ok, changesets}
+    else
+      {:error, invalid_changesets}
     end
   end
 
-  defp type_changeset(%Changeset{valid?: false} = changeset, _params) do
-    changeset
+  def to_goal(goal) do
+    type_to_module(goal.type).to_goal(goal)
   end
 
-  def check_conversion(%Goal{type: :path} = goal, session_recording) do
+  def check_conversion(goal, session_recording) do
     PathGoal.check_conversion(goal, session_recording)
   end
 
-  # defmacro goal_schema(do: block) do
-  #   quote do
-  #     alias Testly.Goals.{Conversion}
+  defp type_to_module(type) do
+    case @modules[to_string(type)] do
+      nil -> raise "Unknown type #{inspect(type)}"
+      module -> module
+    end
+  end
 
-  #     schema "goals" do
-  #       has_many :conversions, Conversion
-  #       field :project_id, Ecto.UUID
-  #       field :name, :string
-  #       field :value, :decimal, default: Decimal.from_float(0.0)
-  #       timestamps()
-  #       unquote(block)
-  #     end
+  defmacro __using__(_) do
+    quote do
+      use Testly.Schema
+      alias Testly.Goals.GoalTypeEnum
+      import Testly.Goals.Goal, only: [goal_model: 1]
+    end
+  end
 
-  #     @spec base_changeset(%__MODULE__{}, map) :: Changeset.t()
-  #     defp base_changeset(schema, params) do
-  #       schema
-  #       |> cast(params, [:name, :value, :index])
-  #       |> validate_required([:name])
-  #     end
+  defmacro goal_model(do: block) do
+    quote do
+      alias Testly.Goals.{ProjectGoal, SplitTestGoal, Conversion}
 
-  #     def to_type_goal(%Goal{} = goal) do
-  #       params = Map.from_struct(goal)
+      @primary_key false
+      embedded_schema do
+        field :id, Ecto.UUID
+        field :assoc_id, Ecto.UUID
+        # field :assoc_type, SplitTest | Project
+        embeds_many :conversions, Conversion
+        field :name, :string
+        field :value, :decimal, default: Decimal.from_float(0.0)
+        field :index, :integer
+        timestamps()
+        unquote(block)
+      end
 
-  #       struct(__MODULE__)
-  #       |> cast(params, [:id, :project_id, :name, :value, :created_at, :updated_at])
-  #       # |> cast_embed(:conversions, with: &Conversion.cast_fields/2)
-  #       # |> cast_fields(params)
-  #       |> Changeset.apply_changes()
-  #     end
-  #   end
-  # end
+      @spec changeset(%__MODULE__{}, map) :: Ecto.Changeset.t()
+      def changeset(schema, params) do
+        schema
+        |> cast(params, [:name, :value, :index])
+        |> validate_required([:name])
+        |> goal_changeset(params)
+      end
 
-  # defmacro __using__(_) do
-  #   quote do
-  #     use Testly.Schema
-  #     alias Testly.Goals.GoalTypeEnum
-  #     # @behaviour Testly.Goals.Goal
-  #     import Testly.Goals.Goal, only: [goal_schema: 1]
-  #   end
-  # end
+      def to_goal(%ProjectGoal{project_id: project_id} = goal) do
+        params = Map.from_struct(goal)
 
-  # @spec create_changeset(String.t(), map()) :: Changeset.t()
-  # def create_changeset(project_id, params) do
-  #   module = type_to_module(params["type"] || params[:type])
-  #   schema = struct(module, project_id: project_id)
+        project_id
+        |> cast_common_fields(params)
+        |> cast_fields(params)
+        |> Ecto.Changeset.apply_changes()
+      end
 
-  #   schema
-  #   |> schema.__struct__.changeset(params)
-  #   |> Map.put(:action, :insert)
-  # end
+      def to_goal(%SplitTestGoal{split_test_id: split_test_id} = goal) do
+        params = Map.from_struct(goal)
 
-  # @spec update_changeset(Goal.t(), map()) :: Changeset.t()
-  # def update_changeset(schema, params) do
-  #   schema
-  #   |> schema.__struct__.changeset(params)
-  #   |> Map.put(:action, :update)
-  # end
+        split_test_id
+        |> cast_common_fields(params)
+        |> cast_fields(params)
+        |> Ecto.Changeset.apply_changes()
+      end
 
-  # @spec delete_changeset(Goal.t()) :: Changeset.t()
-  # def delete_changeset(schema) do
-  #   schema
-  #   |> Changeset.change()
-  #   |> Map.put(:action, :delete)
-  # end
+      defp cast_common_fields(assoc_id, params) do
+        is_loaded = Ecto.assoc_loaded?(params[:conversions])
 
-  # @spec changesets(String.t(), [Goal.t()], [map()]) :: {:ok, [Changeset.t()]} | {:error, [Changeset.t()]}
-  # def changesets(assoc_id, goals, goals_params) do
-  #   goals_params =
-  #     goals_params
-  #     |> Enum.with_index()
-  #     |> Enum.map(fn {params, i} ->
-  #       put_in(params[:index], i)
-  #     end)
-
-  #   update_changesets =
-  #     for goal <- goals do
-  #       case Enum.find(goals_params, &(&1[:id] == goal.id)) do
-  #         nil -> delete_changeset(goal)
-  #         goal_params -> update_changeset(goal, goal_params)
-  #       end
-  #     end
-
-  #   create_changesets =
-  #     for goal_params <- goals_params, goal_params[:id] == nil do
-  #       changeset(assoc_id, goal_params)
-  #       |> Map.put(:action, :insert)
-  #     end
-
-  #   changesets = update_changesets ++ create_changesets
-
-  #   invalid_changesets = Enum.filter(changesets, &(&1.valid? == false))
-
-  #   if Enum.empty?(invalid_changesets) do
-  #     {:ok, changesets}
-  #   else
-  #     {:error, invalid_changesets}
-  #   end
-  # end
-
-  # def to_type_goal(%Goal{} = goal) do
-  #   type_to_module(goal.type).to_type_goal(goal)
-  # end
-
-  # defp type_to_module(type) do
-  #   case @modules[to_string(type)] do
-  #     nil -> raise "Unexpected Goal Type #{inspect(type)}"
-  #     module -> module
-  #   end
-  # end
+        struct(__MODULE__, assoc_id: assoc_id)
+        |> cast(params, [:id, :name, :value, :created_at, :updated_at])
+        |> case do
+          d when is_loaded == true -> cast_embed(d, :conversions, with: &Conversion.cast_fields/2)
+          c -> c
+        end
+      end
+    end
+  end
 end

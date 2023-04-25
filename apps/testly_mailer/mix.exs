@@ -23,7 +23,7 @@ defmodule TestlyMailer.Mixfile do
   def application do
     [
       mod: {TestlyMailer.Application, []},
-      extra_applications: [:logger, :runtime_tools, :appsignal]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -36,7 +36,7 @@ defmodule TestlyMailer.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.5.1"},
       {:phoenix_html, "~> 2.10"},
       {:bamboo, "~> 1.1"},
       {:bamboo_smtp, "~> 1.6.0"}

@@ -20,16 +20,12 @@
 
     <title>Testly</title>
 
-    <script src="https://recorder-stage.testly.com/script/98e01a0f-f7fc-4e02-a697-dd88b62d16b4.js"></script>
+    <script src="https://cdn.testly.com/47c25d2f-dcc6-4fb8-89ab-38eb1d4c4267.js"></script>
 
     <script data-turbolinks-track="reload" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
     <link data-turbolinks-track="reload" rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-
-    <%= if honeybadger_js_enabled() do %>
-      <script src="//js.honeybadger.io/v0.5/honeybadger.min.js" type="text/javascript" data-apiKey="69bbf6f6"></script>
-    <% end %>
   </head>
 
   <body>
@@ -58,7 +54,7 @@
       </section>
     <% end %>
 
-    <%= render @view_module, @view_template, assigns %>
+    <%= @inner_content %>
 
     <%= render TestlyHome.LayoutView, "_main_footer.html", assigns %>
 

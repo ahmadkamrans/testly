@@ -4,6 +4,10 @@ defmodule Testly.SessionRecordingsTest do
 
   alias Testly.SessionRecordings
   alias Testly.SessionRecordings.{Filter, SessionRecording, Device, Location, Page}
+  alias Testly.SessionEvents.EventSchema
+  alias Testly.Goals.ProjectGoalConversion
+  alias Testly.SessionRecordings.SplitTest.{VariationVisit, GoalConversion, Variation}
+  alias Testly.Feedback.Response
 
   describe "#get_next_session_recording/1" do
     test "works" do
@@ -276,6 +280,146 @@ defmodule Testly.SessionRecordingsTest do
                   duration: 1000
                 }
               ]} = response
+    end
+  end
+
+  describe "get_staled_recording_ids/1" do
+    test "returns staled recording ids" do
+      project = insert(:project)
+
+      insert(:session_recording, project_id: project.id, created_at: Timex.shift(DateTime.utc_now(), days: -3))
+      insert(:session_recording, project_id: project.id, created_at: Timex.shift(DateTime.utc_now(), days: -10))
+      s_r3 = insert(:session_recording, project_id: project.id, created_at: Timex.shift(DateTime.utc_now(), days: -31))
+      s_r4 = insert(:session_recording, project_id: project.id, created_at: Timex.shift(DateTime.utc_now(), days: -40))
+
+      assert Enum.sort(SessionRecordings.get_staled_recording_ids(limit: 1000)) === Enum.sort([s_r4.id, s_r3.id])
+      assert SessionRecordings.get_staled_recording_ids(limit: 1) === [s_r3.id]
+    end
+  end
+
+  describe "delete_recordings/1" do
+    test "returns amount of deleted recordings" do
+      project = insert(:project)
+
+      s_r1 = insert(:session_recording, project_id: project.id)
+      s_r2 = insert(:session_recording, project_id: project.id)
+
+      assert SessionRecordings.delete_recordings([s_r1.id, s_r2.id]) === 2
+    end
+
+    test "doesn't delete feedback responses" do
+      project = insert(:project)
+      %{id: session_recording_id} = insert(:session_recording, project_id: project.id)
+
+      %{responses: [%{id: response_id}]} =
+        insert(:feedback_poll,
+          project_id: project.id,
+          responses: [build(:feedback_response, session_recording_id: session_recording_id)]
+        )
+
+      assert %Response{session_recording_id: ^session_recording_id} = Repo.get(Response, response_id)
+
+      SessionRecordings.delete_recordings([session_recording_id])
+
+      assert %Response{session_recording_id: nil} = Repo.get(Response, response_id)
+    end
+
+    test "doesn't delete split test variation visits" do
+      project = insert(:project)
+      split_test = insert(:split_test, %{project_id: project.id})
+      split_test_goal = insert(:split_test_path_goal, %{split_test_id: split_test.id})
+
+      %{split_test_variation_visits: [%{id: visit_id}], id: recording_id} =
+        insert(:session_recording, %{
+          project_id: project.id,
+          split_test_variation_visits: [
+            %VariationVisit{
+              variation: %Variation{
+                name: "test",
+                url: "http://google.com",
+                split_test_id: split_test.id
+              },
+              goal_conversions: [
+                %GoalConversion{
+                  split_test_goal_id: split_test_goal.id
+                }
+              ],
+              visited_at: DateTime.utc_now()
+            }
+          ]
+        })
+
+      assert %VariationVisit{session_recording_id: ^recording_id} = Repo.get(VariationVisit, visit_id)
+
+      SessionRecordings.delete_recordings([recording_id])
+
+      assert %VariationVisit{session_recording_id: nil} = Repo.get(VariationVisit, visit_id)
+    end
+
+    test "doesn't delete project goal conversion" do
+      project = insert(:project)
+      %{id: session_recording_id} = insert(:session_recording, project_id: project.id)
+
+      %{conversions: [%ProjectGoalConversion{id: conversion_id}]} =
+        insert(:project_path_goal,
+          project_id: project.id,
+          conversions: [
+            build(:project_goal_conversion, session_recording_id: session_recording_id)
+          ]
+        )
+
+      assert %ProjectGoalConversion{session_recording_id: ^session_recording_id} =
+               Repo.get(ProjectGoalConversion, conversion_id)
+
+      SessionRecordings.delete_recordings([session_recording_id])
+
+      assert %ProjectGoalConversion{session_recording_id: nil} = Repo.get(ProjectGoalConversion, conversion_id)
+    end
+
+    test "deletes location" do
+      session_recording = insert(:session_recording, project_id: insert(:project).id)
+
+      SessionRecordings.delete_recordings([session_recording.id])
+
+      assert Repo.get(Location, session_recording.location.id) === nil
+    end
+
+    test "deletes device" do
+      session_recording = insert(:session_recording, project_id: insert(:project).id)
+
+      SessionRecordings.delete_recordings([session_recording.id])
+
+      assert Repo.get(Device, session_recording.device.id) === nil
+    end
+
+    test "deletes pages" do
+      session_recording =
+        insert(:session_recording,
+          project_id: insert(:project).id,
+          pages: [build(:session_recording_page)]
+        )
+
+      SessionRecordings.delete_recordings([session_recording.id])
+
+      assert Repo.get(Page, List.first(session_recording.pages).id) === nil
+    end
+
+    test "deletes recording events" do
+      session_recording =
+        insert(:session_recording,
+          project_id: insert(:project).id,
+          pages: [build(:session_recording_page)]
+        )
+
+      event =
+        insert(:page_visited_event_schema,
+          session_recording_id: session_recording.id,
+          page_id: List.first(session_recording.pages).id
+        )
+
+      SessionRecordings.delete_recordings([session_recording.id])
+
+      assert Repo.get(EventSchema, event.id) === nil
     end
   end
 

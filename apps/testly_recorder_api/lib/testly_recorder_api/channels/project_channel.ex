@@ -1,6 +1,5 @@
 defmodule TestlyRecorderAPI.ProjectChannel do
   use Phoenix.Channel
-  use Appsignal.Instrumentation.Decorators
   require Logger
 
   @session_recordings Application.get_env(:testly, Testly.SessionRecordings)[:impl]
@@ -9,7 +8,6 @@ defmodule TestlyRecorderAPI.ProjectChannel do
     {:ok, socket}
   end
 
-  @decorate channel_action()
   def handle_in("create:session_recording", %{"session_recording" => session_recording}, socket) do
     project_id = socket.assigns[:project_id]
     ip = socket.assigns[:ip]

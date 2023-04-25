@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled sorted 
+73ebaef4a29f324b535d832afe181238b984258c refs/remotes/origin/dev
+246b04d6933fe5210f6939006312691d19a02d6e refs/remotes/origin/graphql-improvements
+f9c612546cee7fc880aabcd50984d532fdacfd84 refs/remotes/origin/master
+78ec862198b1fd1543428c6ed80958009f112995 refs/remotes/origin/stage

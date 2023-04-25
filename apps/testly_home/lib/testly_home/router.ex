@@ -1,6 +1,5 @@
 defmodule TestlyHome.Router do
   use TestlyHome, :router
-  use Honeybadger.Plug
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -27,6 +26,9 @@ defmodule TestlyHome.Router do
 
     resources("/users", UserController, only: [:new, :create])
     resources("/sessions", SessionController, only: [:new, :create, :delete], singleton: true)
+
+    # Not REST naming, because `GET`(not `POST` like should be) is required
+    get("/sessions/create_by_token", SessionController, :create_by_token)
 
     scope "/user", User do
       resources("/password", PasswordController,

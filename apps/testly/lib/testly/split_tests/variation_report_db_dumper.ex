@@ -10,8 +10,26 @@ defmodule Testly.SplitTests.VariationReportDbDumper do
 
   @frequence_seconds 60
 
+  # credo:disable-for-next-line
   def start_link(_args) do
-    GenServer.start_link(__MODULE__, :ok)
+    :global.trans(
+      {__MODULE__, __MODULE__},
+      fn ->
+        case GenServer.start_link(__MODULE__, :ok, name: {:global, __MODULE__}) do
+          {:ok, pid} ->
+            {:ok, pid}
+
+          {:error, {:already_started, pid}} ->
+            Process.link(pid)
+            {:ok, pid}
+
+          error ->
+            error
+        end
+      end,
+      Node.list(:connected),
+      5
+    )
   end
 
   def init(:ok) do
@@ -39,7 +57,10 @@ defmodule Testly.SplitTests.VariationReportDbDumper do
                 goal,
                 variation,
                 DateTime.to_date(split_test.created_at),
-                if(split_test.finished_at, do: DateTime.to_date(split_test.finished_at), else: Date.utc_today())
+                if(split_test.finished_at,
+                  do: DateTime.to_date(split_test.finished_at),
+                  else: Date.utc_today()
+                )
               )
             end
             |> GoalVariationReport.put_improvement_rate()

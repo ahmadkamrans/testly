@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :exq,
+  url: {:system, "TESTLY_REDIS_URL"}
+
 config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
   client_id: "${TESTLY_HOME_FACEBOOK_CLIENT_ID}",
   client_secret: "${TESTLY_HOME_FACEBOOK_CLIENT_SECRET}"
@@ -7,14 +10,9 @@ config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
 # Do not print debug messages in production
 config :logger,
        :console,
-       format: "$time $metadata[$level] $message\n",
+       format: "$metadata[$level] $message\n",
        level: :info,
-       metadata: [:application, :pid, :crash_reason, :request_id, :user_id]
-
-config :honeybadger,
-  environment_name: :prod,
-  api_key: "${COMMON_HONEYBADGER_API_KEY}",
-  use_logger: true
+       metadata: [:mfa, :crash_reason, :request_id, :user_id]
 
 config :ex_aws,
   region: "us-east-1"
@@ -27,14 +25,11 @@ config :libcluster,
       config: [
         # Configuration for the provided strategy. Optional.
         polling_interval: 5_000,
-        query: "testly-stage-app.local",
+        query: "${TESTLY_LIBCLUSTER_QUERY}",
         node_basename: "testly"
-      ],
-      connect: {Testly.HordeClusterConnector, :connect, []}
+      ]
     ]
   ]
-
-config :appsignal, :config, active: true
 
 config :arc,
   storage: Arc.Storage.S3,

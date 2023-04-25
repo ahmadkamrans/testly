@@ -11,9 +11,7 @@ config :testly_home, TestlyHome.Endpoint,
 config :testly_home, :encryption_keys, third_party_auth: "${TESTLY_HOME_THIRD_PARTY_ENCRYPTION_KEY}"
 
 config :testly_home, :external_urls,
-  project: "https://dashboard-stage.testly.com/projects/:project_id",
-  project_setup: "https://dashboard-stage.testly.com/projects/:project_id/setup"
+  project: "${TESTLY_HOME_PROJECT_URL}",
+  project_setup: "${TESTLY_HOME_PROJECT_SETUP_URL}"
 
 config :testly_home, :session, domain: "testly.com"
-
-config :testly_home, :honeybadger_js, enabled: true

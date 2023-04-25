@@ -1,9 +1,14 @@
 defmodule TestlyAPI.Endpoint do
   use Phoenix.Endpoint, otp_app: :testly_api
-  use Appsignal.Phoenix
 
-  plug(AppsignalAbsinthePlug)
-  plug(Plug.Logger)
+  socket "/live", Phoenix.LiveView.Socket
+
+  plug Plug.RequestId
+  plug Plug.Logger
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -17,9 +22,6 @@ defmodule TestlyAPI.Endpoint do
     max_age: 60 * 60 * 24 * 30,
     domain: Application.fetch_env!(:testly, :session_cookie_domain)
   )
-
-  # TODO: We need it
-  # plug Plug.CSRFProtection
 
   plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

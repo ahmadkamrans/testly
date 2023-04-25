@@ -1,6 +1,5 @@
 defmodule TestlyHome.Endpoint do
   use Phoenix.Endpoint, otp_app: :testly_home
-  use Appsignal.Phoenix
 
   plug(TestlyHome.ScriptRedirector)
 
@@ -50,6 +49,14 @@ defmodule TestlyHome.Endpoint do
     signing_salt: "/tbRx69V",
     max_age: 60 * 60 * 24 * 30,
     domain: Application.fetch_env!(:testly, :session_cookie_domain)
+  )
+
+  plug(CORSPlug,
+    origin: [
+      "http://localhost:3000",
+      "https://dashboard-stage.testly.com",
+      "https://dashboard.testly.com"
+    ]
   )
 
   plug(TestlyHome.Router)

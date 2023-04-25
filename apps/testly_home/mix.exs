@@ -23,7 +23,7 @@ defmodule TestlyHome.Mixfile do
   def application do
     [
       mod: {TestlyHome.Application, []},
-      extra_applications: [:logger, :runtime_tools, :appsignal]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -37,9 +37,8 @@ defmodule TestlyHome.Mixfile do
   defp deps do
     [
       {:testly, in_umbrella: true},
-      {:phoenix, "~> 1.4.0"},
-      {:honeybadger, "~> 0.7"},
-      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix, "~> 1.5"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},

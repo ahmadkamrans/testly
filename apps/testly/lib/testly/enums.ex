@@ -1,11 +1,6 @@
 # TODO: Move all enums here
 import EctoEnum
 
-# TODO: Put values in module to use them everywhere
-# defmodule Testly.Enums do
-
-# end
-
 defenum(Testly.OrderDirection, :order_direction, [
   :asc,
   :desc

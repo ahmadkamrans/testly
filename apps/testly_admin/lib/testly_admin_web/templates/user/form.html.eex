@@ -2,6 +2,7 @@
   <%= input f, :email %>
   <%= input f, :full_name %>
   <%= input f, :company_name %>
+  <%= input f, :is_admin %>
 
   <%= submit "Submit", class: "btn btn-primary" %>
 <% end %>
