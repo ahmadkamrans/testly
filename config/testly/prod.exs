@@ -33,3 +33,4 @@ config :joken,
     signer_alg: "HS256",
     key_octet: "${TESTLY_JWT_SIGN_KEY}"
   ]
+config :testly, Testly.Endpoint, server: true, url: [host: "testly@localhost"] 

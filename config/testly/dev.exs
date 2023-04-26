@@ -11,3 +11,4 @@ config :testly, Testly.Repo,
   database: "testly_dev",
   hostname: "localhost",
   pool_size: 10
+config :testly, Testly.Endpoint, server: true, url: [host: "testly@localhost"] 

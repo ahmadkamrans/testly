@@ -46,3 +46,6 @@ config :joken,
   ]
 
 import_config "#{Mix.env()}.exs"
+
+
+config :testly, :erlang, [node: 'testly@localhost']

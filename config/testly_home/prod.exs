@@ -3,7 +3,7 @@ use Mix.Config
 config :testly_home, TestlyHome.Endpoint,
   load_from_system_env: false,
   http: [port: 4000, compress: true],
-  secret_key_base: "${SECRET_KEY_BASE}",
+  secret_key_base: "sNRijWIwrjxIiubgpYwjmVIpCtQUKOp05bTa7TFbiRJbMT8Dhfkus5JhEbfVWMGL",
   url: [host: "example.com", port: 80],
   server: true,
   cache_static_manifest: "priv/static/cache_manifest.json"

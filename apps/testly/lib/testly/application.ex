@@ -34,11 +34,11 @@ defmodule Testly.Application do
       }
     ]
 
-    children =
-      if(Application.get_env(:testly, Testly.TrackingScript)[:enable_supervisor],
-        do: children ++ [{Testly.TrackingScript.Supervisor, []}],
-        else: children
-      )
+    # children =
+    #   if(Application.get_env(:testly, Testly.TrackingScript)[:enable_supervisor],
+    #     do: children ++ [{Testly.TrackingScript.Supervisor, []}],
+    #     else: children
+    #   )
 
     result =
       Supervisor.start_link(
@@ -47,27 +47,27 @@ defmodule Testly.Application do
         name: Testly.Supervisor
       )
 
-    if Application.fetch_env!(:testly, Testly.SplitTests.VariationReportDbDumper)[:enabled] do
-      {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.SplitTests.VariationReportDbDumper)
-    end
+    # if Application.fetch_env!(:testly, Testly.SplitTests.VariationReportDbDumper)[:enabled] do
+    #   {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.SplitTests.VariationReportDbDumper)
+    # end
 
-    if Application.fetch_env!(:testly, Testly.SessionRecordings.Cleaner)[:enabled] do
-      {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.SessionRecordings.Cleaner)
-    end
+    # if Application.fetch_env!(:testly, Testly.SessionRecordings.Cleaner)[:enabled] do
+    #   {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.SessionRecordings.Cleaner)
+    # end
 
-    if Application.fetch_env!(:testly, Testly.Heatmaps.ViewsCleaner)[:enabled] do
-      {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.Heatmaps.ViewsCleaner)
-    end
+    # if Application.fetch_env!(:testly, Testly.Heatmaps.ViewsCleaner)[:enabled] do
+    #   {:ok, _} = DynamicSupervisor.start_child(Testly.DynamicSupervisor, Testly.Heatmaps.ViewsCleaner)
+    # end
 
-    if Application.get_env(:testly, Testly.SessionRecordingsHandler)[:enable_supervisor] do
-      {:ok, _} = DynamicSupervisor.start_child(
-        Testly.DynamicSessionsSupervisor, Testly.SessionRecordingsHandler.Consumer
-      )
+    # if Application.get_env(:testly, Testly.SessionRecordingsHandler)[:enable_supervisor] do
+    #   {:ok, _} = DynamicSupervisor.start_child(
+    #     Testly.DynamicSessionsSupervisor, Testly.SessionRecordingsHandler.Consumer
+    #   )
 
-      {:ok, _} = DynamicSupervisor.start_child(
-        Testly.DynamicSessionsSupervisor, Testly.SessionRecordingsHandler.Producer
-      )
-    end
+    #   {:ok, _} = DynamicSupervisor.start_child(
+    #     Testly.DynamicSessionsSupervisor, Testly.SessionRecordingsHandler.Producer
+    #   )
+    # end
 
     result
   end

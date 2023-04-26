@@ -16,6 +16,6 @@ use Mix.Config
 config :testly_smart_proxy_web, TestlySmartProxyWeb.Endpoint,
   load_from_system_env: false,
   http: [port: 4003, compress: true],
-  secret_key_base: "${SECRET_KEY_BASE}",
+  secret_key_base: "CB2ZRDdtsxUa6EwJFFJN87iVb//i+337avsVlNx/7wy+HOORuarcL8Lb+G9zCVhj",
   url: [host: "example.com", port: 80],
   server: true
