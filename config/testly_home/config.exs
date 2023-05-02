@@ -19,8 +19,8 @@ config :testly_home, TestlyHome.Endpoint,
   serve_local_uploads: false
 
 config :testly_home, :external_urls,
-  project: "http://localhost:3000/projects/:project_id",
-  project_setup: "http://localhost:3000/projects/:project_id/setup",
+  project: "https://staging.testly.com/projects/:project_id",
+  project_setup: "https://staging.testly.com/projects/:project_id/setup",
   knowledgebase: "http://support.testly.com/support/solutions",
   customer_support: "http://support.testly.com",
   blog: "https://blog.testly.com",

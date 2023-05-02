@@ -1,5 +1,6 @@
 defmodule TestlyHome.SessionController do
   use TestlyHome, :controller
+  require Logger
 
   alias Testly.Accounts.SignInForm
   alias Testly.Accounts
@@ -18,12 +19,13 @@ defmodule TestlyHome.SessionController do
   def create(conn, %{"sign_in_form" => params}) do
     case Accounts.sign_in_user(params) do
       {:ok, form} ->
-        user = Accounts.get_user_by_email(form.email)
 
+        user = Accounts.get_user_by_email(form.email)
+	IO.inspect(user, label: "User  ======")
         conn
         |> Session.sign_in(user.id, form.remember_me)
         |> redirect_to_relevant_project(user)
-
+	|> IO.inspect(label: "session -=================")
       {:error, ch} ->
         render(conn, "new.html",
           changeset: %{ch | action: :validation_errors},

@@ -9,9 +9,9 @@ use Mix.Config
 config :testly_api, TestlyAPI.Endpoint,
   load_from_system_env: false,
   http: [port: 4001, compress: true],
-  secret_key_base: "2MrP7jaAYQZjspyZ6iz2f/5pBSsInT82VsxB0cqIqD3EDxo5/mtLzOfFQmv4PU0b",
-  url: [host: "example.com", port: 80],
+  secret_key_base: "sNRijWIwrjxIiubgpYwjmVIpCtQUKOp05bTa7TFbiRJbMT8Dhfkus5JhEbfVWMGL",
+  url: [host: "localhost", port: 80],
   server: true,
   debug_errors: true
 
-config :testly_api, :session, domain: "testly.com"
+config :testly_api, :session, domain: "52.8.61.88"
