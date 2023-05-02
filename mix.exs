@@ -45,7 +45,7 @@ defmodule TestlyCore.Umbrella.Mixfile do
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
       {:hackney, "~> 1.15.2", override: true},
-      {:poison, "~> 2.2 or ~> 3.1"} 
+      {:poison, "~> 3.1.0"} 
     ]
   end
 end
