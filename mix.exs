@@ -44,7 +44,8 @@ defmodule TestlyCore.Umbrella.Mixfile do
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
-      {:hackney, "~> 1.15.2", override: true}
+      {:hackney, "~> 1.15.2", override: true},
+      {:poison, "~> 2.2 or ~> 3.1"} 
     ]
   end
 end
