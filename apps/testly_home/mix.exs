@@ -46,7 +46,8 @@ defmodule TestlyHome.Mixfile do
       {:ueberauth, "~> 0.5"},
       {:ueberauth_facebook, "~> 0.7"},
       {:plug_cowboy, "~> 2.0"},
-      {:hackney, "~> 1.13.0", override: true}
+      {:hackney, "~> 1.13.0", override: true},
+      {:poison, "~> 2.2 or ~> 3.1"}
     ]
   end
 end

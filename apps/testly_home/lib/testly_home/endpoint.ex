@@ -53,9 +53,7 @@ defmodule TestlyHome.Endpoint do
 
   plug(CORSPlug,
     origin: [
-      "http://localhost:3000",
-      "https://staging.testly.com",
-      "https://dashboard.testly.com"
+      "https://staging.testly.com"
     ]
   )
 
